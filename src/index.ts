@@ -1,5 +1,11 @@
+/**
+ * @fileoverview The main entry point of the application.
+ * @author Samuel Svensson
+ */
+
 import './index.css'
 
+import { BulletController } from './bullet/BulletController'
 import { Dimension } from './data-types/Dimension'
 import { Point } from './data-types/Point'
 import { Player } from './player/Player'
@@ -18,7 +24,12 @@ if (!ctx) {
       throw new Error('context not found')
 }
 
-const player = new Player(new Point(dimensions.width / 2, dimensions.height / 2), 10)
+const bulletController = new BulletController()
+const player = new Player(
+      bulletController,
+      new Point(dimensions.width / 2, dimensions.height / 2),
+      10
+)
 
 function run() {
       // Background
@@ -26,6 +37,7 @@ function run() {
       ctx.fillRect(0, 0, dimensions.width, dimensions.height)
 
       player.draw(ctx, dimensions)
+      bulletController.draw(ctx)
 }
 
 setInterval(run, 1000 / 60)
