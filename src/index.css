@@ -4,7 +4,7 @@
       line-height: 1.5;
 
       color: #0f0;
-      background-color: #000;
+      background-color: #111;
 
       font-synthesis: none;
       text-rendering: optimizeLegibility;
@@ -23,7 +23,7 @@ body {
       min-height: 100vh;
 }
 
-#app {
+canvas {
       margin: 0 auto;
       align-items: center;
       text-align: center;

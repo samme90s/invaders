@@ -5,6 +5,7 @@
             "outDir": "dist",
             "declaration": true,
             "useDefineForClassFields": true,
+            "strictNullChecks": false,
 
             /* Bundler mode */
             "moduleResolution": "Bundler",

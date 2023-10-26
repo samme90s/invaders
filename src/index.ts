@@ -1,7 +1,31 @@
 import './index.css'
 
-const app = document.querySelector('#app')
+import { Dimension } from './data-types/Dimension'
+import { Point } from './data-types/Point'
+import { Player } from './player/Player'
 
-if (app) {
-      app.textContent = 'hello world'
+const canvas = document.querySelector('canvas')
+if (!canvas) {
+      throw new Error('canvas not found')
 }
+
+const dimensions = new Dimension(512, 512)
+canvas.width = dimensions.width
+canvas.height = dimensions.height
+
+const ctx = canvas.getContext('2d')
+if (!ctx) {
+      throw new Error('context not found')
+}
+
+const player = new Player(new Point(dimensions.width / 2, dimensions.height / 2), 10)
+
+function run() {
+      // Background
+      ctx.fillStyle = '#000'
+      ctx.fillRect(0, 0, dimensions.width, dimensions.height)
+
+      player.draw(ctx, dimensions)
+}
+
+setInterval(run, 1000 / 60)
