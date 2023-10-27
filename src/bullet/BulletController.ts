@@ -4,6 +4,7 @@
  */
 
 import { Point } from '../data-types/Point'
+import { Enemy } from '../enemy/enemy'
 import { Bullet } from './Bullet'
 
 export class BulletController {
@@ -30,6 +31,17 @@ export class BulletController {
                   this.bullets.push(new Bullet(position, speed))
                   this.bulletDelay = delay
             }
+      }
+
+      isCollidingWith(enemy: Enemy): boolean {
+            return this.bullets.some(bullet => {
+                  if (bullet.isCollidingWith(enemy)) {
+                        this.bullets.splice(this.bullets.indexOf(bullet), 1)
+                        return true
+                  }
+
+                  return false
+            })
       }
 
       isBulletOffScreen(bullet: Bullet): boolean {

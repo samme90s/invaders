@@ -5,6 +5,7 @@
 
 import { Dimension } from '../data-types/Dimension'
 import { Point } from '../data-types/Point'
+import { Enemy } from '../enemy/enemy'
 
 export class Bullet {
       public position: Point
@@ -27,5 +28,18 @@ export class Bullet {
 
             // Moves the bullet upwards.
             this.position.y -= this.speed
+      }
+
+      isCollidingWith(enemy: Enemy): boolean {
+            if (
+                  this.position.x < enemy.position.x + enemy.dimension.width &&
+                  this.position.x + this.dimensions.width > enemy.position.x &&
+                  this.position.y < enemy.position.y + enemy.dimension.height &&
+                  this.position.y + this.dimensions.height > enemy.position.y
+            ) {
+                  return true
+            }
+
+            return false
       }
 }

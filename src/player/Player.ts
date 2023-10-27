@@ -12,7 +12,7 @@ export class Player {
       private position: Point
       private vector: Vector
       private isShooting: boolean = false
-      private dimensions: Dimension = new Dimension(5, 5)
+      private dimension: Dimension = new Dimension(5, 5)
       private bulletController: BulletController
 
       constructor(bulletController: BulletController, position: Point, movementSpeed: number) {
@@ -24,30 +24,30 @@ export class Player {
             document.addEventListener('keyup', event => this.keyup(event))
       }
 
-      public draw(ctx: CanvasRenderingContext2D, dimensions: Dimension): void {
+      public draw(ctx: CanvasRenderingContext2D, dimension: Dimension): void {
             ctx.fillStyle = '#0f0'
             ctx.fillRect(
                   this.position.x,
                   this.position.y,
-                  this.dimensions.width,
-                  this.dimensions.height
+                  this.dimension.width,
+                  this.dimension.height
             )
 
-            this.move(dimensions)
+            this.move(dimension)
             this.shoot()
       }
 
-      private move(dimensions: Dimension): void {
-            if (this.vector.up && this.position.y > 0 + this.dimensions.height) {
+      private move(dimension: Dimension): void {
+            if (this.vector.up && this.position.y > 0 + this.dimension.height) {
                   this.position.y -= this.vector.size
             }
-            if (this.vector.left && this.position.x > 0 + this.dimensions.width) {
+            if (this.vector.left && this.position.x > 0 + this.dimension.width) {
                   this.position.x -= this.vector.size
             }
-            if (this.vector.down && this.position.y < dimensions.height - this.dimensions.height) {
+            if (this.vector.down && this.position.y < dimension.height - this.dimension.height) {
                   this.position.y += this.vector.size
             }
-            if (this.vector.right && this.position.x < dimensions.width - this.dimensions.width) {
+            if (this.vector.right && this.position.x < dimension.width - this.dimension.width) {
                   this.position.x += this.vector.size
             }
       }

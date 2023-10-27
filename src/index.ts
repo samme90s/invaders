@@ -8,6 +8,7 @@ import './index.css'
 import { BulletController } from './bullet/BulletController'
 import { Dimension } from './data-types/Dimension'
 import { Point } from './data-types/Point'
+import { Enemy } from './enemy/enemy'
 import { Player } from './player/Player'
 
 const canvas = document.querySelector('canvas')
@@ -15,9 +16,9 @@ if (!canvas) {
       throw new Error('canvas not found')
 }
 
-const dimensions = new Dimension(512, 512)
-canvas.width = dimensions.width
-canvas.height = dimensions.height
+const dimension = new Dimension(512, 512)
+canvas.width = dimension.width
+canvas.height = dimension.height
 
 const ctx = canvas.getContext('2d')
 if (!ctx) {
@@ -27,17 +28,21 @@ if (!ctx) {
 const bulletController = new BulletController()
 const player = new Player(
       bulletController,
-      new Point(dimensions.width / 2, dimensions.height / 2),
+      new Point(dimension.width / 2, dimension.height / 2),
       10
 )
+const enemy = new Enemy(new Point(dimension.width / 2 - 10, dimension.height / 3))
 
 function run() {
       // Background
       ctx.fillStyle = '#000'
-      ctx.fillRect(0, 0, dimensions.width, dimensions.height)
+      ctx.fillRect(0, 0, dimension.width, dimension.height)
 
-      player.draw(ctx, dimensions)
+      player.draw(ctx, dimension)
       bulletController.draw(ctx)
+      enemy.draw(ctx)
+
+      bulletController.isCollidingWith(enemy)
 }
 
 setInterval(run, 1000 / 60)
