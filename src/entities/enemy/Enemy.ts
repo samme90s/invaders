@@ -15,8 +15,8 @@ export class Enemy extends Entity {
       draw(ctx: CanvasRenderingContext2D): void {
             ctx.fillStyle = '#00f'
             ctx.fillRect(
-                  this.position.x,
-                  this.position.y,
+                  this._position.x,
+                  this._position.y,
                   this.dimension.width,
                   this.dimension.height
             )

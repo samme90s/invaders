@@ -3,15 +3,15 @@
  * @author Samuel Svensson
  */
 
+import { Dimension } from '../data-types/Dimension'
 import { Point } from '../data-types/Point'
+import { Vector } from '../data-types/Vector'
 import { Enemy } from '../entities/enemy/Enemy'
 import { Bullet } from './Bullet'
 
 export class BulletController {
       private bullets: Bullet[] = []
       private bulletDelay: number = 1
-
-      constructor() {}
 
       get count(): number {
             return this.bullets.length
@@ -29,10 +29,31 @@ export class BulletController {
             }
       }
 
-      shoot(position: Point, speed: number, delay: number): void {
+      shoot(position: Point, delay: number): void {
             this.bulletDelay--
             if (this.bulletDelay <= 0) {
-                  this.bullets.push(new Bullet(position, speed))
+                  this.bullets.push(
+                        new Bullet(
+                              new Point(position.x, position.y),
+                              new Dimension(2, 2),
+                              new Vector(1.5, 1, 1)
+                        )
+                  )
+                  this.bullets.push(
+                        new Bullet(
+                              new Point(position.x, position.y),
+                              new Dimension(2, 2),
+                              new Vector(1.5, 0, 1)
+                        )
+                  )
+                  this.bullets.push(
+                        new Bullet(
+                              new Point(position.x, position.y),
+                              new Dimension(2, 2),
+                              new Vector(1.5, -1, 1)
+                        )
+                  )
+
                   this.bulletDelay = delay
             }
       }

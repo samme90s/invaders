@@ -6,12 +6,14 @@
 import { BulletController } from '../../bullet/BulletController'
 import { Dimension } from '../../data-types/Dimension'
 import { Point } from '../../data-types/Point'
-import { Vector } from '../../data-types/Vector'
 import { Entity } from '../Entity'
 
 export class Player extends Entity {
-      private vector: Vector
-      private isShooting: boolean = false
+      public moveUp: boolean = false
+      public moveLeft: boolean = false
+      public moveDown: boolean = false
+      public moveRight: boolean = false
+      private doShoot: boolean = false
       private bulletController: BulletController
 
       constructor(
@@ -22,20 +24,19 @@ export class Player extends Entity {
             bulletController: BulletController
       ) {
             super(position, dimension, hitpoints, speed)
-            this.vector = new Vector(speed)
             this.bulletController = bulletController
 
-            document.addEventListener('keydown', event => this.keydown(event))
-            document.addEventListener('keyup', event => this.keyup(event))
+            document.addEventListener('keydown', event => this.keyDown(event))
+            document.addEventListener('keyup', event => this.keyUp(event))
       }
 
       public draw(ctx: CanvasRenderingContext2D, bounds: Dimension): void {
             ctx.fillStyle = '#0f0'
             ctx.fillRect(
-                  this.position.x,
-                  this.position.y,
-                  this.dimension.width,
-                  this.dimension.height
+                  this._position.x,
+                  this._position.y,
+                  this._dimension.width,
+                  this._dimension.height
             )
 
             this.move(bounds)
@@ -43,65 +44,69 @@ export class Player extends Entity {
       }
 
       private move(bounds: Dimension): void {
-            if (this.vector.up && this.position.y > 0 + this.dimension.height) {
-                  this.position.y -= this.vector.size
+            if (this.moveUp && this._position.y > 0 + this._dimension.height) {
+                  this._position.y -= this._speed
             }
-            if (this.vector.left && this.position.x > 0 + this.dimension.width) {
-                  this.position.x -= this.vector.size
+            if (this.moveLeft && this._position.x > 0 + this._dimension.width) {
+                  this._position.x -= this._speed
             }
-            if (this.vector.down && this.position.y < bounds.height - this.dimension.height) {
-                  this.position.y += this.vector.size
+            if (this.moveDown && this._position.y < bounds.height - this._dimension.height) {
+                  this._position.y += this._speed
             }
-            if (this.vector.right && this.position.x < bounds.width - this.dimension.width) {
-                  this.position.x += this.vector.size
+            if (this.moveRight && this._position.x < bounds.width - this._dimension.width) {
+                  this._position.x += this._speed
             }
       }
 
       private shoot(): void {
-            if (this.isShooting) {
-                  this.bulletController.shoot(new Point(this.position.x, this.position.y), 10, 4)
+            if (this.doShoot) {
+                  // Use strategy pattern to allow for different bullet patterns.
+                  // Pass in the strategy here to the bullet controller.
+                  this.bulletController.shoot(this._position, 2)
             }
       }
 
-      private keydown(event: KeyboardEvent): void {
-            // Movement
-            if (event.code === 'KeyW') {
-                  this.vector.up = true
-            }
-            if (event.code === 'KeyA') {
-                  this.vector.left = true
-            }
-            if (event.code === 'KeyS') {
-                  this.vector.down = true
-            }
-            if (event.code === 'KeyD') {
-                  this.vector.right = true
+      private keyDown(event: KeyboardEvent): void {
+            if (event.key === 'w' || event.key === 'ArrowUp') {
+                  this.moveUp = true
             }
 
-            // Shooting
+            if (event.key === 'a' || event.key === 'ArrowLeft') {
+                  this.moveLeft = true
+            }
+
+            if (event.key === 's' || event.key === 'ArrowDown') {
+                  this.moveDown = true
+            }
+
+            if (event.key === 'd' || event.key === 'ArrowRight') {
+                  this.moveRight = true
+            }
+
             if (event.code === 'Space') {
-                  this.isShooting = true
+                  this.doShoot = true
             }
       }
 
-      private keyup(event: KeyboardEvent): void {
-            // Movement
-            if (event.code === 'KeyW') {
-                  this.vector.up = false
-            }
-            if (event.code === 'KeyA') {
-                  this.vector.left = false
-            }
-            if (event.code === 'KeyS') {
-                  this.vector.down = false
-            }
-            if (event.code === 'KeyD') {
-                  this.vector.right = false
+      private keyUp(event: KeyboardEvent): void {
+            if (event.key === 'w' || event.key === 'ArrowUp') {
+                  this.moveUp = false
             }
 
-            // Shooting
+            if (event.key === 'a' || event.key === 'ArrowLeft') {
+                  this.moveLeft = false
+            }
+
+            if (event.key === 's' || event.key === 'ArrowDown') {
+                  this.moveDown = false
+            }
+
+            if (event.key === 'd' || event.key === 'ArrowRight') {
+                  this.moveRight = false
+            }
+
             if (event.code === 'Space') {
-                  this.isShooting = false
+                  this.doShoot = false
             }
       }
 }

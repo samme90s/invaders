@@ -53,7 +53,7 @@ const player = new Player(
       new Point(dimension.width / 2, dimension.height / 2),
       new Dimension(5, 5),
       1,
-      1,
+      2,
       bulletController
 )
 

@@ -1,24 +1,40 @@
 /**
- * @fileoverview Defines a vector for movement in a 2D space.
+ * @fileoverview Defines a vector.
  * @author Samuel Svensson
  */
 
 export class Vector {
-      #size: number = 1
-      public up: boolean = false
-      public down: boolean = false
-      public left: boolean = false
-      public right: boolean = false
+      private _size: number = 1
+      private _x: number = 0
+      private _y: number = 0
 
-      constructor(size: number) {
-            if (size < 1) {
+      constructor(size: number, x: number, y: number) {
+            if (size <= 0) {
                   throw new RangeError('size must be positive')
             }
 
-            this.#size = size
+            if (x < -1 || y < -1 || x > 1 || y > 1) {
+                  throw new RangeError('x and y must be between -1 and 1')
+            }
+
+            this._size = size
+            this._x = x
+            this._y = y
       }
 
-      get size(): number {
-            return this.#size
+      get xMagnitude(): number {
+            return this._x * this._size
+      }
+
+      get yMagnitude(): number {
+            return this._y * this._size
+      }
+
+      set x(x: number) {
+            if (x < -1 || x > 1) {
+                  throw new RangeError('x must be between -1 and 1')
+            }
+
+            this._x = x
       }
 }
