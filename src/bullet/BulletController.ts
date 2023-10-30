@@ -11,7 +11,7 @@ import { Bullet } from './Bullet'
 
 export class BulletController {
       private bullets: Bullet[] = []
-      private bulletDelay: number = 1
+      private bulletDelay: number = 0
 
       get count(): number {
             return this.bullets.length
@@ -29,28 +29,28 @@ export class BulletController {
             }
       }
 
-      shoot(position: Point, delay: number): void {
+      shoot(origin: Point, delay: number): void {
             this.bulletDelay--
             if (this.bulletDelay <= 0) {
                   this.bullets.push(
                         new Bullet(
-                              new Point(position.x, position.y),
+                              new Point(origin.x, origin.y),
                               new Dimension(2, 2),
-                              new Vector(1.5, 1, 1)
+                              new Vector(3, Vector.angleToRadians(110))
                         )
                   )
                   this.bullets.push(
                         new Bullet(
-                              new Point(position.x, position.y),
+                              new Point(origin.x, origin.y),
                               new Dimension(2, 2),
-                              new Vector(1.5, 0, 1)
+                              new Vector(3, Vector.angleToRadians(90))
                         )
                   )
                   this.bullets.push(
                         new Bullet(
-                              new Point(position.x, position.y),
+                              new Point(origin.x, origin.y),
                               new Dimension(2, 2),
-                              new Vector(1.5, -1, 1)
+                              new Vector(3, Vector.angleToRadians(70))
                         )
                   )
 
@@ -62,7 +62,7 @@ export class BulletController {
             return this.bullets.some(bullet => {
                   for (let eIx = 0; eIx < enemies.length; eIx++) {
                         if (bullet.isCollidingWith(enemies[eIx])) {
-                              enemies[eIx].reduceHitpoints(1)
+                              enemies[eIx].reduceHitpoint(1)
                               this.bullets.splice(this.bullets.indexOf(bullet), 1)
                               return true
                         }
@@ -73,6 +73,7 @@ export class BulletController {
       }
 
       isBulletOffScreen(bullet: Bullet): boolean {
-            return bullet.position.y < 0
+            // Optionally check if the bullet is off screen to the sides as well.
+            return bullet.getPosition().y < 0
       }
 }

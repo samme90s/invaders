@@ -5,6 +5,7 @@
 
 import { BulletController } from '../../bullet/BulletController'
 import { Dimension } from '../../data-types/Dimension'
+import { Hitpoint } from '../../data-types/Hitpoint'
 import { Point } from '../../data-types/Point'
 import { Entity } from '../Entity'
 
@@ -19,11 +20,11 @@ export class Player extends Entity {
       constructor(
             position: Point,
             dimension: Dimension,
-            hitpoints: number,
+            hitpoint: Hitpoint,
             speed: number,
             bulletController: BulletController
       ) {
-            super(position, dimension, hitpoints, speed)
+            super(position, dimension, hitpoint, speed)
             this.bulletController = bulletController
 
             document.addEventListener('keydown', event => this.keyDown(event))
@@ -33,28 +34,34 @@ export class Player extends Entity {
       public draw(ctx: CanvasRenderingContext2D, bounds: Dimension): void {
             ctx.fillStyle = '#0f0'
             ctx.fillRect(
-                  this._position.x,
-                  this._position.y,
-                  this._dimension.width,
-                  this._dimension.height
+                  this.position.x,
+                  this.position.y,
+                  this.dimension.getWidth(),
+                  this.dimension.getHeight()
             )
 
             this.move(bounds)
             this.shoot()
       }
 
-      private move(bounds: Dimension): void {
-            if (this.moveUp && this._position.y > 0 + this._dimension.height) {
-                  this._position.y -= this._speed
+      private move(clipSpace: Dimension): void {
+            if (this.moveUp && this.position.y > 0 + this.dimension.getHeight()) {
+                  this.position.y -= this.speed
             }
-            if (this.moveLeft && this._position.x > 0 + this._dimension.width) {
-                  this._position.x -= this._speed
+            if (this.moveLeft && this.position.x > 0 + this.dimension.getWidth()) {
+                  this.position.x -= this.speed
             }
-            if (this.moveDown && this._position.y < bounds.height - this._dimension.height) {
-                  this._position.y += this._speed
+            if (
+                  this.moveDown &&
+                  this.position.y < clipSpace.getHeight() - this.dimension.getHeight()
+            ) {
+                  this.position.y += this.speed
             }
-            if (this.moveRight && this._position.x < bounds.width - this._dimension.width) {
-                  this._position.x += this._speed
+            if (
+                  this.moveRight &&
+                  this.position.x < clipSpace.getWidth() - this.dimension.getWidth()
+            ) {
+                  this.position.x += this.speed
             }
       }
 
@@ -62,7 +69,7 @@ export class Player extends Entity {
             if (this.doShoot) {
                   // Use strategy pattern to allow for different bullet patterns.
                   // Pass in the strategy here to the bullet controller.
-                  this.bulletController.shoot(this._position, 2)
+                  this.bulletController.shoot(this.position, 2)
             }
       }
 

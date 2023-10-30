@@ -5,34 +5,35 @@
 
 import { Dimension } from '../data-types/Dimension'
 import { Point } from '../data-types/Point'
+import { Hitpoint } from '../data-types/Hitpoint'
 
 export abstract class Entity {
-      protected _position: Point
-      protected _dimension: Dimension
-      protected _hitpoints: number
-      protected _speed: number = 1
+      protected position: Point
+      protected dimension: Dimension
+      protected hitpoint: Hitpoint
+      protected speed: number = 1
 
-      constructor(position: Point, dimension: Dimension, hitpoints: number, speed: number) {
-            this._position = position
-            this._dimension = dimension
-            this._hitpoints = hitpoints
-            this._speed = speed
+      constructor(position: Point, dimension: Dimension, hitpoint: Hitpoint, speed: number) {
+            this.position = position
+            this.dimension = dimension
+            this.hitpoint = hitpoint
+            this.speed = speed
       }
 
-      get position(): Point {
-            return new Point(this._position.x, this._position.y)
+      getPosition(): Point {
+            return new Point(this.position.x, this.position.y)
       }
 
-      get dimension(): Dimension {
-            return new Dimension(this._dimension.width, this._dimension.height)
+      getDimension(): Dimension {
+            return new Dimension(this.dimension.getWidth(), this.dimension.getHeight())
       }
 
-      get hitpoints(): number {
-            return this._hitpoints
+      getHitpoint(): Hitpoint {
+            return new Hitpoint(this.hitpoint.getAmount())
       }
 
-      reduceHitpoints(amount: number): void {
-            this._hitpoints -= amount
+      reduceHitpoint(amount: number): void {
+            this.hitpoint.reduce(amount)
       }
 
       abstract draw(ctx: CanvasRenderingContext2D, bounds: Dimension): void

@@ -4,37 +4,31 @@
  */
 
 export class Vector {
-      private _size: number = 1
-      private _x: number = 0
-      private _y: number = 0
+      private magnitude: number = 0
+      private angle: number = 0
 
-      constructor(size: number, x: number, y: number) {
-            if (size <= 0) {
-                  throw new RangeError('size must be positive')
+      constructor(magnitude: number, angle: number) {
+            if (magnitude <= 0) {
+                  throw new RangeError('magnitude must be positive')
             }
 
-            if (x < -1 || y < -1 || x > 1 || y > 1) {
-                  throw new RangeError('x and y must be between -1 and 1')
+            if (angle < 0 || angle > 2 * Math.PI) {
+                  throw new RangeError('angle must be between 0 and 2*PI')
             }
 
-            this._size = size
-            this._x = x
-            this._y = y
+            this.magnitude = magnitude
+            this.angle = angle
+      }
+
+      static angleToRadians(angle: number): number {
+            return angle * (Math.PI / 180)
       }
 
       get xMagnitude(): number {
-            return this._x * this._size
+            return this.magnitude * Math.cos(this.angle)
       }
 
       get yMagnitude(): number {
-            return this._y * this._size
-      }
-
-      set x(x: number) {
-            if (x < -1 || x > 1) {
-                  throw new RangeError('x must be between -1 and 1')
-            }
-
-            this._x = x
+            return this.magnitude * Math.sin(this.angle)
       }
 }

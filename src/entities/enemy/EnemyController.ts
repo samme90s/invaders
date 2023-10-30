@@ -4,43 +4,44 @@
  */
 
 import { Dimension } from '../../data-types/Dimension'
+import { Hitpoint } from '../../data-types/Hitpoint'
 import { Point } from '../../data-types/Point'
 import { Enemy } from './Enemy'
 
 export class EnemyController {
-      #enemies: Enemy[] = []
+      private enemies: Enemy[] = []
 
-      constructor() {}
-
-      get enemies(): Enemy[] {
-            return Array.from(this.#enemies)
+      getEnemies(): Enemy[] {
+            return Array.from(this.enemies)
       }
 
-      get count(): number {
-            return this.#enemies.length
+      getEnemiesCount(): number {
+            return this.enemies.length
       }
 
       draw(ctx: CanvasRenderingContext2D): void {
-            for (let eIx = 0; eIx < this.#enemies.length; eIx++) {
-                  this.#enemies[eIx].draw(ctx)
+            for (let eIx = 0; eIx < this.enemies.length; eIx++) {
+                  this.enemies[eIx].draw(ctx)
             }
       }
 
       removeDeadEnemies(): void {
-            for (let eIx = 0; eIx < this.#enemies.length; eIx++) {
-                  if (this.#enemies[eIx].hitpoints <= 0) {
-                        this.#enemies.splice(eIx, 1)
+            for (let eIx = 0; eIx < this.enemies.length; eIx++) {
+                  if (this.enemies[eIx].getHitpoint().getAmount() <= 0) {
+                        this.enemies.splice(eIx, 1)
                   }
             }
       }
 
-      generateEnemiesOnRandomPosition(amount: number, dimension: Dimension): void {
+      generateEnemiesOnRandomPosition(amount: number, clipSpace: Dimension): void {
             for (let eIx = 0; eIx < amount; eIx++) {
-                  const randomX = Math.floor(Math.random() * dimension.width)
-                  const randomY = Math.floor(Math.random() * dimension.height)
+                  const randomX = Math.floor(Math.random() * clipSpace.getWidth())
+                  const randomY = Math.floor(Math.random() * clipSpace.getHeight())
                   const randomPoint = new Point(randomX, randomY)
 
-                  this.#enemies.push(new Enemy(randomPoint, new Dimension(10, 10), 1, 1))
+                  this.enemies.push(
+                        new Enemy(randomPoint, new Dimension(10, 10), new Hitpoint(1), 1)
+                  )
             }
       }
 }

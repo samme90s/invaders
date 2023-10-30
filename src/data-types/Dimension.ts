@@ -4,19 +4,19 @@
  */
 
 export class Dimension {
-      private _width: number
-      private _height: number
+      private width: number
+      private height: number
 
       constructor(width: number, height: number) {
-            this._width = width
-            this._height = height
+            this.width = width
+            this.height = height
       }
 
-      get width(): number {
-            return this._width
+      getWidth(): number {
+            return this.width
       }
 
-      get height(): number {
-            return this._height
+      getHeight(): number {
+            return this.height
       }
 }
