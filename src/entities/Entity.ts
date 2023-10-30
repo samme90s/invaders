@@ -4,8 +4,8 @@
  */
 
 import { Dimension } from '../data-types/Dimension'
-import { Point } from '../data-types/Point'
 import { Hitpoint } from '../data-types/Hitpoint'
+import { Point } from '../data-types/Point'
 
 export abstract class Entity {
       protected position: Point
