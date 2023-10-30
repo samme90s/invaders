@@ -31,7 +31,7 @@ export class Player extends Entity {
             document.addEventListener('keyup', event => this.keyUp(event))
       }
 
-      public draw(ctx: CanvasRenderingContext2D, bounds: Dimension): void {
+      public draw(ctx: CanvasRenderingContext2D, clipSpace: Dimension): void {
             ctx.fillStyle = '#0f0'
             ctx.fillRect(
                   this.position.x,
@@ -40,7 +40,7 @@ export class Player extends Entity {
                   this.dimension.getHeight()
             )
 
-            this.move(bounds)
+            this.move(clipSpace)
             this.shoot()
       }
 
@@ -67,9 +67,7 @@ export class Player extends Entity {
 
       private shoot(): void {
             if (this.doShoot) {
-                  // Use strategy pattern to allow for different bullet patterns.
-                  // Pass in the strategy here to the bullet controller.
-                  this.bulletController.shoot(this.position, 2)
+                  this.bulletController.shoot(this.position)
             }
       }
 

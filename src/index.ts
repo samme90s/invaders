@@ -6,6 +6,7 @@
 import './index.css'
 
 import { BulletController } from './bullet/BulletController'
+import { FiveBulletSpreadStrategy } from './bullet/strategy/concrete/FiveBulletSpreadStrategy'
 import { Dimension } from './data-types/Dimension'
 import { Hitpoint } from './data-types/Hitpoint'
 import { Point } from './data-types/Point'
@@ -32,11 +33,11 @@ function run() {
       clear()
 
       player.draw(ctx, clipSpace)
-      bulletController.draw(ctx)
+      playerBulletController.draw(ctx)
       if (enemyController.getEnemiesCount() > 0) {
             enemyController.removeDeadEnemies()
             enemyController.draw(ctx)
-            bulletController.isCollidingWith(enemyController.getEnemies())
+            playerBulletController.isCollidingWith(enemyController.getEnemies())
       }
 }
 
@@ -48,16 +49,23 @@ function clear() {
 const clipSpace = new Dimension(512, 512)
 const ctx = setupCanvas(clipSpace)
 
-const bulletController = new BulletController()
+const playerBulletDelay = 2
+const playerBulletCreationStrategy = new FiveBulletSpreadStrategy()
+const playerBulletController = new BulletController(playerBulletCreationStrategy, playerBulletDelay)
+
 const enemyController = new EnemyController()
+
+const clipSpaceCenterPoint = new Point(clipSpace.getWidth() / 2, clipSpace.getHeight() / 2)
+const playerSpeed = 5
 const player = new Player(
-      new Point(clipSpace.getWidth() / 2, clipSpace.getHeight() / 2),
+      clipSpaceCenterPoint,
       new Dimension(5, 5),
       new Hitpoint(1),
-      2,
-      bulletController
+      playerSpeed,
+      playerBulletController
 )
 
-enemyController.generateEnemiesOnRandomPosition(5, clipSpace)
+const amountOfEnemies = 5
+enemyController.generateEnemiesOnRandomPosition(amountOfEnemies, clipSpace)
 
 setInterval(run, 1000 / 60)

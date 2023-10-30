@@ -3,15 +3,21 @@
  * @author Samuel Svensson
  */
 
-import { Dimension } from '../data-types/Dimension'
 import { Point } from '../data-types/Point'
-import { Vector } from '../data-types/Vector'
 import { Enemy } from '../entities/enemy/Enemy'
 import { Bullet } from './Bullet'
+import { BulletCreationStrategy } from './strategy/BulletCreationStrategy'
 
 export class BulletController {
+      private bulletCreationStrategy: BulletCreationStrategy
       private bullets: Bullet[] = []
-      private bulletDelay: number = 0
+      private delay: number = 1
+      private actualDelay: number = 0
+
+      constructor(bulletCreationStrategy: BulletCreationStrategy, delay: number) {
+            this.bulletCreationStrategy = bulletCreationStrategy
+            this.delay = delay
+      }
 
       get count(): number {
             return this.bullets.length
@@ -29,32 +35,11 @@ export class BulletController {
             }
       }
 
-      shoot(origin: Point, delay: number): void {
-            this.bulletDelay--
-            if (this.bulletDelay <= 0) {
-                  this.bullets.push(
-                        new Bullet(
-                              new Point(origin.x, origin.y),
-                              new Dimension(2, 2),
-                              new Vector(3, Vector.angleToRadians(110))
-                        )
-                  )
-                  this.bullets.push(
-                        new Bullet(
-                              new Point(origin.x, origin.y),
-                              new Dimension(2, 2),
-                              new Vector(3, Vector.angleToRadians(90))
-                        )
-                  )
-                  this.bullets.push(
-                        new Bullet(
-                              new Point(origin.x, origin.y),
-                              new Dimension(2, 2),
-                              new Vector(3, Vector.angleToRadians(70))
-                        )
-                  )
-
-                  this.bulletDelay = delay
+      shoot(origin: Point): void {
+            this.actualDelay--
+            if (this.actualDelay <= 0) {
+                  this.bullets.push(...this.bulletCreationStrategy.getBullets(origin))
+                  this.actualDelay = this.delay
             }
       }
 
