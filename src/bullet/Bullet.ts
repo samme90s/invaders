@@ -5,7 +5,7 @@
 
 import { Dimension } from '../data-types/Dimension'
 import { Point } from '../data-types/Point'
-import { Enemy } from '../enemy/enemy'
+import { Enemy } from '../entities/enemy/Enemy'
 
 export class Bullet {
       public position: Point

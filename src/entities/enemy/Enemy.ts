@@ -3,15 +3,13 @@
  * @author Samuel Svensson
  */
 
-import { Dimension } from '../data-types/Dimension'
-import { Point } from '../data-types/Point'
+import { Dimension } from '../../data-types/Dimension'
+import { Point } from '../../data-types/Point'
+import { Entity } from '../Entity'
 
-export class Enemy {
-      public position: Point
-      public dimension: Dimension = new Dimension(20, 20)
-
-      constructor(position: Point) {
-            this.position = position
+export class Enemy extends Entity {
+      constructor(position: Point, dimension: Dimension, hitpoints: number, speed: number) {
+            super(position, dimension, hitpoints, speed)
       }
 
       draw(ctx: CanvasRenderingContext2D): void {

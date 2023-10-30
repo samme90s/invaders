@@ -4,14 +4,18 @@
  */
 
 import { Point } from '../data-types/Point'
-import { Enemy } from '../enemy/enemy'
+import { Enemy } from '../entities/enemy/Enemy'
 import { Bullet } from './Bullet'
 
 export class BulletController {
       private bullets: Bullet[] = []
-      private bulletDelay: number = 0
+      private bulletDelay: number = 1
 
       constructor() {}
+
+      get count(): number {
+            return this.bullets.length
+      }
 
       draw(ctx: CanvasRenderingContext2D): void {
             for (let bIx = 0; bIx < this.bullets.length; bIx++) {
@@ -33,11 +37,14 @@ export class BulletController {
             }
       }
 
-      isCollidingWith(enemy: Enemy): boolean {
+      isCollidingWith(enemies: Enemy[]): boolean {
             return this.bullets.some(bullet => {
-                  if (bullet.isCollidingWith(enemy)) {
-                        this.bullets.splice(this.bullets.indexOf(bullet), 1)
-                        return true
+                  for (let eIx = 0; eIx < enemies.length; eIx++) {
+                        if (bullet.isCollidingWith(enemies[eIx])) {
+                              enemies[eIx].reduceHitpoints(1)
+                              this.bullets.splice(this.bullets.indexOf(bullet), 1)
+                              return true
+                        }
                   }
 
                   return false
