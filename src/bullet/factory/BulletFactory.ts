@@ -8,7 +8,7 @@ export class BulletFactory {
             return new Bullet(
                   new Point(origin.x, origin.y),
                   new Dimension(2, 10),
-                  new Vector(5, Vector.angleToRadians(angle))
+                  new Vector(5, angle)
             )
       }
 

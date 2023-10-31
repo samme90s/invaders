@@ -12,6 +12,12 @@ export class Vector {
                   throw new RangeError('magnitude must be positive')
             }
 
+            if (angle < 0 || angle > 360) {
+                  throw new RangeError('angle must be between 0 and 360')
+            }
+
+            angle = this.angleToRadians(angle)
+
             if (angle < 0 || angle > 2 * Math.PI) {
                   throw new RangeError('angle must be between 0 and 2*PI')
             }
@@ -20,7 +26,7 @@ export class Vector {
             this.angle = angle
       }
 
-      static angleToRadians(angle: number): number {
+      private angleToRadians(angle: number): number {
             return angle * (Math.PI / 180)
       }
 
