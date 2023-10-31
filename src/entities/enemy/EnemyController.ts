@@ -6,6 +6,7 @@
 import { Dimension } from '../../data-types/Dimension'
 import { Hitpoint } from '../../data-types/Hitpoint'
 import { Point } from '../../data-types/Point'
+import { Player } from '../player/Player'
 import { Enemy } from './Enemy'
 
 export class EnemyController {
@@ -19,9 +20,9 @@ export class EnemyController {
             return this.enemies.length
       }
 
-      draw(ctx: CanvasRenderingContext2D): void {
+      draw(ctx: CanvasRenderingContext2D, player: Player): void {
             for (let eIx = 0; eIx < this.enemies.length; eIx++) {
-                  this.enemies[eIx].draw(ctx)
+                  this.enemies[eIx].draw(ctx, player)
             }
       }
 

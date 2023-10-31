@@ -6,11 +6,12 @@
 import './index.css'
 
 import { BulletController } from './bullet/BulletController'
-import { FiveBulletSpreadStrategy } from './bullet/strategy/concrete/FiveBulletSpreadStrategy'
+import { ThreeBulletSpreadStrategy } from './bullet/strategy/concrete/ThreeBulletSpreadStrategy'
 import { Dimension } from './data-types/Dimension'
 import { Hitpoint } from './data-types/Hitpoint'
 import { Point } from './data-types/Point'
 import { EnemyController } from './entities/enemy/EnemyController'
+import { ActionController } from './entities/player/ActionController'
 import { Player } from './entities/player/Player'
 
 function setupCanvas(dimension: Dimension): CanvasRenderingContext2D {
@@ -36,7 +37,7 @@ function run() {
       playerBulletController.draw(ctx)
       if (enemyController.getEnemiesCount() > 0) {
             enemyController.removeDeadEnemies()
-            enemyController.draw(ctx)
+            enemyController.draw(ctx, player)
             playerBulletController.isCollidingWith(enemyController.getEnemies())
       }
 }
@@ -50,8 +51,9 @@ const clipSpace = new Dimension(512, 512)
 const ctx = setupCanvas(clipSpace)
 
 const playerBulletDelay = 2
-const playerBulletCreationStrategy = new FiveBulletSpreadStrategy()
+const playerBulletCreationStrategy = new ThreeBulletSpreadStrategy()
 const playerBulletController = new BulletController(playerBulletCreationStrategy, playerBulletDelay)
+const playerActionController = new ActionController()
 
 const enemyController = new EnemyController()
 
@@ -62,7 +64,8 @@ const player = new Player(
       new Dimension(5, 5),
       new Hitpoint(1),
       playerSpeed,
-      playerBulletController
+      playerBulletController,
+      playerActionController
 )
 
 const amountOfEnemies = 5

@@ -1,11 +1,13 @@
 /**
- * @fileoverview Defines a vector.
+ * @fileoverview Defines a vector in Polar coordinates.
  * @author Samuel Svensson
  */
 
-export class Vector {
-      private magnitude: number = 0
-      private angle: number = 0
+import { CartesianVector } from './CartesianVector'
+
+export class PolarVector {
+      private magnitude: number
+      private angle: number
 
       constructor(magnitude: number, angle: number) {
             if (magnitude <= 0) {
@@ -18,6 +20,8 @@ export class Vector {
 
             angle = this.angleToRadians(angle)
 
+            // This could be removed, but I'm keeping it to make sure
+            // that the angle error handling is correct.
             if (angle < 0 || angle > 2 * Math.PI) {
                   throw new RangeError('angle must be between 0 and 2*PI')
             }
@@ -26,15 +30,13 @@ export class Vector {
             this.angle = angle
       }
 
+      toCartesian(): CartesianVector {
+            const x = this.magnitude * Math.cos(this.angle)
+            const y = this.magnitude * Math.sin(this.angle)
+            return new CartesianVector(x, y)
+      }
+
       private angleToRadians(angle: number): number {
             return angle * (Math.PI / 180)
-      }
-
-      get xMagnitude(): number {
-            return this.magnitude * Math.cos(this.angle)
-      }
-
-      get yMagnitude(): number {
-            return this.magnitude * Math.sin(this.angle)
       }
 }

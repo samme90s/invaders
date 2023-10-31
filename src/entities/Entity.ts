@@ -36,5 +36,6 @@ export abstract class Entity {
             this.hitpoint.reduce(amount)
       }
 
-      abstract draw(ctx: CanvasRenderingContext2D, bounds: Dimension): void
+      // Do something about this abstract method:
+      // abstract draw(ctx: CanvasRenderingContext2D): void
 }

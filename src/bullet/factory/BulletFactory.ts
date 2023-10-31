@@ -1,14 +1,14 @@
 import { Dimension } from '../../data-types/Dimension'
 import { Point } from '../../data-types/Point'
-import { Vector } from '../../data-types/Vector'
+import { PolarVector } from '../../data-types/PolarVector'
 import { Bullet } from '../Bullet'
 
 export class BulletFactory {
-      static createThinFastBullet(origin: Point, angle: number) {
+      static createThinFastBullet(origin: Point, angle: number): Bullet {
             return new Bullet(
                   new Point(origin.x, origin.y),
                   new Dimension(2, 10),
-                  new Vector(5, angle)
+                  new PolarVector(5, angle)
             )
       }
 
