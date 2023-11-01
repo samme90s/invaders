@@ -13,8 +13,11 @@ export class EnemyController {
       private enemies: Enemy[] = []
       private spawnrate: number = 1
 
-      constructor() {
-            setInterval(() => this.increaseSpawnrate(), 2000)
+      /**
+       * @param spawnrateInterval In millieseconds.
+       */
+      constructor(spawnrateInterval: number = 10000) {
+            setInterval(() => this.increaseSpawnrate(), spawnrateInterval)
       }
 
       getEnemies(): Enemy[] {
@@ -35,7 +38,7 @@ export class EnemyController {
 
       removeDeadEnemies(): void {
             for (let eIx = 0; eIx < this.enemies.length; eIx++) {
-                  if (this.enemies[eIx].getHitpoint().getAmount() <= 0) {
+                  if (this.enemies[eIx].getHitpoint().getActual() <= 0) {
                         this.enemies.splice(eIx, 1)
                   }
             }
@@ -51,7 +54,7 @@ export class EnemyController {
                         new Enemy(
                               this.generateRandomPointOutsideClipSpace(clipSpace, 200),
                               new Dimension(5, 5),
-                              new Hitpoint(1),
+                              new Hitpoint(1, 0),
                               1
                         )
                   )

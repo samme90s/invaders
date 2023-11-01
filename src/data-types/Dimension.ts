@@ -12,6 +12,10 @@ export class Dimension {
             this.height = height
       }
 
+      from(): Dimension {
+            return new Dimension(this.width, this.height)
+      }
+
       getWidth(): number {
             return this.width
       }

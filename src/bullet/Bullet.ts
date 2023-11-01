@@ -23,7 +23,7 @@ export class Bullet {
       }
 
       getPosition(): Point {
-            return new Point(this.position.x, this.position.y)
+            return this.position.from()
       }
 
       draw(ctx: CanvasRenderingContext2D): void {

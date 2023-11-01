@@ -53,14 +53,15 @@ const playerBulletCreationStrategy = new ThreeBulletSpreadStrategy()
 const playerBulletController = new BulletController(playerBulletCreationStrategy, playerBulletDelay)
 const playerActionController = new ActionController()
 
-const enemyController = new EnemyController()
+const spawnrateInterval = 2000
+const enemyController = new EnemyController(spawnrateInterval)
 
 const clipSpaceCenterPoint = new Point(clipSpace.getWidth() / 2, clipSpace.getHeight() / 2)
 const playerSpeed = 5
 const player = new Player(
       clipSpaceCenterPoint,
       new Dimension(5, 5),
-      new Hitpoint(1),
+      new Hitpoint(100, 10),
       playerSpeed,
       playerBulletController,
       playerActionController

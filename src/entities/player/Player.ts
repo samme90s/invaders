@@ -28,6 +28,13 @@ export class Player extends Entity {
       }
 
       draw(ctx: CanvasRenderingContext2D, clipSpace: Dimension): void {
+            this.move(clipSpace)
+            this.shoot()
+            this.drawDimension(ctx)
+            this.hitpoint.draw(ctx, this.position, this.dimension)
+      }
+
+      private drawDimension(ctx: CanvasRenderingContext2D): void {
             ctx.fillStyle = '#0f0'
             ctx.fillRect(
                   this.position.x,
@@ -35,9 +42,6 @@ export class Player extends Entity {
                   this.dimension.getWidth(),
                   this.dimension.getHeight()
             )
-
-            this.move(clipSpace)
-            this.shoot()
       }
 
       private move(clipSpace: Dimension): void {

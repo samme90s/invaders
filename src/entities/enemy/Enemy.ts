@@ -39,6 +39,8 @@ export class Enemy extends Entity {
 
             // Remove magic number here:
             if (this.isCollidingWith(player)) {
+                  player.reduceHitpoint(1)
+                  player.timeoutHitpoint(120)
                   this.knockbackForce = 10
             }
 

@@ -25,18 +25,22 @@ export abstract class Entity {
       }
 
       getPosition(): Point {
-            return new Point(this.position.x, this.position.y)
+            return this.position.from()
       }
 
       getDimension(): Dimension {
-            return new Dimension(this.dimension.getWidth(), this.dimension.getHeight())
+            return this.dimension.from()
       }
 
       getHitpoint(): Hitpoint {
-            return new Hitpoint(this.hitpoint.getAmount())
+            return this.hitpoint.from()
       }
 
       reduceHitpoint(amount: number): void {
             this.hitpoint.reduce(amount)
+      }
+
+      timeoutHitpoint(ticks: number): void {
+            this.hitpoint.setTimeout(ticks)
       }
 }
