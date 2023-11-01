@@ -5,11 +5,13 @@
  */
 
 export class ActionController {
-      private moveUp: boolean = false
-      private moveLeft: boolean = false
-      private moveDown: boolean = false
-      private moveRight: boolean = false
-      private doShoot: boolean = false
+      private actions: { [key: string]: boolean } = {
+            w: false,
+            a: false,
+            s: false,
+            d: false,
+            ' ': false,
+      }
 
       constructor() {
             document.addEventListener('keydown', event => this.keyDown(event))
@@ -17,66 +19,34 @@ export class ActionController {
       }
 
       get up(): boolean {
-            return this.moveUp
+            return this.actions['w']
       }
 
       get left(): boolean {
-            return this.moveLeft
+            return this.actions['a']
       }
 
       get down(): boolean {
-            return this.moveDown
+            return this.actions['s']
       }
 
       get right(): boolean {
-            return this.moveRight
+            return this.actions['d']
       }
 
       get shoot(): boolean {
-            return this.doShoot
+            return this.actions[' ']
       }
 
       private keyDown(event: KeyboardEvent): void {
-            if (event.key === 'w' || event.key === 'ArrowUp') {
-                  this.moveUp = true
-            }
-
-            if (event.key === 'a' || event.key === 'ArrowLeft') {
-                  this.moveLeft = true
-            }
-
-            if (event.key === 's' || event.key === 'ArrowDown') {
-                  this.moveDown = true
-            }
-
-            if (event.key === 'd' || event.key === 'ArrowRight') {
-                  this.moveRight = true
-            }
-
-            if (event.code === 'Space') {
-                  this.doShoot = true
+            if (Object.hasOwn(this.actions, event.key)) {
+                  this.actions[event.key] = true
             }
       }
 
       private keyUp(event: KeyboardEvent): void {
-            if (event.key === 'w' || event.key === 'ArrowUp') {
-                  this.moveUp = false
-            }
-
-            if (event.key === 'a' || event.key === 'ArrowLeft') {
-                  this.moveLeft = false
-            }
-
-            if (event.key === 's' || event.key === 'ArrowDown') {
-                  this.moveDown = false
-            }
-
-            if (event.key === 'd' || event.key === 'ArrowRight') {
-                  this.moveRight = false
-            }
-
-            if (event.code === 'Space') {
-                  this.doShoot = false
+            if (Object.hasOwn(this.actions, event.key)) {
+                  this.actions[event.key] = false
             }
       }
 }

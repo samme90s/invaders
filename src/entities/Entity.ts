@@ -14,6 +14,10 @@ export abstract class Entity {
       protected speed: number = 1
 
       constructor(position: Point, dimension: Dimension, hitpoint: Hitpoint, speed: number) {
+            if (this.speed < 0) {
+                  throw new Error('speed must be positive or zero')
+            }
+
             this.position = position
             this.dimension = dimension
             this.hitpoint = hitpoint
@@ -35,7 +39,4 @@ export abstract class Entity {
       reduceHitpoint(amount: number): void {
             this.hitpoint.reduce(amount)
       }
-
-      // Do something about this abstract method:
-      // abstract draw(ctx: CanvasRenderingContext2D): void
 }

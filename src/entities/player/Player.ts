@@ -41,24 +41,34 @@ export class Player extends Entity {
       }
 
       private move(clipSpace: Dimension): void {
-            if (this.actionController.up && this.position.y > 0 + this.dimension.getHeight()) {
+            if (this.actionController.up && !this.isOutsideTop()) {
                   this.position.y -= this.speed
             }
-            if (this.actionController.left && this.position.x > 0 + this.dimension.getWidth()) {
+            if (this.actionController.left && !this.isOutsideLeft()) {
                   this.position.x -= this.speed
             }
-            if (
-                  this.actionController.down &&
-                  this.position.y < clipSpace.getHeight() - this.dimension.getHeight()
-            ) {
+            if (this.actionController.down && !this.isOutsideBottom(clipSpace)) {
                   this.position.y += this.speed
             }
-            if (
-                  this.actionController.right &&
-                  this.position.x < clipSpace.getWidth() - this.dimension.getWidth()
-            ) {
+            if (this.actionController.right && !this.isOutsideRight(clipSpace)) {
                   this.position.x += this.speed
             }
+      }
+
+      private isOutsideTop(): boolean {
+            return this.position.y < 0
+      }
+
+      private isOutsideRight(clipSpace: Dimension): boolean {
+            return this.position.x > clipSpace.getWidth() - this.dimension.getWidth()
+      }
+
+      private isOutsideBottom(clipSpace: Dimension): boolean {
+            return this.position.y > clipSpace.getHeight() - this.dimension.getHeight()
+      }
+
+      private isOutsideLeft(): boolean {
+            return this.position.x < 0
       }
 
       private shoot(): void {

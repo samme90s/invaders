@@ -10,8 +10,8 @@ export class PolarVector {
       private angle: number
 
       constructor(magnitude: number, angle: number) {
-            if (magnitude <= 0) {
-                  throw new RangeError('magnitude must be positive')
+            if (magnitude < 0) {
+                  throw new RangeError('magnitude must be positive or zero')
             }
 
             if (angle < 0 || angle > 360) {
