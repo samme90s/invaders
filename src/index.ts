@@ -34,12 +34,10 @@ function run() {
       clear()
 
       player.draw(ctx, clipSpace)
-      playerBulletController.draw(ctx)
-      if (enemyController.getEnemiesCount() > 0) {
-            enemyController.removeDeadEnemies()
-            enemyController.draw(ctx, player)
-            playerBulletController.isCollidingWith(enemyController.getEnemies())
-      }
+      playerBulletController.draw(ctx, clipSpace)
+      enemyController.removeDeadEnemies()
+      enemyController.draw(ctx, clipSpace, player)
+      playerBulletController.isCollidingWith(enemyController.getEnemies())
 }
 
 function clear() {
@@ -67,8 +65,5 @@ const player = new Player(
       playerBulletController,
       playerActionController
 )
-
-const amountOfEnemies = 5
-enemyController.generateEnemiesOnRandomPosition(amountOfEnemies, clipSpace)
 
 setInterval(run, 1000 / 60)

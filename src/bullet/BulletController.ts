@@ -3,6 +3,7 @@
  * @author Samuel Svensson
  */
 
+import { Dimension } from '../data-types/Dimension'
 import { Point } from '../data-types/Point'
 import { Enemy } from '../entities/enemy/Enemy'
 import { Bullet } from './Bullet'
@@ -23,10 +24,10 @@ export class BulletController {
             return this.bullets.length
       }
 
-      draw(ctx: CanvasRenderingContext2D): void {
+      draw(ctx: CanvasRenderingContext2D, clipSpace: Dimension): void {
             for (let bIx = 0; bIx < this.bullets.length; bIx++) {
                   // Remove bullet if it is off screen.
-                  if (this.isBulletOffScreen(this.bullets[bIx])) {
+                  if (this.isBulletOffScreen(this.bullets[bIx], clipSpace)) {
                         this.bullets.splice(bIx, 1)
                         continue
                   }
@@ -57,8 +58,12 @@ export class BulletController {
             })
       }
 
-      isBulletOffScreen(bullet: Bullet): boolean {
-            // Optionally check if the bullet is off screen to the sides as well.
-            return bullet.getPosition().y < 0
+      isBulletOffScreen(bullet: Bullet, clipSpace: Dimension): boolean {
+            return (
+                  bullet.getPosition().y > clipSpace.getHeight() ||
+                  bullet.getPosition().x > clipSpace.getWidth() ||
+                  bullet.getPosition().y < 0 ||
+                  bullet.getPosition().x < 0
+            )
       }
 }
