@@ -62,20 +62,41 @@ export class EnemyController {
       }
 
       private generateRandomPointOutsideClipSpace(clipSpace: Dimension, maxOffset: number): Point {
-            const randomOffset = Math.floor(Math.random() * maxOffset)
-            const randomHeight = Math.floor(Math.random() * clipSpace.getHeight())
-            const randomWidth = Math.floor(Math.random() * clipSpace.getWidth())
             const random = Math.floor(Math.random() * 4)
             if (random === 0) {
-                  return new Point(randomWidth, -randomOffset) // top
+                  return this.generateRandomPointOnTopEdge(clipSpace, maxOffset)
             } else if (random === 1) {
-                  return new Point(clipSpace.getWidth() + randomOffset, randomHeight) // right
+                  return this.generateRandomPointOnRightEdge(clipSpace, maxOffset)
             } else if (random === 2) {
-                  return new Point(randomWidth, clipSpace.getHeight() + randomOffset) // bottom
+                  return this.generateRandomPointOnBottomEdge(clipSpace, maxOffset)
             } else if (random === 3) {
-                  return new Point(-randomOffset, randomHeight) // left
+                  return this.generateRandomPointOnLeftEdge(clipSpace, maxOffset)
             }
 
             throw new Error('could not generate random point')
+      }
+
+      private generateRandomPointOnTopEdge(clipSpace: Dimension, maxOffset: number): Point {
+            const randomOffset = Math.floor(Math.random() * maxOffset)
+            const randomWidth = Math.floor(Math.random() * clipSpace.getWidth())
+            return new Point(randomWidth, -randomOffset)
+      }
+
+      private generateRandomPointOnRightEdge(clipSpace: Dimension, maxOffset: number): Point {
+            const randomOffset = Math.floor(Math.random() * maxOffset)
+            const randomHeight = Math.floor(Math.random() * clipSpace.getHeight())
+            return new Point(clipSpace.getWidth() + randomOffset, randomHeight)
+      }
+
+      private generateRandomPointOnBottomEdge(clipSpace: Dimension, maxOffset: number): Point {
+            const randomOffset = Math.floor(Math.random() * maxOffset)
+            const randomWidth = Math.floor(Math.random() * clipSpace.getWidth())
+            return new Point(randomWidth, clipSpace.getHeight() + randomOffset)
+      }
+
+      private generateRandomPointOnLeftEdge(clipSpace: Dimension, maxOffset: number): Point {
+            const randomOffset = Math.floor(Math.random() * maxOffset)
+            const randomHeight = Math.floor(Math.random() * clipSpace.getHeight())
+            return new Point(-randomOffset, randomHeight)
       }
 }

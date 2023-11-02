@@ -55,12 +55,34 @@ export class Enemy extends Entity {
             }
       }
 
-      private isCollidingWith(player: Player) {
+      private isCollidingWith(player: Player): boolean {
             return (
-                  player.getPosition().x < this.position.x + this.dimension.getWidth() &&
-                  player.getPosition().x + player.getDimension().getWidth() > this.position.x &&
-                  player.getPosition().y < this.position.y + this.dimension.getHeight() &&
-                  player.getPosition().y + player.getDimension().getHeight() > this.position.y
+                  this.isCollidingWithTopEdge(player) &&
+                  this.isCollidingWithRightEdge(player) &&
+                  this.isCollidingWithBottomEdge(player) &&
+                  this.isCollidingWithLeftEdge(player)
+            )
+      }
+
+      private isCollidingWithTopEdge(player: Player): boolean {
+            return (
+                  player.getPosition().y - player.getDimension().getHeight() / 2 <
+                  this.position.y + this.dimension.getHeight()
+            )
+      }
+
+      private isCollidingWithRightEdge(player: Player): boolean {
+            return player.getPosition().x + player.getDimension().getWidth() / 2 > this.position.x
+      }
+
+      private isCollidingWithBottomEdge(player: Player): boolean {
+            return player.getPosition().y + player.getDimension().getHeight() / 2 > this.position.y
+      }
+
+      private isCollidingWithLeftEdge(player: Player): boolean {
+            return (
+                  player.getPosition().x - player.getDimension().getWidth() / 2 <
+                  this.position.x + this.dimension.getWidth()
             )
       }
 }
