@@ -1,5 +1,5 @@
 {
-      "name": "@ioapa/invaders",
+      "name": "invaders",
       "version": "0.1.1",
       "description": "",
       "author": "Samuel Svensson",
@@ -9,7 +9,7 @@
       "main": "./src/index.js",
       "repository": {
             "type": "git",
-            "url": "https://github.com/ioapa/invaders"
+            "url": "https://github.com/samme90s/invaders"
       },
       "files": [
             "dist"
