@@ -10,7 +10,10 @@ export class ActionController {
             a: false,
             s: false,
             d: false,
-            ' ': false,
+            ArrowUp: false,
+            ArrowLeft: false,
+            ArrowDown: false,
+            ArrowRight: false
       }
 
       constructor() {
@@ -34,8 +37,20 @@ export class ActionController {
             return this.actions['d']
       }
 
-      get shoot(): boolean {
-            return this.actions[' ']
+      get shootUp(): boolean {
+            return this.actions['ArrowUp']
+      }
+
+      get shootLeft(): boolean {
+            return this.actions['ArrowLeft']
+      }
+
+      get shootDown(): boolean {
+            return this.actions['ArrowDown']
+      }
+
+      get shootRight(): boolean {
+            return this.actions['ArrowRight']
       }
 
       private keyDown(event: KeyboardEvent): void {

@@ -6,7 +6,7 @@
 import './index.css'
 
 import { BulletController } from './bullet/BulletController'
-import { ThreeBulletSpreadStrategy } from './bullet/strategy/concrete/ThreeBulletSpreadStrategy'
+import { SingleBulletStrategy } from './bullet/strategy/concrete/SingleBulletStrategy'
 import { Dimension } from './data-types/Dimension'
 import { Hitpoint } from './data-types/Hitpoint'
 import { Point } from './data-types/Point'
@@ -49,17 +49,17 @@ const clipSpace = new Dimension(512, 512)
 const ctx = setupCanvas(clipSpace)
 
 const playerBulletDelay = 2
-const playerBulletCreationStrategy = new ThreeBulletSpreadStrategy()
+const playerBulletCreationStrategy = new SingleBulletStrategy()
 const playerBulletController = new BulletController(playerBulletCreationStrategy, playerBulletDelay)
 const playerActionController = new ActionController()
 
 const spawnrateInterval = 2000
 const enemyController = new EnemyController(spawnrateInterval)
 
-const clipSpaceCenterPoint = new Point(clipSpace.getWidth() / 2, clipSpace.getHeight() / 2)
+const clipSpaceOrigo = new Point(clipSpace.getWidth() / 2, clipSpace.getHeight() / 2)
 const playerSpeed = 5
 const player = new Player(
-      clipSpaceCenterPoint,
+      clipSpaceOrigo,
       new Dimension(5, 5),
       new Hitpoint(100, 10),
       playerSpeed,

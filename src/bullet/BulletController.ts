@@ -3,6 +3,7 @@
  * @author Samuel Svensson
  */
 
+import { Angle } from '../data-types/Angle'
 import { Dimension } from '../data-types/Dimension'
 import { Point } from '../data-types/Point'
 import { Enemy } from '../entities/enemy/Enemy'
@@ -12,12 +13,13 @@ import { BulletCreationStrategy } from './strategy/BulletCreationStrategy'
 export class BulletController {
       private bulletCreationStrategy: BulletCreationStrategy
       private bullets: Bullet[] = []
-      private delay: number = 1
-      private actualDelay: number = 0
+      private shootDelay: number
+      private shootClock: number
 
-      constructor(bulletCreationStrategy: BulletCreationStrategy, delay: number) {
+      constructor(bulletCreationStrategy: BulletCreationStrategy, shootDelay: number = 1) {
             this.bulletCreationStrategy = bulletCreationStrategy
-            this.delay = delay
+            this.shootDelay = shootDelay
+            this.shootClock = 0
       }
 
       get count(): number {
@@ -36,12 +38,31 @@ export class BulletController {
             }
       }
 
-      shoot(origin: Point): void {
-            this.actualDelay--
-            if (this.actualDelay <= 0) {
-                  this.bullets.push(...this.bulletCreationStrategy.getBullets(origin))
-                  this.actualDelay = this.delay
+      private shoot(origin: Point, originAngle: Angle): void {
+            this.shootClock--
+            if (this.shootClock <= 0) {
+                  const bullets = this.bulletCreationStrategy.getBullets(origin, originAngle)
+                  for (let bIx = 0; bIx < bullets.length; bIx++) {
+                        this.bullets.push(bullets[bIx])
+                  }
+                  this.shootClock = this.shootDelay
             }
+      }
+
+      shootUp(origin: Point): void {
+            this.shoot(origin, new Angle(90))
+      }
+
+      shootLeft(origin: Point): void {
+            this.shoot(origin, new Angle(180))
+      }
+
+      shootDown(origin: Point): void {
+            this.shoot(origin, new Angle(270))
+      }
+
+      shootRight(origin: Point): void {
+            this.shoot(origin, new Angle(0))
       }
 
       isCollidingWith(enemies: Enemy[]): boolean {

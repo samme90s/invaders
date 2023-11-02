@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Represents the health of an entity.
+ * @author Samuel Svensson
+ */
+
 import { Dimension } from './Dimension'
 import { Point } from './Point'
 
@@ -35,39 +40,29 @@ export class Hitpoint {
             this.regenRate = regenRate
             // Magic number here?
             this.regenDelay = 10
-            this.regenClock = this.regenDelay
+            this.regenClock = 0
             this.regenTimeout = 0
             // Used for drawing:
             this.totalDimension = new Dimension(30, 4)
             this.actualDimension = new Dimension(30, this.totalDimension.getHeight())
       }
 
-      draw(ctx: CanvasRenderingContext2D, playerPosition: Point, playerDimension: Dimension): void {
+      draw(ctx: CanvasRenderingContext2D, position: Point): void {
             this.regenerate()
-            this.drawDimension(ctx, playerPosition, playerDimension)
+            this.drawDimension(ctx, position)
       }
 
-      private drawDimension(
-            ctx: CanvasRenderingContext2D,
-            playerPosition: Point,
-            playerDimension: Dimension
-      ): void {
+      private drawDimension(ctx: CanvasRenderingContext2D, position: Point): void {
+            const x = position.x - this.totalDimension.getWidth() / 2
+            const y = position.y + this.actualDimension.getHeight() + 5 // Offset.
+
             ctx.fillStyle = '#fff'
-            ctx.fillRect(
-                  playerPosition.x +
-                        playerDimension.getWidth() / 2 -
-                        this.totalDimension.getWidth() / 2,
-                  playerPosition.y + this.actualDimension.getHeight() + 10,
-                  this.totalDimension.getWidth(),
-                  this.actualDimension.getHeight()
-            )
+            ctx.fillRect(x, y, this.totalDimension.getWidth(), this.actualDimension.getHeight())
 
             ctx.fillStyle = '#f00'
             ctx.fillRect(
-                  playerPosition.x +
-                        playerDimension.getWidth() / 2 -
-                        this.totalDimension.getWidth() / 2,
-                  playerPosition.y + this.actualDimension.getHeight() + 10,
+                  x,
+                  y,
                   this.totalDimension.getWidth() * this.getRatio(),
                   this.actualDimension.getHeight()
             )
