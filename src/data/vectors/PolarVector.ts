@@ -4,8 +4,8 @@
  */
 
 import { Angle } from '../angles/Angle'
-import { CartesianVector } from './CartesianVector'
 import { RadianAngle } from '../angles/RadianAngle'
+import { CartesianVector } from './CartesianVector'
 
 export class PolarVector {
       private magnitude: number

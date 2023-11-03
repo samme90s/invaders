@@ -11,8 +11,8 @@ import { Dimension } from './data/Dimension'
 import { Hitpoint } from './data/Hitpoint'
 import { Point } from './data/Point'
 import { EnemyController } from './entities/enemy/EnemyController'
-import { PlayerController } from './entities/player/PlayerController'
 import { Player } from './entities/player/Player'
+import { PlayerController } from './entities/player/PlayerController'
 
 function setupCanvas(dimension: Dimension): CanvasRenderingContext2D {
       const canvas = document.querySelector('canvas')

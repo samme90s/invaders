@@ -3,9 +3,9 @@
  * @author Samuel Svensson
  */
 
-import { CartesianVector } from '../data/vectors/CartesianVector'
 import { Dimension } from '../data/Dimension'
 import { Point } from '../data/Point'
+import { CartesianVector } from '../data/vectors/CartesianVector'
 import { PolarVector } from '../data/vectors/PolarVector'
 import { Enemy } from '../entities/enemy/Enemy'
 
