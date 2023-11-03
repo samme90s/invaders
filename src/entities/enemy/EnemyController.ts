@@ -6,6 +6,7 @@
 import { Dimension } from '../../data/Dimension'
 import { Hitpoint } from '../../data/Hitpoint'
 import { Point } from '../../data/Point'
+import { Sprite } from '../../data/Sprite'
 import { Player } from '../player/Player'
 import { Enemy } from './Enemy'
 
@@ -53,7 +54,8 @@ export class EnemyController {
                   this.enemies.push(
                         new Enemy(
                               this.generateRandomPointOutsideClipSpace(clipSpace, 200),
-                              new Dimension(5, 5),
+                              new Dimension(10, 10),
+                              new Sprite(new URL('../../../public/invader.png', import.meta.url)),
                               new Hitpoint(1, 0),
                               1
                         )

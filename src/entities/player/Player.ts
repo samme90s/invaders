@@ -7,6 +7,7 @@ import { BulletController } from '../../bullet/BulletController'
 import { Dimension } from '../../data/Dimension'
 import { Hitpoint } from '../../data/Hitpoint'
 import { Point } from '../../data/Point'
+import { Sprite } from '../../data/Sprite'
 import { Entity } from '../Entity'
 import { PlayerController } from './PlayerController'
 
@@ -17,12 +18,13 @@ export class Player extends Entity {
       constructor(
             position: Point,
             dimension: Dimension,
+            sprite: Sprite,
             hitpoint: Hitpoint,
             speed: number,
             bulletController: BulletController,
             playerController: PlayerController
       ) {
-            super(position, dimension, hitpoint, speed)
+            super(position, dimension, sprite, hitpoint, speed)
             this.bulletController = bulletController
             this.playerController = playerController
       }
@@ -35,10 +37,10 @@ export class Player extends Entity {
       }
 
       private drawDimension(ctx: CanvasRenderingContext2D): void {
-            ctx.fillStyle = '#0f0'
-            ctx.fillRect(
+            ctx.drawImage(
+                  this.sprite.getImg(),
                   this.position.x - this.dimension.getWidth() / 2,
-                  this.position.y - this.dimension.getHeight() / 2,
+                  this.position.y - this.dimension.getWidth() / 2,
                   this.dimension.getWidth(),
                   this.dimension.getHeight()
             )

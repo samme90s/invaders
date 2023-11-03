@@ -10,6 +10,7 @@ import { SingleBulletStrategy } from './bullet/strategy/concrete/SingleBulletStr
 import { Dimension } from './data/Dimension'
 import { Hitpoint } from './data/Hitpoint'
 import { Point } from './data/Point'
+import { Sprite } from './data/Sprite'
 import { EnemyController } from './entities/enemy/EnemyController'
 import { Player } from './entities/player/Player'
 import { PlayerController } from './entities/player/PlayerController'
@@ -60,7 +61,8 @@ const clipSpaceOrigo = new Point(clipSpace.getWidth() / 2, clipSpace.getHeight()
 const playerSpeed = 5
 const player = new Player(
       clipSpaceOrigo,
-      new Dimension(5, 5),
+      new Dimension(20, 20),
+      new Sprite(new URL('../public/ship.png', import.meta.url)),
       new Hitpoint(100, 10),
       playerSpeed,
       playerBulletController,

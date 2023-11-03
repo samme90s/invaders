@@ -6,20 +6,29 @@
 import { Dimension } from '../data/Dimension'
 import { Hitpoint } from '../data/Hitpoint'
 import { Point } from '../data/Point'
+import { Sprite } from '../data/Sprite'
 
 export abstract class Entity {
       protected position: Point
       protected dimension: Dimension
+      protected sprite: Sprite
       protected hitpoint: Hitpoint
       protected speed: number = 1
 
-      constructor(position: Point, dimension: Dimension, hitpoint: Hitpoint, speed: number) {
+      constructor(
+            position: Point,
+            dimension: Dimension,
+            sprite: Sprite,
+            hitpoint: Hitpoint,
+            speed: number
+      ) {
             if (this.speed < 0) {
                   throw new Error('speed must be positive or zero')
             }
 
             this.position = position
             this.dimension = dimension
+            this.sprite = sprite
             this.hitpoint = hitpoint
             this.speed = speed
       }
