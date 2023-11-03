@@ -54,7 +54,7 @@ export class Hitpoint {
 
       private drawDimension(ctx: CanvasRenderingContext2D, position: Point): void {
             const x = position.x - this.totalDimension.getWidth() / 2
-            const y = position.y + this.actualDimension.getHeight() + 5 // Offset.
+            const y = position.y + this.actualDimension.getHeight() + 8 // Offset.
 
             ctx.fillStyle = '#fff'
             ctx.fillRect(x, y, this.totalDimension.getWidth(), this.actualDimension.getHeight())

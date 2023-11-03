@@ -61,7 +61,7 @@ const clipSpaceOrigo = new Point(clipSpace.getWidth() / 2, clipSpace.getHeight()
 const playerSpeed = 5
 const player = new Player(
       clipSpaceOrigo,
-      new Dimension(20, 20),
+      new Dimension(16, 16),
       new Sprite(new URL('../public/ship.png', import.meta.url)),
       new Hitpoint(100, 10),
       playerSpeed,

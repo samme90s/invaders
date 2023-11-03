@@ -54,7 +54,7 @@ export class EnemyController {
                   this.enemies.push(
                         new Enemy(
                               this.generateRandomPointOutsideClipSpace(clipSpace, 200),
-                              new Dimension(10, 10),
+                              new Dimension(8, 8),
                               new Sprite(new URL('../../../public/invader.png', import.meta.url)),
                               new Hitpoint(1, 0),
                               1

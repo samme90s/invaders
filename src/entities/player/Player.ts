@@ -32,18 +32,8 @@ export class Player extends Entity {
       draw(ctx: CanvasRenderingContext2D, clipSpace: Dimension): void {
             this.move(clipSpace)
             this.shoot()
-            this.drawDimension(ctx)
+            this.sprite.draw(ctx, this.position, this.dimension)
             this.hitpoint.draw(ctx, this.position)
-      }
-
-      private drawDimension(ctx: CanvasRenderingContext2D): void {
-            ctx.drawImage(
-                  this.sprite.getImg(),
-                  this.position.x - this.dimension.getWidth() / 2,
-                  this.position.y - this.dimension.getWidth() / 2,
-                  this.dimension.getWidth(),
-                  this.dimension.getHeight()
-            )
       }
 
       private move(clipSpace: Dimension): void {

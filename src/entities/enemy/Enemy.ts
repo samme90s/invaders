@@ -26,17 +26,7 @@ export class Enemy extends Entity {
 
       draw(ctx: CanvasRenderingContext2D, player: Player): void {
             this.move(player)
-            this.drawDimension(ctx)
-      }
-
-      drawDimension(ctx: CanvasRenderingContext2D): void {
-            ctx.drawImage(
-                  this.sprite.getImg(),
-                  this.position.x - this.dimension.getWidth() / 2,
-                  this.position.y - this.dimension.getWidth() / 2,
-                  this.dimension.getWidth(),
-                  this.dimension.getHeight()
-            )
+            this.sprite.draw(ctx, this.position, this.dimension)
       }
 
       private move(player: Player): void {
