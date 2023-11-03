@@ -4,7 +4,7 @@
       line-height: 1.5;
 
       color: #fff;
-      background-color: #00f;
+      background-color: #000;
 
       font-synthesis: none;
       text-rendering: optimizeLegibility;
@@ -28,5 +28,5 @@ canvas {
       align-items: center;
       text-align: center;
       /* size */
-      width: 100%;
+      width: 100vh;
 }
