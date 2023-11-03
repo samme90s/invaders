@@ -7,11 +7,11 @@ import './index.css'
 
 import { BulletController } from './bullet/BulletController'
 import { SingleBulletStrategy } from './bullet/strategy/concrete/SingleBulletStrategy'
-import { Dimension } from './data-types/Dimension'
-import { Hitpoint } from './data-types/Hitpoint'
-import { Point } from './data-types/Point'
+import { Dimension } from './data/Dimension'
+import { Hitpoint } from './data/Hitpoint'
+import { Point } from './data/Point'
 import { EnemyController } from './entities/enemy/EnemyController'
-import { ActionController } from './entities/player/ActionController'
+import { PlayerController } from './entities/player/PlayerController'
 import { Player } from './entities/player/Player'
 
 function setupCanvas(dimension: Dimension): CanvasRenderingContext2D {
@@ -51,7 +51,7 @@ const ctx = setupCanvas(clipSpace)
 const playerBulletDelay = 2
 const playerBulletCreationStrategy = new SingleBulletStrategy()
 const playerBulletController = new BulletController(playerBulletCreationStrategy, playerBulletDelay)
-const playerActionController = new ActionController()
+const playerController = new PlayerController()
 
 const spawnrateInterval = 2000
 const enemyController = new EnemyController(spawnrateInterval)
@@ -64,7 +64,7 @@ const player = new Player(
       new Hitpoint(100, 10),
       playerSpeed,
       playerBulletController,
-      playerActionController
+      playerController
 )
 
 setInterval(run, 1000 / 60)

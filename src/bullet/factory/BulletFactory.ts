@@ -3,9 +3,9 @@
  * @author Samuel Svensson
  */
 
-import { Angle } from '../../data-types/Angle'
-import { Point } from '../../data-types/Point'
-import { PolarVector } from '../../data-types/PolarVector'
+import { Angle } from '../../data/angles/Angle'
+import { Point } from '../../data/Point'
+import { PolarVector } from '../../data/vectors/PolarVector'
 import { Bullet } from '../Bullet'
 
 export class BulletFactory {

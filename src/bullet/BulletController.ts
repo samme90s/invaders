@@ -3,9 +3,9 @@
  * @author Samuel Svensson
  */
 
-import { Angle } from '../data-types/Angle'
-import { Dimension } from '../data-types/Dimension'
-import { Point } from '../data-types/Point'
+import { Angle } from '../data/angles/Angle'
+import { Dimension } from '../data/Dimension'
+import { Point } from '../data/Point'
 import { Enemy } from '../entities/enemy/Enemy'
 import { Bullet } from './Bullet'
 import { BulletCreationStrategy } from './strategy/BulletCreationStrategy'

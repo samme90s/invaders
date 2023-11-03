@@ -3,7 +3,7 @@
  * @author Samuel Svensson
  */
 
-import { Angle } from './Angle'
+import { Angle } from '../angles/Angle'
 import { PolarVector } from './PolarVector'
 
 export class CartesianVector {

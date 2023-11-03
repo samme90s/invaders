@@ -4,7 +4,7 @@
  * @author Samuel Svensson
  */
 
-export class ActionController {
+export class PlayerController {
       private actions: { [key: string]: boolean } = {
             w: false,
             a: false,

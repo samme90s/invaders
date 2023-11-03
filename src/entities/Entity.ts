@@ -3,9 +3,9 @@
  * @author Samuel Svensson
  */
 
-import { Dimension } from '../data-types/Dimension'
-import { Hitpoint } from '../data-types/Hitpoint'
-import { Point } from '../data-types/Point'
+import { Dimension } from '../data/Dimension'
+import { Hitpoint } from '../data/Hitpoint'
+import { Point } from '../data/Point'
 
 export abstract class Entity {
       protected position: Point

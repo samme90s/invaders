@@ -3,10 +3,10 @@
  * @author Samuel Svensson
  */
 
-import { CartesianVector } from '../../data-types/CartesianVector'
-import { Dimension } from '../../data-types/Dimension'
-import { Hitpoint } from '../../data-types/Hitpoint'
-import { Point } from '../../data-types/Point'
+import { CartesianVector } from '../../data/vectors/CartesianVector'
+import { Dimension } from '../../data/Dimension'
+import { Hitpoint } from '../../data/Hitpoint'
+import { Point } from '../../data/Point'
 import { Entity } from '../Entity'
 import { Player } from '../player/Player'
 

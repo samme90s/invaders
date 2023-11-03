@@ -3,9 +3,9 @@
  * @author Samuel Svensson
  */
 
-import { Angle } from './Angle'
+import { Angle } from '../angles/Angle'
 import { CartesianVector } from './CartesianVector'
-import { RadianAngle } from './RadianAngle'
+import { RadianAngle } from '../angles/RadianAngle'
 
 export class PolarVector {
       private magnitude: number

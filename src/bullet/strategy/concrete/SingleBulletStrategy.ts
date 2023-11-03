@@ -3,8 +3,8 @@
  * @author Samuel Svensson
  */
 
-import { Angle } from '../../../data-types/Angle'
-import { Point } from '../../../data-types/Point'
+import { Angle } from '../../../data/angles/Angle'
+import { Point } from '../../../data/Point'
 import { Bullet } from '../../Bullet'
 import { BulletFactory } from '../../factory/BulletFactory'
 import { BulletCreationStrategy } from '../BulletCreationStrategy'

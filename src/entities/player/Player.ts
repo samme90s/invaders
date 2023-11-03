@@ -4,15 +4,15 @@
  */
 
 import { BulletController } from '../../bullet/BulletController'
-import { Dimension } from '../../data-types/Dimension'
-import { Hitpoint } from '../../data-types/Hitpoint'
-import { Point } from '../../data-types/Point'
+import { Dimension } from '../../data/Dimension'
+import { Hitpoint } from '../../data/Hitpoint'
+import { Point } from '../../data/Point'
 import { Entity } from '../Entity'
-import { ActionController } from './ActionController'
+import { PlayerController } from './PlayerController'
 
 export class Player extends Entity {
       private bulletController: BulletController
-      private actionController: ActionController
+      private playerController: PlayerController
 
       constructor(
             position: Point,
@@ -20,11 +20,11 @@ export class Player extends Entity {
             hitpoint: Hitpoint,
             speed: number,
             bulletController: BulletController,
-            actionController: ActionController
+            playerController: PlayerController
       ) {
             super(position, dimension, hitpoint, speed)
             this.bulletController = bulletController
-            this.actionController = actionController
+            this.playerController = playerController
       }
 
       draw(ctx: CanvasRenderingContext2D, clipSpace: Dimension): void {
@@ -45,19 +45,19 @@ export class Player extends Entity {
       }
 
       private move(clipSpace: Dimension): void {
-            if (this.actionController.up) {
+            if (this.playerController.up) {
                   this.moveUp()
             }
 
-            if (this.actionController.left) {
+            if (this.playerController.left) {
                   this.moveLeft()
             }
 
-            if (this.actionController.down) {
+            if (this.playerController.down) {
                   this.moveDown(clipSpace)
             }
 
-            if (this.actionController.right) {
+            if (this.playerController.right) {
                   this.moveRight(clipSpace)
             }
       }
@@ -103,19 +103,19 @@ export class Player extends Entity {
       }
 
       private shoot(): void {
-            if (this.actionController.shootUp) {
+            if (this.playerController.shootUp) {
                   this.bulletController.shootUp(this.position)
             }
 
-            if (this.actionController.shootLeft) {
+            if (this.playerController.shootLeft) {
                   this.bulletController.shootLeft(this.position)
             }
 
-            if (this.actionController.shootDown) {
+            if (this.playerController.shootDown) {
                   this.bulletController.shootDown(this.position)
             }
 
-            if (this.actionController.shootRight) {
+            if (this.playerController.shootRight) {
                   this.bulletController.shootRight(this.position)
             }
       }

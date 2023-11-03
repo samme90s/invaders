@@ -3,10 +3,10 @@
  * @author Samuel Svensson
  */
 
-import { CartesianVector } from '../data-types/CartesianVector'
-import { Dimension } from '../data-types/Dimension'
-import { Point } from '../data-types/Point'
-import { PolarVector } from '../data-types/PolarVector'
+import { CartesianVector } from '../data/vectors/CartesianVector'
+import { Dimension } from '../data/Dimension'
+import { Point } from '../data/Point'
+import { PolarVector } from '../data/vectors/PolarVector'
 import { Enemy } from '../entities/enemy/Enemy'
 
 export class Bullet {
