@@ -4,9 +4,9 @@
  */
 
 import { BulletController } from '../../bullet/BulletController'
-import { Dimension } from '../../data/Dimension'
+import { ClipSpace } from '../../data/dimensions/ClipSpace'
+import { Hitbox } from '../../data/dimensions/Hitbox'
 import { Hitpoint } from '../../data/Hitpoint'
-import { Point } from '../../data/Point'
 import { Sprite } from '../../data/Sprite'
 import { Entity } from '../Entity'
 import { PlayerController } from './PlayerController'
@@ -16,27 +16,26 @@ export class Player extends Entity {
       private playerController: PlayerController
 
       constructor(
-            position: Point,
-            dimension: Dimension,
+            hitbox: Hitbox,
             sprite: Sprite,
             hitpoint: Hitpoint,
             speed: number,
             bulletController: BulletController,
             playerController: PlayerController
       ) {
-            super(position, dimension, sprite, hitpoint, speed)
+            super(hitbox, sprite, hitpoint, speed)
             this.bulletController = bulletController
             this.playerController = playerController
       }
 
-      draw(ctx: CanvasRenderingContext2D, clipSpace: Dimension): void {
+      draw(ctx: CanvasRenderingContext2D, clipSpace: ClipSpace): void {
             this.move(clipSpace)
             this.shoot()
-            this.sprite.draw(ctx, this.position, this.dimension)
-            this.hitpoint.draw(ctx, this.position)
+            this.sprite.draw(ctx, this.hitbox)
+            this.hitpoint.draw(ctx, this.hitbox.getPosition())
       }
 
-      private move(clipSpace: Dimension): void {
+      private move(clipSpace: ClipSpace): void {
             if (this.playerController.up) {
                   this.moveUp()
             }
@@ -56,59 +55,59 @@ export class Player extends Entity {
 
       private moveUp(): void {
             if (!this.isOutsideTop()) {
-                  this.position.y -= this.speed
+                  this.hitbox.getMutablePosition().y -= this.speed
             }
       }
 
       private isOutsideTop(): boolean {
-            return this.position.y < 0
+            return this.hitbox.getPosition().y < 0
       }
 
       private moveLeft(): void {
             if (!this.isOutsideLeft()) {
-                  this.position.x -= this.speed
+                  this.hitbox.getMutablePosition().x -= this.speed
             }
       }
 
       private isOutsideLeft(): boolean {
-            return this.position.x < 0
+            return this.hitbox.getPosition().x < 0
       }
 
-      private moveDown(clipSpace: Dimension): void {
+      private moveDown(clipSpace: ClipSpace): void {
             if (!this.isOutsideDown(clipSpace)) {
-                  this.position.y += this.speed
+                  this.hitbox.getMutablePosition().y += this.speed
             }
       }
 
-      private isOutsideDown(clipSpace: Dimension): boolean {
-            return this.position.y > clipSpace.getHeight() - this.dimension.getHeight()
+      private isOutsideDown(clipSpace: ClipSpace): boolean {
+            return this.hitbox.getPosition().y > clipSpace.getHeight() - this.hitbox.getHeight()
       }
 
-      private moveRight(clipSpace: Dimension): void {
+      private moveRight(clipSpace: ClipSpace): void {
             if (!this.isOutsideRight(clipSpace)) {
-                  this.position.x += this.speed
+                  this.hitbox.getMutablePosition().x += this.speed
             }
       }
 
-      private isOutsideRight(clipSpace: Dimension): boolean {
-            return this.position.x > clipSpace.getWidth() - this.dimension.getWidth()
+      private isOutsideRight(clipSpace: ClipSpace): boolean {
+            return this.hitbox.getPosition().x > clipSpace.getWidth() - this.hitbox.getWidth()
       }
 
       private shoot(): void {
             if (this.playerController.shootUp) {
-                  this.bulletController.shootUp(this.position)
+                  this.bulletController.shootUp(this.hitbox.getPosition())
             }
 
             if (this.playerController.shootLeft) {
-                  this.bulletController.shootLeft(this.position)
+                  this.bulletController.shootLeft(this.hitbox.getPosition())
             }
 
             if (this.playerController.shootDown) {
-                  this.bulletController.shootDown(this.position)
+                  this.bulletController.shootDown(this.hitbox.getPosition())
             }
 
             if (this.playerController.shootRight) {
-                  this.bulletController.shootRight(this.position)
+                  this.bulletController.shootRight(this.hitbox.getPosition())
             }
       }
 }

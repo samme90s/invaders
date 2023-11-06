@@ -3,9 +3,8 @@
  * @author Samuel Svensson
  */
 
-import { Dimension } from '../../data/Dimension'
+import { Hitbox } from '../../data/dimensions/Hitbox'
 import { Hitpoint } from '../../data/Hitpoint'
-import { Point } from '../../data/Point'
 import { Sprite } from '../../data/Sprite'
 import { CartesianVector } from '../../data/vectors/CartesianVector'
 import { Entity } from '../Entity'
@@ -15,30 +14,29 @@ export class Enemy extends Entity {
       private knockbackForce: number
 
       constructor(
-            position: Point,
-            dimension: Dimension,
+            hitbox: Hitbox,
             sprite: Sprite,
             hitpoint: Hitpoint,
             speed: number
       ) {
-            super(position, dimension, sprite, hitpoint, speed)
+            super(hitbox, sprite, hitpoint, speed)
       }
 
       draw(ctx: CanvasRenderingContext2D, player: Player): void {
             this.move(player)
-            this.sprite.draw(ctx, this.position, this.dimension)
+            this.sprite.draw(ctx, this.hitbox)
       }
 
       private move(player: Player): void {
             const vector = new CartesianVector(
-                  player.getPosition().x - this.position.x,
-                  player.getPosition().y - this.position.y
+                  player.getHitbox().getPosition().x - this.hitbox.getPosition().x,
+                  player.getHitbox().getPosition().y - this.hitbox.getPosition().y
             )
                   .normalize()
                   .multiply(this.speed)
 
             // Remove magic number here:
-            if (this.isCollidingWith(player)) {
+            if (this.hitbox.isCollidingWith(player.getHitbox())) {
                   player.reduceHitpoint(1)
                   player.timeoutHitpoint(120)
                   this.knockbackForce = 10
@@ -46,49 +44,12 @@ export class Enemy extends Entity {
 
             if (this.knockbackForce > 0) {
                   const knockbackVector = vector.multiply(-this.knockbackForce)
-                  this.position.x += knockbackVector.getX()
-                  this.position.y += knockbackVector.getY()
+                  this.hitbox.getMutablePosition().x += knockbackVector.getX()
+                  this.hitbox.getMutablePosition().y += knockbackVector.getY()
                   this.knockbackForce--
             } else {
-                  this.position.x += vector.getX()
-                  this.position.y += vector.getY()
+                  this.hitbox.getMutablePosition().x += vector.getX()
+                  this.hitbox.getMutablePosition().y += vector.getY()
             }
-      }
-
-      private isCollidingWith(player: Player): boolean {
-            return (
-                  this.isCollidingWithTopEdge(player) &&
-                  this.isCollidingWithRightEdge(player) &&
-                  this.isCollidingWithBottomEdge(player) &&
-                  this.isCollidingWithLeftEdge(player)
-            )
-      }
-
-      private isCollidingWithTopEdge(player: Player): boolean {
-            return (
-                  player.getPosition().y - player.getDimension().getHeight() / 2 <
-                  this.position.y + this.dimension.getHeight() / 2
-            )
-      }
-
-      private isCollidingWithRightEdge(player: Player): boolean {
-            return (
-                  player.getPosition().x + player.getDimension().getWidth() / 2 >
-                  this.position.x - this.dimension.getWidth() / 2
-            )
-      }
-
-      private isCollidingWithBottomEdge(player: Player): boolean {
-            return (
-                  player.getPosition().y + player.getDimension().getHeight() / 2 >
-                  this.position.y - this.dimension.getHeight() / 2
-            )
-      }
-
-      private isCollidingWithLeftEdge(player: Player): boolean {
-            return (
-                  player.getPosition().x - player.getDimension().getWidth() / 2 <
-                  this.position.x + this.dimension.getWidth() / 2
-            )
       }
 }

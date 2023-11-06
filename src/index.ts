@@ -7,7 +7,8 @@ import './index.css'
 
 import { BulletController } from './bullet/BulletController'
 import { SingleBulletStrategy } from './bullet/strategy/concrete/SingleBulletStrategy'
-import { Dimension } from './data/Dimension'
+import { ClipSpace } from './data/dimensions/ClipSpace'
+import { Hitbox } from './data/dimensions/Hitbox'
 import { Hitpoint } from './data/Hitpoint'
 import { Point } from './data/Point'
 import { Sprite } from './data/Sprite'
@@ -15,13 +16,13 @@ import { EnemyController } from './entities/enemy/EnemyController'
 import { Player } from './entities/player/Player'
 import { PlayerController } from './entities/player/PlayerController'
 
-function setupCanvas(dimension: Dimension): CanvasRenderingContext2D {
+function setupCanvas(clipSpace: ClipSpace): CanvasRenderingContext2D {
       const canvas = document.querySelector('canvas')
       if (!canvas) {
             throw new Error('canvas not found')
       }
-      canvas.width = dimension.getWidth()
-      canvas.height = dimension.getHeight()
+      canvas.width = clipSpace.getWidth()
+      canvas.height = clipSpace.getHeight()
 
       const ctx = canvas.getContext('2d')
       if (!ctx) {
@@ -46,7 +47,7 @@ function clear() {
       ctx.fillRect(0, 0, clipSpace.getWidth(), clipSpace.getHeight())
 }
 
-const clipSpace = new Dimension(512, 512)
+const clipSpace = new ClipSpace(512, 512)
 const ctx = setupCanvas(clipSpace)
 
 const playerBulletDelay = 2
@@ -60,8 +61,7 @@ const enemyController = new EnemyController(spawnrateInterval)
 const clipSpaceOrigo = new Point(clipSpace.getWidth() / 2, clipSpace.getHeight() / 2)
 const playerSpeed = 5
 const player = new Player(
-      clipSpaceOrigo,
-      new Dimension(16, 16),
+      new Hitbox(clipSpaceOrigo, 16, 16),
       new Sprite(new URL('../public/ship.png', import.meta.url)),
       new Hitpoint(100, 10),
       playerSpeed,

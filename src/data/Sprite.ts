@@ -3,8 +3,7 @@
  * @author Samuel Svensson
  */
 
-import { Dimension } from './Dimension'
-import { Point } from './Point'
+import { Hitbox } from './dimensions/Hitbox'
 
 export class Sprite {
       private img: HTMLImageElement = new Image()
@@ -13,13 +12,13 @@ export class Sprite {
             this.img.src = src.toString()
       }
 
-      draw(ctx: CanvasRenderingContext2D, position: Point, dimension: Dimension): void {
+      draw(ctx: CanvasRenderingContext2D, hitbox: Hitbox): void {
             ctx.drawImage(
                   this.img,
-                  position.x - dimension.getWidth() / 2,
-                  position.y - dimension.getWidth() / 2,
-                  dimension.getWidth(),
-                  dimension.getHeight()
+                  hitbox.getTopLeftPosition().x,
+                  hitbox.getTopLeftPosition().y,
+                  hitbox.getWidth(),
+                  hitbox.getHeight()
             )
       }
 }

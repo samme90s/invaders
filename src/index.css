@@ -28,5 +28,5 @@ canvas {
       align-items: center;
       text-align: center;
       /* size */
-      width: 100vh;
+      width: 100%;
 }

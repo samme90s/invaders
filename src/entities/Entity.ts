@@ -3,21 +3,18 @@
  * @author Samuel Svensson
  */
 
-import { Dimension } from '../data/Dimension'
+import { Hitbox } from '../data/dimensions/Hitbox'
 import { Hitpoint } from '../data/Hitpoint'
-import { Point } from '../data/Point'
 import { Sprite } from '../data/Sprite'
 
 export abstract class Entity {
-      protected position: Point
-      protected dimension: Dimension
       protected sprite: Sprite
+      protected hitbox: Hitbox
       protected hitpoint: Hitpoint
       protected speed: number = 1
 
       constructor(
-            position: Point,
-            dimension: Dimension,
+            hitbox: Hitbox,
             sprite: Sprite,
             hitpoint: Hitpoint,
             speed: number
@@ -26,19 +23,14 @@ export abstract class Entity {
                   throw new Error('speed must be positive or zero')
             }
 
-            this.position = position
-            this.dimension = dimension
+            this.hitbox = hitbox
             this.sprite = sprite
             this.hitpoint = hitpoint
             this.speed = speed
       }
 
-      getPosition(): Point {
-            return this.position.from()
-      }
-
-      getDimension(): Dimension {
-            return this.dimension.from()
+      getHitbox(): Hitbox {
+            return this.hitbox.from()
       }
 
       getHitpoint(): Hitpoint {

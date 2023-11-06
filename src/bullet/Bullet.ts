@@ -3,69 +3,51 @@
  * @author Samuel Svensson
  */
 
-import { Dimension } from '../data/Dimension'
+import { Hitbox } from '../data/dimensions/Hitbox'
 import { Point } from '../data/Point'
 import { CartesianVector } from '../data/vectors/CartesianVector'
 import { PolarVector } from '../data/vectors/PolarVector'
-import { Enemy } from '../entities/enemy/Enemy'
 
 export class Bullet {
-      private position: Point
-      private dimension: Dimension
+      private hitbox: Hitbox
       private vector: CartesianVector
 
       constructor(position: Point, vector: PolarVector) {
-            this.position = position
-
             // This may be odd because the vector is already normalized
             // and multiplied when created in as a PolarVector.
             this.vector = vector.toCartesian()
 
-            // Variable dimension depending on the vector.
-            // Maybe use this as a default if no dimension is provided?
-            // Otherwise check bullet angle and set dimension accordingly
-            // based of the dimension passed in.
-            this.dimension = new Dimension(
+            // Variable hitbox depending on the vector.
+            // Maybe use this as a default if no hitbox is provided?
+            // Otherwise check bullet angle and set hitbox accordingly
+            // based of the hitbox passed in.
+            this.hitbox = new Hitbox(
+                  position,
                   Math.max(1, Math.abs(this.vector.getX())),
                   Math.max(1, Math.abs(this.vector.getY()))
             )
 
-            this.offsetBullet()
-            
-      }
-
-      private offsetBullet(): void {
-            this.position.x -= this.dimension.getWidth() / 2
-            this.position.y -= this.dimension.getHeight() / 2
-            // Further offset the bullet's position so that the edge of the
-            // bullet is at the player's position
-            this.position.x += this.vector.getX()
-            this.position.y -= this.vector.getY()
-      }
-
-      getPosition(): Point {
-            return this.position.from()
+            // Add some offset depending on the vector.
       }
 
       draw(ctx: CanvasRenderingContext2D): void {
             ctx.fillStyle = '#f00'
             ctx.fillRect(
-                  this.position.x,
-                  this.position.y,
-                  this.dimension.getWidth(),
-                  this.dimension.getHeight()
+                  this.hitbox.getTopLeftPosition().x,
+                  this.hitbox.getTopLeftPosition().y,
+                  this.hitbox.getWidth(),
+                  this.hitbox.getHeight()
             )
 
-            this.position.x += this.vector.getX()
-            this.position.y -= this.vector.getY()
+            this.hitbox.getMutablePosition().x += this.vector.getX()
+            this.hitbox.getMutablePosition().y -= this.vector.getY()
       }
 
-      isCollidingWith(enemy: Enemy): boolean {
-            return (
-                  this.position.x < enemy.getPosition().x + enemy.getDimension().getWidth() &&
-                  this.position.x + this.dimension.getWidth() > enemy.getPosition().x &&
-                  this.position.y < enemy.getPosition().y + enemy.getDimension().getHeight() &&
-                  this.position.y + this.dimension.getHeight() > enemy.getPosition().y
-            )
+      getHitbox(): Hitbox {
+            return this.hitbox.from()
+      }
+
+      isCollidingWith(hitbox: Hitbox): boolean {
+            return this.hitbox.isCollidingWith(hitbox)
       }
 }

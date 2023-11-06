@@ -10,10 +10,10 @@ export class PlayerController {
             a: false,
             s: false,
             d: false,
-            ArrowUp: false,
-            ArrowLeft: false,
-            ArrowDown: false,
-            ArrowRight: false
+            p: false,
+            l: false,
+            ö: false,
+            ä: false
       }
 
       constructor() {
@@ -38,19 +38,19 @@ export class PlayerController {
       }
 
       get shootUp(): boolean {
-            return this.actions['ArrowUp']
+            return this.actions['p']
       }
 
       get shootLeft(): boolean {
-            return this.actions['ArrowLeft']
+            return this.actions['l']
       }
 
       get shootDown(): boolean {
-            return this.actions['ArrowDown']
+            return this.actions['ö']
       }
 
       get shootRight(): boolean {
-            return this.actions['ArrowRight']
+            return this.actions['ä']
       }
 
       private keyDown(event: KeyboardEvent): void {

@@ -3,7 +3,7 @@
  * @author Samuel Svensson
  */
 
-import { Dimension } from './Dimension'
+import { Dimension } from './dimensions/Dimension'
 import { Point } from './Point'
 
 export class Hitpoint {
@@ -47,12 +47,15 @@ export class Hitpoint {
             this.actualDimension = new Dimension(30, this.totalDimension.getHeight())
       }
 
-      draw(ctx: CanvasRenderingContext2D, position: Point): void {
-            this.regenerate()
-            this.drawDimension(ctx, position)
+      from(): Hitpoint {
+            const copy = new Hitpoint(this.total)
+            copy.actual = this.actual
+            return copy
       }
 
-      private drawDimension(ctx: CanvasRenderingContext2D, position: Point): void {
+      draw(ctx: CanvasRenderingContext2D, position: Point): void {
+            this.regenerate()
+
             const x = position.x - this.totalDimension.getWidth() / 2
             const y = position.y + this.actualDimension.getHeight() + 8 // Offset.
 
@@ -68,22 +71,12 @@ export class Hitpoint {
             )
       }
 
-      from(): Hitpoint {
-            const copy = new Hitpoint(this.total)
-            copy.actual = this.actual
-            return copy
-      }
-
-      getTotal(): number {
-            return this.total
+      private getRatio(): number {
+            return this.actual / this.total
       }
 
       getActual(): number {
             return this.actual
-      }
-
-      getRatio(): number {
-            return this.actual / this.total
       }
 
       reduce(amount: number): void {

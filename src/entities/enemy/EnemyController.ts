@@ -3,7 +3,8 @@
  * @author Samuel Svensson
  */
 
-import { Dimension } from '../../data/Dimension'
+import { ClipSpace } from '../../data/dimensions/ClipSpace'
+import { Hitbox } from '../../data/dimensions/Hitbox'
 import { Hitpoint } from '../../data/Hitpoint'
 import { Point } from '../../data/Point'
 import { Sprite } from '../../data/Sprite'
@@ -29,7 +30,7 @@ export class EnemyController {
             return this.enemies.length
       }
 
-      draw(ctx: CanvasRenderingContext2D, clipSpace: Dimension, player: Player): void {
+      draw(ctx: CanvasRenderingContext2D, clipSpace: ClipSpace, player: Player): void {
             this.spawnEnemies(clipSpace)
 
             for (let eIx = 0; eIx < this.enemies.length; eIx++) {
@@ -49,12 +50,15 @@ export class EnemyController {
             this.spawnrate++
       }
 
-      private spawnEnemies(clipSpace: Dimension): void {
+      private spawnEnemies(clipSpace: ClipSpace): void {
             while (this.enemies.length < this.spawnrate) {
                   this.enemies.push(
                         new Enemy(
-                              this.generateRandomPointOutsideClipSpace(clipSpace, 200),
-                              new Dimension(8, 8),
+                              new Hitbox(
+                                    this.generateRandomPointOutsideClipSpace(clipSpace, 200),
+                                    8,
+                                    8
+                              ),
                               new Sprite(new URL('../../../public/invader.png', import.meta.url)),
                               new Hitpoint(1, 0),
                               1
@@ -63,7 +67,7 @@ export class EnemyController {
             }
       }
 
-      private generateRandomPointOutsideClipSpace(clipSpace: Dimension, maxOffset: number): Point {
+      private generateRandomPointOutsideClipSpace(clipSpace: ClipSpace, maxOffset: number): Point {
             const random = Math.floor(Math.random() * 4)
             if (random === 0) {
                   return this.generateRandomPointOnTopEdge(clipSpace, maxOffset)
@@ -78,25 +82,25 @@ export class EnemyController {
             throw new Error('could not generate random point')
       }
 
-      private generateRandomPointOnTopEdge(clipSpace: Dimension, maxOffset: number): Point {
+      private generateRandomPointOnTopEdge(clipSpace: ClipSpace, maxOffset: number): Point {
             const randomOffset = Math.floor(Math.random() * maxOffset)
             const randomWidth = Math.floor(Math.random() * clipSpace.getWidth())
             return new Point(randomWidth, -randomOffset)
       }
 
-      private generateRandomPointOnRightEdge(clipSpace: Dimension, maxOffset: number): Point {
+      private generateRandomPointOnRightEdge(clipSpace: ClipSpace, maxOffset: number): Point {
             const randomOffset = Math.floor(Math.random() * maxOffset)
             const randomHeight = Math.floor(Math.random() * clipSpace.getHeight())
             return new Point(clipSpace.getWidth() + randomOffset, randomHeight)
       }
 
-      private generateRandomPointOnBottomEdge(clipSpace: Dimension, maxOffset: number): Point {
+      private generateRandomPointOnBottomEdge(clipSpace: ClipSpace, maxOffset: number): Point {
             const randomOffset = Math.floor(Math.random() * maxOffset)
             const randomWidth = Math.floor(Math.random() * clipSpace.getWidth())
             return new Point(randomWidth, clipSpace.getHeight() + randomOffset)
       }
 
-      private generateRandomPointOnLeftEdge(clipSpace: Dimension, maxOffset: number): Point {
+      private generateRandomPointOnLeftEdge(clipSpace: ClipSpace, maxOffset: number): Point {
             const randomOffset = Math.floor(Math.random() * maxOffset)
             const randomHeight = Math.floor(Math.random() * clipSpace.getHeight())
             return new Point(-randomOffset, randomHeight)
