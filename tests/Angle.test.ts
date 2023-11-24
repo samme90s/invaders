@@ -6,11 +6,6 @@
 import { Angle } from '../src/data/angles/Angle'
 
 describe('Angle', () => {
-      test('Angle should be defined', () => {
-            const angle = new Angle(0)
-            expect(angle).toBeDefined()
-      })
-
       test('Angle should always be positive', () => {
             const angle = new Angle(-1)
             expect(angle.getValue()).toBe(359)

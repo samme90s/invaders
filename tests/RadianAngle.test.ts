@@ -6,11 +6,6 @@
 import { RadianAngle } from '../src/data/angles/RadianAngle'
 
 describe('RadianAngle', () => {
-      test('RadianAngle should be defined', () => {
-            const angle = new RadianAngle(0)
-            expect(angle).toBeDefined()
-      })
-
       test.each([
             [0, 0],
             [2 * Math.PI, 0],

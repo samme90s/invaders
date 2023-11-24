@@ -7,11 +7,6 @@ import { Hitbox } from '../src/data/dimensions/Hitbox'
 import { Point } from '../src/data/Point'
 
 describe('Hitbox', () => {
-      test('Hitbox should be defined', () => {
-            const hitbox = new Hitbox(new Point(0, 0), 1, 1)
-            expect(hitbox).toBeDefined()
-      })
-
       test('Should return a copy with equal values', () => {
             const hitbox = new Hitbox(new Point(0, 0), 1, 1)
             const hitboxCopy = hitbox.from()
