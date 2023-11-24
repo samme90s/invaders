@@ -11,38 +11,22 @@ describe('RadianAngle', () => {
             expect(angle).toBeDefined()
       })
 
-      test('RadianAngle should be 0', () => {
-            const angle = new RadianAngle(0)
-            expect(angle.getValue()).toBe(0)
+      test.each([
+            [0, 0],
+            [2 * Math.PI, 0],
+            [-2 * Math.PI, 0],
+            [Math.PI / 2, Math.PI / 2],
+            [(5 * Math.PI) / 2, Math.PI / 2],
+      ])('RadianAngle should be %i when setting %i', (actual, expected) => {
+            const angle = new RadianAngle(actual)
+            expect(angle.getValue()).toBe(expected)
       })
 
-      test('RadianAngle should be 0 (setting 2PI)', () => {
-            const angle = new RadianAngle(2 * Math.PI)
-            expect(angle.getValue()).toBe(0)
-      })
-
-      test('RadianAngle should be 0 (setting -2PI)', () => {
-            const angle = new RadianAngle(-2 * Math.PI)
-            expect(angle.getValue()).toBe(0)
-      })
-
-      test('RadianAngle should be PI/2', () => {
-            const angle = new RadianAngle(Math.PI / 2)
-            expect(angle.getValue()).toBe(Math.PI / 2)
-      })
-
-      test('RadianAngle should be PI/2 (setting 5PI/2)', () => {
-            const angle = new RadianAngle((5 * Math.PI) / 2)
-            expect(angle.getValue()).toBe(Math.PI / 2)
-      })
-
-      test('RadianAngle (setting 0) converted to degrees should be 0', () => {
-            const angle = new RadianAngle(0)
-            expect(angle.toDegrees().getValue()).toBe(0)
-      })
-
-      test('RadianAngle (setting PI) converted to degrees should be 180', () => {
-            const angle = new RadianAngle(Math.PI)
-            expect(angle.toDegrees().getValue()).toBe(180)
+      test.each([
+            [0, 0],
+            [Math.PI, 180],
+      ])('RadianAngle %i converted to degrees should be %i', (actual, expected) => {
+            const angle = new RadianAngle(actual)
+            expect(angle.toDegrees().getValue()).toBe(expected)
       })
 })
