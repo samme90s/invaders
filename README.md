@@ -15,4 +15,4 @@ You should now have a `dist` folder with the compiled code.
 
 ## Contributing
 
-Any feedback and suggestions are welcome and can be done by creating an issue connected to the repository. All contributions requires unit tests and must be approved by a reviewer before being merged.
+Any feedback and suggestions are welcome and can be done by creating an issue connected to the repository. All contributions requires unit tests with a coverage of at least 90% and must be approved by a reviewer before being merged.
