@@ -12,13 +12,9 @@ describe('Hitbox', () => {
       const height = 1
       const hitbox = new Hitbox(point, width, height)
 
-      test('should return an object with equal values', () => {
+      test('should return an new object with equal values', () => {
             const hitboxCopy = hitbox.from()
             expect(hitbox).toEqual(hitboxCopy)
-      })
-
-      test('should not reference other', () => {
-            const hitboxCopy = hitbox.from()
             expect(hitbox).not.toBe(hitboxCopy)
       })
 
