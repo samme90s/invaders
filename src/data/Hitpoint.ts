@@ -26,7 +26,11 @@ export class Hitpoint {
       /**
        * @param regenRate Settings this value to 0 will disable regeneration.
        */
-      constructor(total: number = 1, regenRate: number = 0) {
+      constructor(
+            total: number = 1,
+            regenRate: number = 0,
+            regenDelay: number = 10
+      ) {
             if (total <= 0) {
                   throw new RangeError('total must be positive')
             }
@@ -37,11 +41,14 @@ export class Hitpoint {
                   )
             }
 
+            if (regenDelay < 1) {
+                  throw new RangeError('regeneration delay must one or more')
+            }
+
             this.total = total
             this.actual = total
             this.regenRate = regenRate
-            // Magic number here?
-            this.regenDelay = 10
+            this.regenDelay = regenDelay
             this.regenClock = 0
             this.regenTimeout = 0
             // Used for drawing:
@@ -53,7 +60,11 @@ export class Hitpoint {
       }
 
       from(): Hitpoint {
-            const copy = new Hitpoint(this.total)
+            const copy = new Hitpoint(
+                  this.total,
+                  this.regenRate,
+                  this.regenDelay
+            )
             copy.actual = this.actual
             return copy
       }
@@ -103,27 +114,38 @@ export class Hitpoint {
             this.regenTimeout = ticks
       }
 
-      // Simplify this method:
       private regenerate(): void {
-            if (this.regenRate <= 0) {
-                  return
+            this.updateRegenTimeout()
+            this.updateRegenClock()
+            if (this.canRegenerate()) {
+                  if (this.actual + this.regenRate > this.total) {
+                        this.actual = this.total
+                  } else {
+                        this.actual += this.regenRate
+                  }
             }
+      }
 
+      private updateRegenTimeout(): void {
             if (this.regenTimeout > 0) {
                   this.regenTimeout--
-                  return
             }
+      }
 
-            this.regenClock--
-            if (this.regenClock <= 0) {
-                  if (this.actual < this.total) {
-                        if (this.actual + this.regenRate > this.total) {
-                              this.actual = this.total
-                        } else {
-                              this.actual += this.regenRate
-                        }
-                  }
+      private updateRegenClock(): void {
+            if (this.regenClock > 0) {
+                  this.regenClock--
+            } else {
                   this.regenClock = this.regenDelay
             }
+      }
+
+      private canRegenerate(): boolean {
+            return (
+                  this.regenRate > 0 &&
+                  this.actual < this.total &&
+                  this.regenTimeout <= 0 &&
+                  this.regenClock <= 0
+            )
       }
 }
