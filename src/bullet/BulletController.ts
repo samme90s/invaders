@@ -1,5 +1,6 @@
 /**
- * @fileoverview Defines a controller that handles bullet instances and simulate their behaviour.
+ * @fileoverview Defines a controller that handles bullet instances and
+ * simulate their behaviour.
  * @author Samuel Svensson
  */
 
@@ -16,7 +17,10 @@ export class BulletController {
       private shootDelay: number
       private shootClock: number
 
-      constructor(bulletCreationStrategy: BulletCreationStrategy, shootDelay: number = 1) {
+      constructor(
+            bulletCreationStrategy: BulletCreationStrategy,
+            shootDelay: number = 1
+      ) {
             this.bulletCreationStrategy = bulletCreationStrategy
             this.shootDelay = shootDelay
             this.shootClock = 0
@@ -41,7 +45,10 @@ export class BulletController {
       private shoot(origin: Point, originAngle: Angle): void {
             this.shootClock--
             if (this.shootClock <= 0) {
-                  const bullets = this.bulletCreationStrategy.getBullets(origin, originAngle)
+                  const bullets = this.bulletCreationStrategy.getBullets(
+                        origin,
+                        originAngle
+                  )
                   for (let bIx = 0; bIx < bullets.length; bIx++) {
                         this.bullets.push(bullets[bIx])
                   }
@@ -70,7 +77,10 @@ export class BulletController {
                   for (let eIx = 0; eIx < enemies.length; eIx++) {
                         if (bullet.isCollidingWith(enemies[eIx].getHitbox())) {
                               enemies[eIx].reduceHitpoint(1)
-                              this.bullets.splice(this.bullets.indexOf(bullet), 1)
+                              this.bullets.splice(
+                                    this.bullets.indexOf(bullet),
+                                    1
+                              )
                               return true
                         }
                   }

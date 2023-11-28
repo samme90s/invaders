@@ -10,7 +10,10 @@ import { Bullet } from '../Bullet'
 
 export class BulletFactory {
       static createFastBullet(origin: Point, angle: Angle): Bullet {
-            return new Bullet(new Point(origin.x, origin.y), new PolarVector(10, angle))
+            return new Bullet(
+                  new Point(origin.x, origin.y),
+                  new PolarVector(10, angle)
+            )
       }
 
       // Add more bullet variations here...

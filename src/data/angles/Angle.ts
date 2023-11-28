@@ -20,10 +20,10 @@ export class Angle {
       }
 
       /**
-       * Calculates the modulus of the angle with 360 to handle angles
-       * greater than 360 degrees. If the angle is negative, it adds 360 to make it
-       * positive, then takes the modulus again to ensure the result is within the
-       * range of 0 to 359 degrees.
+       * Calculates the modulus of the angle with 360 to handle
+       * angles greater than 360 degrees. If the angle is negative,
+       * it adds 360 to make it positive, then takes the modulus
+       * again to ensure the result is within the range of 0 to 359 degrees.
        */
       setAngle(angle: number): void {
             this.angle = ((angle % 360) + 360) % 360

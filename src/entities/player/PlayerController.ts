@@ -1,6 +1,6 @@
 /**
- * @fileoverview Defines a controller that handles the set keybindings for actions and their
- * respective states.
+ * @fileoverview Defines a controller that handles the set keybindings for
+ * actions and their respective states.
  * @author Samuel Svensson
  */
 
@@ -13,7 +13,7 @@ export class PlayerController {
             p: false,
             l: false,
             ö: false,
-            ä: false
+            ä: false,
       }
 
       constructor() {

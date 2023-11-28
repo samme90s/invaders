@@ -5,6 +5,7 @@
 
 import './index.css'
 
+/* eslint-disable max-len */
 import { BulletController } from './bullet/BulletController'
 import { SingleBulletStrategy } from './bullet/strategy/concrete/SingleBulletStrategy'
 import { ClipSpace } from './data/dimensions/ClipSpace'
@@ -15,6 +16,7 @@ import { Sprite } from './data/Sprite'
 import { EnemyController } from './entities/enemy/EnemyController'
 import { Player } from './entities/player/Player'
 import { PlayerController } from './entities/player/PlayerController'
+/* eslint-enable max-len */
 
 function setupCanvas(clipSpace: ClipSpace): CanvasRenderingContext2D {
       const canvas = document.querySelector('canvas')
@@ -52,13 +54,19 @@ const ctx = setupCanvas(clipSpace)
 
 const playerBulletDelay = 2
 const playerBulletCreationStrategy = new SingleBulletStrategy()
-const playerBulletController = new BulletController(playerBulletCreationStrategy, playerBulletDelay)
+const playerBulletController = new BulletController(
+      playerBulletCreationStrategy,
+      playerBulletDelay
+)
 const playerController = new PlayerController()
 
 const spawnrateInterval = 2000
 const enemyController = new EnemyController(spawnrateInterval)
 
-const clipSpaceOrigo = new Point(clipSpace.getWidth() / 2, clipSpace.getHeight() / 2)
+const clipSpaceOrigo = new Point(
+      clipSpace.getWidth() / 2,
+      clipSpace.getHeight() / 2
+)
 const playerSpeed = 5
 const player = new Player(
       new Hitbox(clipSpaceOrigo, 16, 16),

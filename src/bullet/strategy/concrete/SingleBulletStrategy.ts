@@ -1,5 +1,6 @@
 /**
- * @fileoverview Represents a concrete bullet creation strategy that creates a single bullet.
+ * @fileoverview Represents a concrete bullet creation strategy that creates
+ * a single bullet.
  * @author Samuel Svensson
  */
 
