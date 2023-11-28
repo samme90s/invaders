@@ -71,7 +71,7 @@ const playerSpeed = 5
 const player = new Player(
       new Hitbox(clipSpaceOrigo, 16, 16),
       new Sprite(new URL('../public/ship.png', import.meta.url)),
-      new Hitpoint(100, 10),
+      new Hitpoint(100, 10, 10),
       playerSpeed,
       playerBulletController,
       playerController

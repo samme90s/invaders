@@ -75,7 +75,7 @@ export class EnemyController {
                                           import.meta.url
                                     )
                               ),
-                              new Hitpoint(1, 0),
+                              new Hitpoint(1, 0, 10),
                               1
                         )
                   )
