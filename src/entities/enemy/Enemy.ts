@@ -29,8 +29,10 @@ export class Enemy extends Entity {
 
       private move(player: Player): void {
             const vector = new CartesianVector(
-                  player.getHitbox().getPosition().x - this.hitbox.getPosition().x,
-                  player.getHitbox().getPosition().y - this.hitbox.getPosition().y
+                  player.getHitbox().getPosition().x -
+                        this.hitbox.getPosition().x,
+                  player.getHitbox().getPosition().y -
+                        this.hitbox.getPosition().y
             )
                   .normalize()
                   .multiply(this.speed)

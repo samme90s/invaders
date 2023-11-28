@@ -80,7 +80,10 @@ export class Player extends Entity {
       }
 
       private isOutsideDown(clipSpace: ClipSpace): boolean {
-            return this.hitbox.getPosition().y > clipSpace.getHeight() - this.hitbox.getHeight()
+            return (
+                  this.hitbox.getPosition().y >
+                  clipSpace.getHeight() - this.hitbox.getHeight()
+            )
       }
 
       private moveRight(clipSpace: ClipSpace): void {
@@ -90,7 +93,10 @@ export class Player extends Entity {
       }
 
       private isOutsideRight(clipSpace: ClipSpace): boolean {
-            return this.hitbox.getPosition().x > clipSpace.getWidth() - this.hitbox.getWidth()
+            return (
+                  this.hitbox.getPosition().x >
+                  clipSpace.getWidth() - this.hitbox.getWidth()
+            )
       }
 
       private shoot(): void {

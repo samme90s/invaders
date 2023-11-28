@@ -41,7 +41,10 @@ export class Hitbox extends Dimension {
       }
 
       getTopLeftPosition(): Point {
-            return new Point(this.position.x - this.width / 2, this.position.y - this.height / 2)
+            return new Point(
+                  this.position.x - this.width / 2,
+                  this.position.y - this.height / 2
+            )
       }
 
       isCollidingWith(hitbox: Hitbox): boolean {
@@ -55,23 +58,29 @@ export class Hitbox extends Dimension {
 
       private isCollidingWithTopEdge(hitbox: Hitbox): boolean {
             return (
-                  this.position.y - this.height / 2 <
+                  this.position.y - this.height / 2 <=
                   hitbox.getPosition().y + hitbox.getHeight() / 2
             )
       }
 
       private isCollidingWithRightEdge(hitbox: Hitbox): boolean {
-            return this.position.x + this.width / 2 > hitbox.getPosition().x - hitbox.getWidth() / 2
+            return (
+                  this.position.x + this.width / 2 >=
+                  hitbox.getPosition().x - hitbox.getWidth() / 2
+            )
       }
 
       private isCollidingWithBottomEdge(hitbox: Hitbox): boolean {
             return (
-                  this.position.y + this.height / 2 >
+                  this.position.y + this.height / 2 >=
                   hitbox.getPosition().y - hitbox.getHeight() / 2
             )
       }
 
       private isCollidingWithLeftEdge(hitbox: Hitbox): boolean {
-            return this.position.x - this.width / 2 < hitbox.getPosition().x + hitbox.getWidth() / 2
+            return (
+                  this.position.x - this.width / 2 <=
+                  hitbox.getPosition().x + hitbox.getWidth() / 2
+            )
       }
 }

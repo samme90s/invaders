@@ -20,8 +20,11 @@ describe('RadianAngle', () => {
       test.each([
             [0, 0],
             [Math.PI, 180],
-      ])('RadianAngle %i converted to degrees should be %i', (actual, expected) => {
-            const angle = new RadianAngle(actual)
-            expect(angle.toDegrees().getValue()).toBe(expected)
-      })
+      ])(
+            'RadianAngle %i converted to degrees should be %i',
+            (actual, expected) => {
+                  const angle = new RadianAngle(actual)
+                  expect(angle.toDegrees().getValue()).toBe(expected)
+            }
+      )
 })

@@ -32,7 +32,9 @@ export class Hitpoint {
             }
 
             if (regenRate < 0) {
-                  throw new RangeError('regeneration rate must be positive or zero')
+                  throw new RangeError(
+                        'regeneration rate must be positive or zero'
+                  )
             }
 
             this.total = total
@@ -44,7 +46,10 @@ export class Hitpoint {
             this.regenTimeout = 0
             // Used for drawing:
             this.totalDimension = new Dimension(30, 4)
-            this.actualDimension = new Dimension(30, this.totalDimension.getHeight())
+            this.actualDimension = new Dimension(
+                  30,
+                  this.totalDimension.getHeight()
+            )
       }
 
       from(): Hitpoint {
@@ -56,11 +61,18 @@ export class Hitpoint {
       draw(ctx: CanvasRenderingContext2D, position: Point): void {
             this.regenerate()
 
+            // Positioning of bar:
             const x = position.x - this.totalDimension.getWidth() / 2
-            const y = position.y + this.actualDimension.getHeight() + 8 // Offset.
+            const yOffset = 8
+            const y = position.y + this.actualDimension.getHeight() + yOffset
 
             ctx.fillStyle = '#fff'
-            ctx.fillRect(x, y, this.totalDimension.getWidth(), this.actualDimension.getHeight())
+            ctx.fillRect(
+                  x,
+                  y,
+                  this.totalDimension.getWidth(),
+                  this.actualDimension.getHeight()
+            )
 
             ctx.fillStyle = '#f00'
             ctx.fillRect(

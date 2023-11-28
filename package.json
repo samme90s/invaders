@@ -19,7 +19,8 @@
             "preview": "vite preview",
             "lint": "npx eslint ./src",
             "lint:fix": "npx eslint ./src --fix",
-            "test": "npx --node-options=--experimental-vm-modules jest"
+            "test": "npx --node-options=--experimental-vm-modules jest",
+            "test-coverage": "npx --node-options=--experimental-vm-modules jest --coverage"
       },
       "keywords": [
             "invaders"
