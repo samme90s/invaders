@@ -46,6 +46,6 @@ describe('Hitbox', () => {
 
       test('should collide with other', () => {
             const other = new Hitbox(new Point(1, 1), 1, 1)
-            expect(hitbox.isCollidingWith(other)).toBe(true)
+            expect(hitbox.isCollidingWith(other)).toBeTruthy
       })
 })

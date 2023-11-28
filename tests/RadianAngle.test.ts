@@ -12,7 +12,7 @@ describe('RadianAngle', () => {
             [-2 * Math.PI, 0],
             [Math.PI / 2, Math.PI / 2],
             [(5 * Math.PI) / 2, Math.PI / 2],
-      ])('RadianAngle should be %i when setting %i', (actual, expected) => {
+      ])('should be %i when setting %i', (actual, expected) => {
             const angle = new RadianAngle(actual)
             expect(angle.getValue()).toBe(expected)
       })
@@ -20,11 +20,8 @@ describe('RadianAngle', () => {
       test.each([
             [0, 0],
             [Math.PI, 180],
-      ])(
-            'RadianAngle %i converted to degrees should be %i',
-            (actual, expected) => {
-                  const angle = new RadianAngle(actual)
-                  expect(angle.toDegrees().getValue()).toBe(expected)
-            }
-      )
+      ])('should convert %i to %i degrees', (actual, expected) => {
+            const angle = new RadianAngle(actual)
+            expect(angle.toDegrees().getValue()).toBe(expected)
+      })
 })
