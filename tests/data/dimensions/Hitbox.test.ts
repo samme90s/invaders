@@ -3,8 +3,8 @@
  * @author Samuel Svensson
  */
 
-import { Hitbox } from '../src/data/dimensions/Hitbox'
-import { Point } from '../src/data/Point'
+import { Hitbox } from '../../../src/data/dimensions/Hitbox'
+import { Point } from '../../../src/data/Point'
 
 describe('Hitbox', () => {
       const point = new Point(0, 0)

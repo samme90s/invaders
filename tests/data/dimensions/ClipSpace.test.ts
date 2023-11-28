@@ -3,9 +3,9 @@
  * @author Samuel Svensson
  */
 
-import { ClipSpace } from '../src/data/dimensions/ClipSpace'
-import { Hitbox } from '../src/data/dimensions/Hitbox'
-import { Point } from '../src/data/Point'
+import { ClipSpace } from '../../../src/data/dimensions/ClipSpace'
+import { Hitbox } from '../../../src/data/dimensions/Hitbox'
+import { Point } from '../../../src/data/Point'
 
 describe('ClipSpace', () => {
       const hitboxSize = 1

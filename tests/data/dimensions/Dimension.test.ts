@@ -3,7 +3,7 @@
  * @author Samuel Svensson
  */
 
-import { Dimension } from '../src/data/dimensions/Dimension'
+import { Dimension } from '../../../src/data/dimensions/Dimension'
 
 describe('Dimension', () => {
       test('should always be positive', () => {
