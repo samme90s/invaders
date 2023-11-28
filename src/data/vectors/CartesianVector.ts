@@ -3,7 +3,7 @@
  * @author Samuel Svensson
  */
 
-import { Angle } from '../angles/Angle'
+import { RadianAngle } from '../angles/RadianAngle'
 import { PolarVector } from './PolarVector'
 
 export class CartesianVector {
@@ -25,7 +25,9 @@ export class CartesianVector {
 
       toPolar(): PolarVector {
             const magnitude = Math.sqrt(this.x ** 2 + this.y ** 2)
-            const angle = new Angle(Math.atan2(this.y, this.x))
+            const angle = new RadianAngle(
+                  Math.atan2(this.y, this.x)
+            ).toDegrees()
             return new PolarVector(magnitude, angle)
       }
 
