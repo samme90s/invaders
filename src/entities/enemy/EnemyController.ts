@@ -29,10 +29,6 @@ export class EnemyController {
             return Array.from(this.enemies)
       }
 
-      getEnemiesCount(): number {
-            return this.enemies.length
-      }
-
       draw(
             ctx: CanvasRenderingContext2D,
             clipSpace: ClipSpace,

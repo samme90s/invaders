@@ -7,7 +7,7 @@ import './index.css'
 
 /* eslint-disable max-len */
 import { BulletController } from './bullet/BulletController'
-import { SingleBulletStrategy } from './bullet/strategy/concrete/SingleBulletStrategy'
+import { SingleBulletStrategy } from './bullet/strategy/SingleBulletStrategy'
 import { ClipSpace } from './data/dimensions/ClipSpace'
 import { Hitbox } from './data/dimensions/Hitbox'
 import { Hitpoint } from './data/Hitpoint'

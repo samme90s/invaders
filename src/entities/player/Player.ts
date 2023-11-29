@@ -4,6 +4,7 @@
  */
 
 import { BulletController } from '../../bullet/BulletController'
+import { Angle } from '../../data/angles/Angle'
 import { ClipSpace } from '../../data/dimensions/ClipSpace'
 import { Hitbox } from '../../data/dimensions/Hitbox'
 import { Hitpoint } from '../../data/Hitpoint'
@@ -33,6 +34,40 @@ export class Player extends Entity {
             this.shoot()
             this.sprite.draw(ctx, this.hitbox)
             this.hitpoint.draw(ctx, this.hitbox.getPosition())
+      }
+
+      private shoot(): void {
+            if (this.playerController.shootUp) {
+                  this.bulletController.shoot(
+                        this.hitbox.getPosition(),
+                        new Angle(90)
+                  )
+                  return
+            }
+
+            if (this.playerController.shootLeft) {
+                  this.bulletController.shoot(
+                        this.hitbox.getPosition(),
+                        new Angle(180)
+                  )
+                  return
+            }
+
+            if (this.playerController.shootDown) {
+                  this.bulletController.shoot(
+                        this.hitbox.getPosition(),
+                        new Angle(270)
+                  )
+                  return
+            }
+
+            if (this.playerController.shootRight) {
+                  this.bulletController.shoot(
+                        this.hitbox.getPosition(),
+                        new Angle(0)
+                  )
+                  return
+            }
       }
 
       private move(clipSpace: ClipSpace): void {
@@ -97,23 +132,5 @@ export class Player extends Entity {
                   this.hitbox.getPosition().x >
                   clipSpace.getWidth() - this.hitbox.getWidth()
             )
-      }
-
-      private shoot(): void {
-            if (this.playerController.shootUp) {
-                  this.bulletController.shootUp(this.hitbox.getPosition())
-            }
-
-            if (this.playerController.shootLeft) {
-                  this.bulletController.shootLeft(this.hitbox.getPosition())
-            }
-
-            if (this.playerController.shootDown) {
-                  this.bulletController.shootDown(this.hitbox.getPosition())
-            }
-
-            if (this.playerController.shootRight) {
-                  this.bulletController.shootRight(this.hitbox.getPosition())
-            }
       }
 }

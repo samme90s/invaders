@@ -17,17 +17,17 @@ export class BulletController {
       private shootDelay: number
       private shootClock: number
 
+      /**
+       * @param shootDelay Clock ticks between each shot, this value is
+       * always positive or zero. Default value is 1.
+       */
       constructor(
             bulletCreationStrategy: BulletCreationStrategy,
             shootDelay: number = 1
       ) {
             this.bulletCreationStrategy = bulletCreationStrategy
-            this.shootDelay = shootDelay
+            this.shootDelay = Math.abs(shootDelay)
             this.shootClock = 0
-      }
-
-      get count(): number {
-            return this.bullets.length
       }
 
       draw(ctx: CanvasRenderingContext2D, clipSpace: ClipSpace): void {
@@ -42,50 +42,42 @@ export class BulletController {
             }
       }
 
-      private shoot(origin: Point, originAngle: Angle): void {
+      shoot(origin: Point, angle: Angle): void {
             this.shootClock--
             if (this.shootClock <= 0) {
-                  const bullets = this.bulletCreationStrategy.getBullets(
-                        origin,
-                        originAngle
-                  )
-                  for (let bIx = 0; bIx < bullets.length; bIx++) {
-                        this.bullets.push(bullets[bIx])
-                  }
+                  this.createBullets(origin, angle)
                   this.shootClock = this.shootDelay
             }
       }
 
-      shootUp(origin: Point): void {
-            this.shoot(origin, new Angle(90))
-      }
-
-      shootLeft(origin: Point): void {
-            this.shoot(origin, new Angle(180))
-      }
-
-      shootDown(origin: Point): void {
-            this.shoot(origin, new Angle(270))
-      }
-
-      shootRight(origin: Point): void {
-            this.shoot(origin, new Angle(0))
+      private createBullets(origin: Point, originAngle: Angle): void {
+            const bullets = this.bulletCreationStrategy.getBullets(
+                  origin,
+                  originAngle
+            )
+            for (let bIx = 0; bIx < bullets.length; bIx++) {
+                  this.bullets.push(bullets[bIx])
+            }
       }
 
       isCollidingWith(enemies: Enemy[]): boolean {
-            return this.bullets.some(bullet => {
+            for (let bIx = 0; bIx < this.bullets.length; bIx++) {
                   for (let eIx = 0; eIx < enemies.length; eIx++) {
-                        if (bullet.isCollidingWith(enemies[eIx].getHitbox())) {
-                              enemies[eIx].reduceHitpoint(1)
-                              this.bullets.splice(
-                                    this.bullets.indexOf(bullet),
-                                    1
+                        if (
+                              this.bullets[bIx].isCollidingWith(
+                                    enemies[eIx].getHitbox()
                               )
+                        ) {
+                              enemies[eIx].reduceHitpoint(1)
+                              // Make sure to update this if return is removed.
+                              // Otherwise modifying the array while iterating
+                              // will cause problems.
+                              this.bullets.splice(bIx, 1)
                               return true
                         }
                   }
+            }
 
-                  return false
-            })
+            return false
       }
 }
