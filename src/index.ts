@@ -12,8 +12,11 @@ import { ClipSpace } from './data/dimensions/ClipSpace'
 import { Hitbox } from './data/dimensions/Hitbox'
 import { Hitpoint } from './data/Hitpoint'
 import { Point } from './data/Point'
+import { Speed } from './data/Speed'
 import { Sprite } from './data/Sprite'
 import { EnemyController } from './entities/enemy/EnemyController'
+import { IncrementingSpawnStrategy } from './entities/enemy/strategy/IncrementingSpawnStrategy'
+import { SurroundingSpaceSpawnPointStrategy } from './entities/enemy/strategy/SurroundingSpaceSpawnPointStrategy'
 import { Player } from './entities/player/Player'
 import { PlayerController } from './entities/player/PlayerController'
 /* eslint-enable max-len */
@@ -40,7 +43,7 @@ function run() {
       player.draw(ctx, clipSpace)
       playerBulletController.draw(ctx, clipSpace)
       enemyController.removeDeadEnemies()
-      enemyController.draw(ctx, clipSpace, player)
+      enemyController.draw(ctx, player)
       playerBulletController.isCollidingWith(enemyController.getEnemies())
 }
 
@@ -60,19 +63,31 @@ const playerBulletController = new BulletController(
 )
 const playerController = new PlayerController()
 
-const spawnrateInterval = 2000
-const enemyController = new EnemyController(spawnrateInterval)
+const spawnPointOffset = 1000
+const enemySpawnPointStrategy = new SurroundingSpaceSpawnPointStrategy(
+      clipSpace,
+      spawnPointOffset
+)
+const initalAmountOfEnemies = 1
+const enemySpawnStrategy = new IncrementingSpawnStrategy(
+      enemySpawnPointStrategy,
+      initalAmountOfEnemies
+)
+const enemySpawnIntervalDelay = 2000
+const enemyController = new EnemyController(
+      enemySpawnStrategy,
+      enemySpawnIntervalDelay
+)
 
 const clipSpaceOrigo = new Point(
       clipSpace.getWidth() / 2,
       clipSpace.getHeight() / 2
 )
-const playerSpeed = 5
 const player = new Player(
       new Hitbox(clipSpaceOrigo, 16, 16),
       new Sprite(new URL('../public/ship.png', import.meta.url)),
       new Hitpoint(100, 10, 10),
-      playerSpeed,
+      new Speed(5),
       playerBulletController,
       playerController
 )

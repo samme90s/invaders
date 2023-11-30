@@ -8,6 +8,7 @@ import { Angle } from '../../data/angles/Angle'
 import { ClipSpace } from '../../data/dimensions/ClipSpace'
 import { Hitbox } from '../../data/dimensions/Hitbox'
 import { Hitpoint } from '../../data/Hitpoint'
+import { Speed } from '../../data/Speed'
 import { Sprite } from '../../data/Sprite'
 import { Entity } from '../Entity'
 import { PlayerController } from './PlayerController'
@@ -20,7 +21,7 @@ export class Player extends Entity {
             hitbox: Hitbox,
             sprite: Sprite,
             hitpoint: Hitpoint,
-            speed: number,
+            speed: Speed,
             bulletController: BulletController,
             playerController: PlayerController
       ) {
@@ -90,7 +91,7 @@ export class Player extends Entity {
 
       private moveUp(): void {
             if (!this.isOutsideTop()) {
-                  this.hitbox.getMutablePosition().y -= this.speed
+                  this.hitbox.getMutablePosition().y -= this.speed.getValue()
             }
       }
 
@@ -100,7 +101,7 @@ export class Player extends Entity {
 
       private moveLeft(): void {
             if (!this.isOutsideLeft()) {
-                  this.hitbox.getMutablePosition().x -= this.speed
+                  this.hitbox.getMutablePosition().x -= this.speed.getValue()
             }
       }
 
@@ -110,7 +111,7 @@ export class Player extends Entity {
 
       private moveDown(clipSpace: ClipSpace): void {
             if (!this.isOutsideDown(clipSpace)) {
-                  this.hitbox.getMutablePosition().y += this.speed
+                  this.hitbox.getMutablePosition().y += this.speed.getValue()
             }
       }
 
@@ -123,7 +124,7 @@ export class Player extends Entity {
 
       private moveRight(clipSpace: ClipSpace): void {
             if (!this.isOutsideRight(clipSpace)) {
-                  this.hitbox.getMutablePosition().x += this.speed
+                  this.hitbox.getMutablePosition().x += this.speed.getValue()
             }
       }
 

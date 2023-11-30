@@ -5,24 +5,21 @@
 
 import { Hitbox } from '../data/dimensions/Hitbox'
 import { Hitpoint } from '../data/Hitpoint'
+import { Speed } from '../data/Speed'
 import { Sprite } from '../data/Sprite'
 
 export abstract class Entity {
       protected sprite: Sprite
       protected hitbox: Hitbox
       protected hitpoint: Hitpoint
-      protected speed: number = 1
+      protected speed: Speed
 
       constructor(
             hitbox: Hitbox,
             sprite: Sprite,
             hitpoint: Hitpoint,
-            speed: number
+            speed: Speed
       ) {
-            if (this.speed < 0) {
-                  throw new Error('speed must be positive or zero')
-            }
-
             this.hitbox = hitbox
             this.sprite = sprite
             this.hitpoint = hitpoint

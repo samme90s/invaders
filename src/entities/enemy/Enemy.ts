@@ -5,6 +5,7 @@
 
 import { Hitbox } from '../../data/dimensions/Hitbox'
 import { Hitpoint } from '../../data/Hitpoint'
+import { Speed } from '../../data/Speed'
 import { Sprite } from '../../data/Sprite'
 import { CartesianVector } from '../../data/vectors/CartesianVector'
 import { Entity } from '../Entity'
@@ -17,7 +18,7 @@ export class Enemy extends Entity {
             hitbox: Hitbox,
             sprite: Sprite,
             hitpoint: Hitpoint,
-            speed: number
+            speed: Speed
       ) {
             super(hitbox, sprite, hitpoint, speed)
       }
@@ -35,7 +36,7 @@ export class Enemy extends Entity {
                         this.hitbox.getPosition().y
             )
                   .normalize()
-                  .multiply(this.speed)
+                  .multiply(this.speed.getValue())
 
             // Remove magic number here:
             if (this.hitbox.isCollidingWith(player.getHitbox())) {
