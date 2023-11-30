@@ -3,11 +3,8 @@
  * @author Samuel Svensson
  */
 
-import { Hitbox } from '../../../data/dimensions/Hitbox'
-import { Hitpoint } from '../../../data/Hitpoint'
-import { Speed } from '../../../data/Speed'
-import { Sprite } from '../../../data/Sprite'
 import { Enemy } from '../Enemy'
+import { EnemyFactory } from '../factory/EnemyFactory'
 import { EnemySpawnPointStrategy } from './EnemySpawnPointStrategy'
 import { EnemySpawnStrategy } from './EnemySpawnStrategy'
 
@@ -20,7 +17,7 @@ export class IncrementingSpawnStrategy implements EnemySpawnStrategy {
        */
       constructor(
             spawnPointStrategy: EnemySpawnPointStrategy,
-            initialAmount: number,
+            initialAmount: number
       ) {
             this.spawnPointStrategy = spawnPointStrategy
             this.maxAmount = initialAmount
@@ -29,20 +26,8 @@ export class IncrementingSpawnStrategy implements EnemySpawnStrategy {
       spawnEnemies(enemies: Enemy[]): void {
             while (enemies.length < this.maxAmount) {
                   enemies.push(
-                        new Enemy(
-                              new Hitbox(
-                                    this.spawnPointStrategy.getSpawnPoint(),
-                                    8,
-                                    8
-                              ),
-                              new Sprite(
-                                    new URL(
-                                          '../../../../public/invader.png',
-                                          import.meta.url
-                                    )
-                              ),
-                              new Hitpoint(1, 0, 10),
-                              new Speed(1)
+                        EnemyFactory.createBasicEnemy(
+                              this.spawnPointStrategy.getSpawnPoint()
                         )
                   )
             }
