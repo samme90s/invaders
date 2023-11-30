@@ -3,9 +3,9 @@
  * @author Samuel Svensson
  */
 
-import { Enemy } from '../Enemy'
-import { EnemyFactory } from '../factory/EnemyFactory'
-import { EnemySpawnPointStrategy } from './EnemySpawnPointStrategy'
+import { Enemy } from '../../Enemy'
+import { EnemyFactory } from '../../factory/EnemyFactory'
+import { EnemySpawnPointStrategy } from '../spawnpoint/EnemySpawnPointStrategy'
 import { EnemySpawnStrategy } from './EnemySpawnStrategy'
 
 export class IncrementingSpawnStrategy implements EnemySpawnStrategy {

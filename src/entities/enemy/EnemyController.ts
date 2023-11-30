@@ -6,7 +6,7 @@
 
 import { Player } from '../player/Player'
 import { Enemy } from './Enemy'
-import { EnemySpawnStrategy } from './strategy/EnemySpawnStrategy'
+import { EnemySpawnStrategy } from './strategy/spawn/EnemySpawnStrategy'
 
 export class EnemyController {
       private enemies: Enemy[] = []

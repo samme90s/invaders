@@ -3,8 +3,8 @@
  * @author Samuel Svensson
  */
 
-import { ClipSpace } from '../../../data/dimensions/ClipSpace'
-import { Point } from '../../../data/Point'
+import { ClipSpace } from '../../../../data/dimensions/ClipSpace'
+import { Point } from '../../../../data/Point'
 import { EnemySpawnPointStrategy } from './EnemySpawnPointStrategy'
 
 export class SurroundingSpaceSpawnPointStrategy
