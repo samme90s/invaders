@@ -16,7 +16,7 @@ import { Speed } from './data/Speed'
 import { Sprite } from './data/Sprite'
 import { EnemyController } from './entities/enemy/EnemyController'
 import { IncrementingSpawnStrategy } from './entities/enemy/strategy/spawn/IncrementingSpawnStrategy'
-import { SurroundingSpaceSpawnPointStrategy } from './entities/enemy/strategy/spawnpoint/SurroundingSpaceSpawnPointStrategy'
+import { ScrollerSpawnPointStrategy } from './entities/enemy/strategy/spawnpoint/ScrollerSpawnPointStrategy'
 import { Player } from './entities/player/Player'
 import { PlayerController } from './entities/player/PlayerController'
 /* eslint-enable max-len */
@@ -64,7 +64,7 @@ const playerBulletController = new BulletController(
 const playerController = new PlayerController()
 
 const spawnPointOffset = 1000
-const enemySpawnPointStrategy = new SurroundingSpaceSpawnPointStrategy(
+const enemySpawnPointStrategy = new ScrollerSpawnPointStrategy(
       clipSpace,
       spawnPointOffset
 )
