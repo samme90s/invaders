@@ -18,17 +18,18 @@ export class Enemy extends Entity {
             hitbox: Hitbox,
             sprite: Sprite,
             hitpoint: Hitpoint,
-            speed: Speed
+            speed: Speed,
       ) {
             super(hitbox, sprite, hitpoint, speed)
       }
 
+      // Move this to a view:
       draw(ctx: CanvasRenderingContext2D, player: Player): void {
             this.move(player)
-            this.sprite.draw(ctx, this.hitbox)
+            this.sprite.draw(ctx, this.getHitbox())
       }
 
-      private move(player: Player): void {
+      move(player: Player): void {
             const vector = new CartesianVector(
                   player.getHitbox().getPosition().x -
                         this.hitbox.getPosition().x,

@@ -31,14 +31,13 @@ export class Player extends Entity {
       }
 
       draw(ctx: CanvasRenderingContext2D, clipSpace: ClipSpace): void {
-            throw new Error('move this draw method to seperate class')
             this.move(clipSpace)
             this.shoot()
-            this.sprite.draw(ctx, this.hitbox)
-            this.hitpoint.draw(ctx, this.hitbox.getPosition())
+            this.sprite.draw(ctx, this.getHitbox())
+            this.hitpoint.draw(ctx, this.getHitbox().getPosition())
       }
 
-      private shoot(): void {
+      shoot(): void {
             if (this.playerController.shootUp) {
                   this.bulletController.shoot(
                         this.hitbox.getPosition(),
@@ -72,13 +71,13 @@ export class Player extends Entity {
             }
       }
 
-      private move(clipSpace: ClipSpace): void {
+      move(clipSpace: ClipSpace): void {
             if (this.playerController.up) {
-                  this.moveUp()
+                  this.moveUp(clipSpace)
             }
 
             if (this.playerController.left) {
-                  this.moveLeft()
+                  this.moveLeft(clipSpace)
             }
 
             if (this.playerController.down) {
@@ -90,49 +89,27 @@ export class Player extends Entity {
             }
       }
 
-      private moveUp(): void {
-            if (!this.isOutsideTop()) {
+      private moveUp(clipSpace: ClipSpace): void {
+            if (!clipSpace.isOutsideTop(this.hitbox)) {
                   this.hitbox.getMutablePosition().y -= this.speed.getValue()
             }
       }
 
-      private isOutsideTop(): boolean {
-            return this.hitbox.getPosition().y < 0
-      }
-
-      private moveLeft(): void {
-            if (!this.isOutsideLeft()) {
+      private moveLeft(clipSpace: ClipSpace): void {
+            if (!clipSpace.isOutsideLeft(this.hitbox)) {
                   this.hitbox.getMutablePosition().x -= this.speed.getValue()
             }
       }
 
-      private isOutsideLeft(): boolean {
-            return this.hitbox.getPosition().x < 0
-      }
-
       private moveDown(clipSpace: ClipSpace): void {
-            if (!this.isOutsideDown(clipSpace)) {
+            if (!clipSpace.isOutsideDown(this.hitbox)) {
                   this.hitbox.getMutablePosition().y += this.speed.getValue()
             }
       }
 
-      private isOutsideDown(clipSpace: ClipSpace): boolean {
-            return (
-                  this.hitbox.getPosition().y >
-                  clipSpace.getHeight() - this.hitbox.getHeight()
-            )
-      }
-
       private moveRight(clipSpace: ClipSpace): void {
-            if (!this.isOutsideRight(clipSpace)) {
+            if (!clipSpace.isOutsideRight(this.hitbox)) {
                   this.hitbox.getMutablePosition().x += this.speed.getValue()
             }
-      }
-
-      private isOutsideRight(clipSpace: ClipSpace): boolean {
-            return (
-                  this.hitbox.getPosition().x >
-                  clipSpace.getWidth() - this.hitbox.getWidth()
-            )
       }
 }

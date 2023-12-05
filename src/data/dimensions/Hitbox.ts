@@ -32,6 +32,9 @@ export class Hitbox extends Dimension {
             return new Hitbox(this.position, this.width, this.height)
       }
 
+      /**
+       * @returns a deep copy.
+       */
       getPosition(): Point {
             return this.position.from()
       }

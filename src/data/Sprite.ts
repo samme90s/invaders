@@ -5,6 +5,7 @@
 
 import { Hitbox } from './dimensions/Hitbox'
 
+// Move to view:
 export class Sprite {
       private img: HTMLImageElement = new Image()
 

@@ -26,10 +26,16 @@ export abstract class Entity {
             this.speed = speed
       }
 
+      /**
+       * @returns a deep copy.
+       */
       getHitbox(): Hitbox {
             return this.hitbox.from()
       }
 
+      /**
+       * @returns a deep copy.
+       */
       getHitpoint(): Hitpoint {
             return this.hitpoint.from()
       }
