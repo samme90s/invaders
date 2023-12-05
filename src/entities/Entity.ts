@@ -7,12 +7,14 @@ import { Hitbox } from '../data/dimensions/Hitbox'
 import { Hitpoint } from '../data/Hitpoint'
 import { Speed } from '../data/Speed'
 import { Sprite } from '../data/Sprite'
+import { CartesianVector } from '../data/vectors/CartesianVector'
 
 export abstract class Entity {
       protected sprite: Sprite
       protected hitbox: Hitbox
       protected hitpoint: Hitpoint
       protected speed: Speed
+      protected vector: CartesianVector = new CartesianVector(0, 0)
 
       constructor(
             hitbox: Hitbox,

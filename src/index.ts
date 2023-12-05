@@ -63,7 +63,7 @@ const playerBulletController = new BulletController(
 )
 const playerController = new PlayerController()
 
-const spawnPointOffset = 1000
+const spawnPointOffset = 0
 const enemySpawnPointStrategy = new ScrollerSpawnPointStrategy(
       clipSpace,
       spawnPointOffset
