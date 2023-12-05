@@ -31,6 +31,7 @@ export class Player extends Entity {
       }
 
       draw(ctx: CanvasRenderingContext2D, clipSpace: ClipSpace): void {
+            throw new Error('move this draw method to seperate class')
             this.move(clipSpace)
             this.shoot()
             this.sprite.draw(ctx, this.hitbox)

@@ -3,9 +3,6 @@
  * @author Samuel Svensson
  */
 
-import { Dimension } from './dimensions/Dimension'
-import { Point } from './Point'
-
 export class Hitpoint {
       private total: number
       private actual: number
@@ -19,9 +16,6 @@ export class Hitpoint {
        * @param regenTimeout In ticks.
        */
       private regenTimeout: number
-      // Used for drawing:
-      private totalDimension
-      private actualDimension
 
       /**
        * @param regenRate Settings this value to 0 will disable regeneration.
@@ -49,14 +43,8 @@ export class Hitpoint {
             this.actual = total
             this.regenRate = regenRate
             this.regenDelay = regenDelay
-            this.regenClock = 0
+            this.regenClock = regenDelay
             this.regenTimeout = 0
-            // Used for drawing:
-            this.totalDimension = new Dimension(30, 4)
-            this.actualDimension = new Dimension(
-                  30,
-                  this.totalDimension.getHeight()
-            )
       }
 
       from(): Hitpoint {
@@ -69,32 +57,7 @@ export class Hitpoint {
             return copy
       }
 
-      draw(ctx: CanvasRenderingContext2D, position: Point): void {
-            this.regenerate()
-
-            // Positioning of bar:
-            const x = position.x - this.totalDimension.getWidth() / 2
-            const yOffset = 8
-            const y = position.y + this.actualDimension.getHeight() + yOffset
-
-            ctx.fillStyle = '#fff'
-            ctx.fillRect(
-                  x,
-                  y,
-                  this.totalDimension.getWidth(),
-                  this.actualDimension.getHeight()
-            )
-
-            ctx.fillStyle = '#f00'
-            ctx.fillRect(
-                  x,
-                  y,
-                  this.totalDimension.getWidth() * this.getRatio(),
-                  this.actualDimension.getHeight()
-            )
-      }
-
-      private getRatio(): number {
+      getRatio(): number {
             return this.actual / this.total
       }
 
@@ -114,7 +77,7 @@ export class Hitpoint {
             this.regenTimeout = ticks
       }
 
-      private regenerate(): void {
+      regenerate(): void {
             this.updateRegenTimeout()
             this.updateRegenClock()
             if (this.canRegenerate()) {
