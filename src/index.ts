@@ -18,7 +18,6 @@ import { EnemyController } from './entities/enemy/EnemyController'
 import { IncrementingSpawnStrategy } from './entities/enemy/strategy/spawn/IncrementingSpawnStrategy'
 import { ScrollerSpawnPointStrategy } from './entities/enemy/strategy/spawnpoint/ScrollerSpawnPointStrategy'
 import { Player } from './entities/player/Player'
-import { PlayerController } from './entities/player/PlayerController'
 /* eslint-enable max-len */
 
 function setupCanvas(clipSpace: ClipSpace): CanvasRenderingContext2D {
@@ -40,7 +39,7 @@ function setupCanvas(clipSpace: ClipSpace): CanvasRenderingContext2D {
 function run() {
       clear()
 
-      player.draw(ctx, clipSpace)
+      player.draw(ctx)
       playerBulletController.draw(ctx, clipSpace)
       enemyController.removeDeadEnemies()
       enemyController.draw(ctx, player)
@@ -61,7 +60,6 @@ const playerBulletController = new BulletController(
       playerBulletCreationStrategy,
       playerBulletDelay
 )
-const playerController = new PlayerController()
 
 const spawnPointOffset = 0
 const enemySpawnPointStrategy = new ScrollerSpawnPointStrategy(
@@ -89,7 +87,7 @@ const player = new Player(
       new Hitpoint(100, 10, 10),
       new Speed(5),
       playerBulletController,
-      playerController
+      clipSpace
 )
 
 setInterval(run, 1000 / 60)

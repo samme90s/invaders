@@ -1,67 +1,70 @@
 /**
- * @fileoverview Defines a controller that handles the set keybindings for
- * actions and their respective states.
+ * @fileoverview Defines a controller that handles the player's input and
+ * actions.
  * @author Samuel Svensson
  */
 
+import { ClipSpace } from '../../data/dimensions/ClipSpace'
+import { Alpha } from '../../data/keys/Alpha'
+import { Key } from '../../data/keys/Key'
+import { Player } from './Player'
+
 export class PlayerController {
-      private actions: { [key: string]: boolean } = {
-            w: false,
-            a: false,
-            s: false,
-            d: false,
-            p: false,
-            l: false,
-            ö: false,
-            ä: false,
+      private moveUpKey: Key
+      private moveLeftKey: Key
+      private moveDownKey: Key
+      private moveRightKey: Key
+      private shootUpKey: Key
+      private shootLeftKey: Key
+      private shootDownKey: Key
+      private shootRightKey: Key
+
+      constructor(player: Player, clipSpace: ClipSpace) {
+            this.moveUpKey = new Key(Alpha.W, () => player.moveUp(clipSpace))
+            this.moveLeftKey = new Key(Alpha.A, () =>
+                  player.moveLeft(clipSpace)
+            )
+            this.moveDownKey = new Key(Alpha.S, () =>
+                  player.moveDown(clipSpace)
+            )
+            this.moveRightKey = new Key(Alpha.D, () =>
+                  player.moveRight(clipSpace)
+            )
+            this.shootUpKey = new Key(Alpha.I, () => player.shootUp())
+            this.shootLeftKey = new Key(Alpha.J, () => player.shootLeft())
+            this.shootDownKey = new Key(Alpha.K, () => player.shootDown())
+            this.shootRightKey = new Key(Alpha.L, () => player.shootRight())
       }
 
-      constructor() {
-            document.addEventListener('keydown', event => this.keyDown(event))
-            document.addEventListener('keyup', event => this.keyUp(event))
+      setMoveUpKey(key: Alpha): void {
+            this.moveUpKey.setKey(key)
       }
 
-      get up(): boolean {
-            return this.actions['w']
+      setMoveLeftKey(key: Alpha): void {
+            this.moveLeftKey.setKey(key)
       }
 
-      get left(): boolean {
-            return this.actions['a']
+      setMoveDownKey(key: Alpha): void {
+            this.moveDownKey.setKey(key)
       }
 
-      get down(): boolean {
-            return this.actions['s']
+      setMoveRightKey(key: Alpha): void {
+            this.moveRightKey.setKey(key)
       }
 
-      get right(): boolean {
-            return this.actions['d']
+      setShootUpKey(key: Alpha): void {
+            this.shootUpKey.setKey(key)
       }
 
-      get shootUp(): boolean {
-            return this.actions['p']
+      setShootLeftKey(key: Alpha): void {
+            this.shootLeftKey.setKey(key)
       }
 
-      get shootLeft(): boolean {
-            return this.actions['l']
+      setShootDownKey(key: Alpha): void {
+            this.shootDownKey.setKey(key)
       }
 
-      get shootDown(): boolean {
-            return this.actions['ö']
-      }
-
-      get shootRight(): boolean {
-            return this.actions['ä']
-      }
-
-      private keyDown(event: KeyboardEvent): void {
-            if (Object.hasOwn(this.actions, event.key)) {
-                  this.actions[event.key] = true
-            }
-      }
-
-      private keyUp(event: KeyboardEvent): void {
-            if (Object.hasOwn(this.actions, event.key)) {
-                  this.actions[event.key] = false
-            }
+      setShootRightKey(key: Alpha): void {
+            this.shootRightKey.setKey(key)
       }
 }
