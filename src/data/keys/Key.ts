@@ -37,9 +37,6 @@ export class Key {
       }
 
       setKey(key: Alpha): void {
-            // if (!key.length || key.length > 1) {
-            //       throw new SyntaxError('key must be a single character')
-            // }
             this.key = key
       }
 }
