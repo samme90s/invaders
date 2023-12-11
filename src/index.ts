@@ -66,10 +66,10 @@ const enemySpawnPointStrategy = new ScrollerSpawnPointStrategy(
       clipSpace,
       spawnPointOffset
 )
-const initalAmountOfEnemies = 1
+const initialAmountOfEnemies = 1
 const enemySpawnStrategy = new IncrementingSpawnStrategy(
       enemySpawnPointStrategy,
-      initalAmountOfEnemies
+      initialAmountOfEnemies
 )
 const enemySpawnIntervalDelay = 2000
 const enemyController = new EnemyController(
