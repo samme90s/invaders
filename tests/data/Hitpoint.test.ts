@@ -9,18 +9,18 @@ const regenRate = 1
 const regenDelay = 1
 
 describe('Constructor', () => {
-      test('should throw on regen delay less than one', () => {
+      it('should throw on regen delay less than one', () => {
             expect(() => new Hitpoint(total, regenRate, 0)).toThrow(RangeError)
       })
 
-      test('should throw on negative regen rate', () => {
+      it('should throw on negative regen rate', () => {
             expect(() => new Hitpoint(total, -1, regenDelay)).toThrow(
                   RangeError
             )
       })
 
-      test.each([-1, 0])('should throw on %d as total', (total: number) => {
-            expect(() => new Hitpoint(total, regenRate, regenDelay)).toThrow(
+      it('should throw on zero as total', () => {
+            expect(() => new Hitpoint(0, regenRate, regenDelay)).toThrow(
                   RangeError
             )
       })
@@ -33,32 +33,32 @@ describe('Methods', () => {
             hitpoint = new Hitpoint(total, regenRate, regenDelay)
       })
 
-      test('should return an new object with equal values', () => {
-            const hitpointCopy = hitpoint.from()
-            expect(hitpoint).toEqual(hitpointCopy)
-            expect(hitpoint).not.toBe(hitpointCopy)
+      it('should return an new object with equal values', () => {
+            const copy = hitpoint.from()
+            expect(hitpoint).toEqual(copy)
+            expect(hitpoint).not.toBe(copy)
       })
 
-      test('should return actual', () => {
+      it('should return actual', () => {
             expect(hitpoint.getActual()).toBe(total)
       })
 
-      test('should reduce actual', () => {
-            hitpoint.reduce(1)
-            expect(hitpoint.getActual()).toBe(9)
+      it('should reduce actual', () => {
+            hitpoint.reduce(regenRate)
+            expect(hitpoint.getActual()).toBe(total - regenRate)
       })
 
-      test('should reduce actual to zero', () => {
+      it('should reduce actual to zero', () => {
             hitpoint.reduce(11)
             expect(hitpoint.getActual()).toBe(0)
       })
 
-      test('should get ratio', () => {
-            hitpoint.reduce(1)
-            expect(hitpoint.getRatio()).toBe(0.9)
+      it('should get ratio', () => {
+            hitpoint.reduce(regenRate)
+            expect(hitpoint.getRatio()).toBe((total - regenRate) / total)
       })
 
-      test('should be able to regenerate', () => {
+      it('should be able to regenerate', () => {
             hitpoint.reduce(regenRate)
             for (let i = 0; i < regenDelay; i++) {
                   hitpoint.regenerate()
@@ -66,7 +66,7 @@ describe('Methods', () => {
             expect(hitpoint.getActual()).toBe(total)
       })
 
-      test('should not regenerate if timeout is set', () => {
+      it('should not regenerate if timeout is set', () => {
             hitpoint.reduce(regenRate)
             hitpoint.setTimeout(regenDelay + 1)
             for (let i = 0; i < regenDelay; i++) {

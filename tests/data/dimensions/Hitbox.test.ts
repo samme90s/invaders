@@ -4,44 +4,57 @@
  */
 
 import { Hitbox } from '../../../src/data/dimensions/Hitbox'
-import { Point } from '../../../src/data/Point'
+import { Vector2 } from '../../../src/data/Vector2'
 
 describe('Hitbox', () => {
-      const point = new Point(0, 0)
+      const point = new Vector2(0, 0)
+      const direction = new Vector2(0, 0)
       const width = 1
       const height = 1
-      const hitbox = new Hitbox(point, width, height)
+      const hitbox = new Hitbox(point, direction, width, height)
 
-      test('should return an new object with equal values', () => {
-            const hitboxCopy = hitbox.from()
-            expect(hitbox).toEqual(hitboxCopy)
-            expect(hitbox).not.toBe(hitboxCopy)
+      it('should return an new object with equal values', () => {
+            const copy = hitbox.from()
+            expect(hitbox).toEqual(copy)
+            expect(hitbox).not.toBe(copy)
       })
 
-      test('should not return reference as point', () => {
-            expect(hitbox.getPosition()).not.toBe(point)
-            expect(hitbox.getMutablePosition()).not.toBe(point)
+      it('should not return references', () => {
+            expect(hitbox.getPoint()).not.toBe(point)
+            expect(hitbox.getDirection()).not.toBe(direction)
       })
 
-      test('should return point', () => {
-            expect(hitbox.getPosition()).toEqual(point)
-            expect(hitbox.getMutablePosition()).toEqual(point)
+      it('should return equal information', () => {
+            expect(hitbox.getPoint()).toEqual(point)
+            expect(hitbox.getDirection()).toEqual(direction)
       })
 
-      test('should return immutable point', () => {
-            const point = hitbox.getPosition()
+      it('should return immutable point', () => {
+            const point = hitbox.getPoint()
             point.x = 1
             point.y = 1
-            expect(hitbox.getPosition()).not.toEqual(point)
+            expect(hitbox.getPoint()).not.toEqual(point)
       })
 
-      test('should return top left point', () => {
-            const topLeftPoint = new Point(-width / 2, -height / 2)
-            expect(hitbox.getTopLeftPosition()).toEqual(topLeftPoint)
+      it('should return immutable direction', () => {
+            const direction = hitbox.getDirection()
+            direction.x = 1
+            direction.y = 1
+            expect(hitbox.getDirection()).not.toEqual(direction)
       })
 
-      test('should collide with other', () => {
-            const other = new Hitbox(new Point(1, 1), 1, 1)
+      it('should return top left point', () => {
+            const topLeftPoint = new Vector2(-width / 2, -height / 2)
+            expect(hitbox.getTopLeftPoint()).toEqual(topLeftPoint)
+      })
+
+      it('should collide with other', () => {
+            const other = new Hitbox(
+                  new Vector2(1, 1),
+                  direction,
+                  width,
+                  height
+            )
             expect(hitbox.isCollidingWith(other)).toBeTruthy
       })
 })

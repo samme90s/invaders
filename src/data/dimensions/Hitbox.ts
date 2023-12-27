@@ -36,8 +36,11 @@ export class Hitbox extends Dimension {
             this.point = this.point.add(this.direction.multiply(speed.get()))
       }
 
+      /**
+       * @returns Immutable point.
+       */
       getPoint(): Vector2 {
-            return this.point
+            return this.point.from()
       }
 
       getTopLeftPoint(): Vector2 {
@@ -47,8 +50,11 @@ export class Hitbox extends Dimension {
             )
       }
 
+      /**
+       * @returns Immutable direction.
+       */
       getDirection(): Vector2 {
-            return this.direction
+            return this.direction.from()
       }
 
       setDirection(direction: Vector2): void {

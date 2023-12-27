@@ -4,34 +4,37 @@
 
 import { ClipSpace } from '../../../src/data/dimensions/ClipSpace'
 import { Hitbox } from '../../../src/data/dimensions/Hitbox'
-import { Point } from '../../../src/data/Point'
+import { Vector2 } from '../../../src/data/Vector2'
 
 describe('ClipSpace', () => {
-      const hitboxSize = 1
-      const clipSpaceSize = 1
-      const clipSpace = new ClipSpace(clipSpaceSize, clipSpaceSize)
+      const direction = new Vector2(0, 0)
+      const width = 1
+      const height = 1
+      const clipSpace = new ClipSpace(width, height)
 
-      function expectHitboxToBeOutsideOn(point: Point) {
-            const hitbox = new Hitbox(point, hitboxSize, hitboxSize)
+      function expectHitboxToBeOutsideOn(hitbox: Hitbox) {
             expect(clipSpace.isOutside(hitbox)).toBeTruthy
       }
 
-      function expectHitboxToBeInsideOn(point: Point) {
-            const hitbox = new Hitbox(point, hitboxSize, hitboxSize)
+      function expectHitboxToBeInsideOn(hitbox: Hitbox) {
             expect(clipSpace.isOutside(hitbox)).toBeFalsy
       }
 
-      test.each([
-            new Point(clipSpaceSize + 1, clipSpaceSize + 1),
-            new Point(-1, -1),
-      ])('should be outside when setting %d', (point: Point) => {
-            expectHitboxToBeOutsideOn(point)
-      })
+      test.each([new Vector2(width + 1, height + 1), new Vector2(-1, -1)])(
+            'should be outside when setting %d',
+            (point: Vector2) => {
+                  expectHitboxToBeOutsideOn(
+                        new Hitbox(point, direction, width, height)
+                  )
+            }
+      )
 
-      test.each([new Point(clipSpaceSize, clipSpaceSize), new Point(0, 0)])(
+      test.each([new Vector2(width, height), new Vector2(0, 0)])(
             'should be inside when setting %d',
-            (point: Point) => {
-                  expectHitboxToBeInsideOn(point)
+            (point: Vector2) => {
+                  expectHitboxToBeInsideOn(
+                        new Hitbox(point, direction, width, height)
+                  )
             }
       )
 })
