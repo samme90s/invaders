@@ -4,14 +4,13 @@
  * @author Samuel Svensson
  */
 
-import { Angle } from '../../data/angles/Angle'
-import { Point } from '../../data/Point'
+import { Vector2 } from '../../data/Vector2'
 import { Bullet } from '../Bullet'
 import { BulletFactory } from '../factory/BulletFactory'
 import { BulletCreationStrategy } from './BulletCreationStrategy'
 
 export class SingleBulletStrategy implements BulletCreationStrategy {
-      getBullets(origin: Point, originAngle: Angle): Bullet[] {
-            return [BulletFactory.createFastBullet(origin, originAngle)]
+      get(point: Vector2): Bullet[] {
+            return [BulletFactory.createFastBullet(point)]
       }
 }

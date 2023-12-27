@@ -1,10 +1,9 @@
 /**
- * @fileoverview Defines a controller that handles enemy instances
- * and simulate their behaviour.
+ * @fileoverview Defines a controller that handles
+ * enemy instances and simulate their behaviour.
  * @author Samuel Svensson
  */
 
-import { Player } from '../player/Player'
 import { Enemy } from './Enemy'
 import { EnemySpawnStrategy } from './strategy/spawn/EnemySpawnStrategy'
 
@@ -28,15 +27,9 @@ export class EnemyController {
             return Array.from(this.enemies)
       }
 
-      draw(ctx: CanvasRenderingContext2D, player: Player): void {
-            for (let eIx = 0; eIx < this.enemies.length; eIx++) {
-                  this.enemies[eIx].draw(ctx, player)
-            }
-      }
-
       removeDeadEnemies(): void {
             for (let eIx = 0; eIx < this.enemies.length; eIx++) {
-                  if (this.enemies[eIx].getHitpoint().getActual() <= 0) {
+                  if (this.enemies[eIx].getHitpoint().isDead()) {
                         this.enemies.splice(eIx, 1)
                   }
             }

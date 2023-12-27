@@ -1,10 +1,9 @@
 /**
- * @fileoverview Defines a controller that handles the player's input and
- * actions.
+ * @fileoverview Defines a controller that
+ * handles the player's input and actions.
  * @author Samuel Svensson
  */
 
-import { ClipSpace } from '../../data/dimensions/ClipSpace'
 import { Alpha } from '../../data/keys/Alpha'
 import { Key } from '../../data/keys/Key'
 import { Player } from './Player'
@@ -14,26 +13,14 @@ export class PlayerController {
       private moveLeftKey: Key
       private moveDownKey: Key
       private moveRightKey: Key
-      private shootUpKey: Key
-      private shootLeftKey: Key
-      private shootDownKey: Key
-      private shootRightKey: Key
+      private shootKey: Key
 
-      constructor(player: Player, clipSpace: ClipSpace) {
-            this.moveUpKey = new Key(Alpha.W, () => player.moveUp(clipSpace))
-            this.moveLeftKey = new Key(Alpha.A, () =>
-                  player.moveLeft(clipSpace)
-            )
-            this.moveDownKey = new Key(Alpha.S, () =>
-                  player.moveDown(clipSpace)
-            )
-            this.moveRightKey = new Key(Alpha.D, () =>
-                  player.moveRight(clipSpace)
-            )
-            this.shootUpKey = new Key(Alpha.I, () => player.shootUp())
-            this.shootLeftKey = new Key(Alpha.J, () => player.shootLeft())
-            this.shootDownKey = new Key(Alpha.K, () => player.shootDown())
-            this.shootRightKey = new Key(Alpha.L, () => player.shootRight())
+      constructor(player: Player) {
+            this.moveUpKey = new Key(Alpha.W, () => player.moveUp())
+            this.moveLeftKey = new Key(Alpha.A, () => player.moveLeft())
+            this.moveDownKey = new Key(Alpha.S, () => player.moveDown())
+            this.moveRightKey = new Key(Alpha.D, () => player.moveRight())
+            this.shootKey = new Key(Alpha.SPACE, () => player.shoot())
       }
 
       setMoveUpKey(key: Alpha): void {
@@ -52,19 +39,7 @@ export class PlayerController {
             this.moveRightKey.setKey(key)
       }
 
-      setShootUpKey(key: Alpha): void {
-            this.shootUpKey.setKey(key)
-      }
-
-      setShootLeftKey(key: Alpha): void {
-            this.shootLeftKey.setKey(key)
-      }
-
-      setShootDownKey(key: Alpha): void {
-            this.shootDownKey.setKey(key)
-      }
-
-      setShootRightKey(key: Alpha): void {
-            this.shootRightKey.setKey(key)
+      setShootKey(key: Alpha): void {
+            this.shootKey.setKey(key)
       }
 }

@@ -27,7 +27,7 @@ export class IncrementingSpawnStrategy implements EnemySpawnStrategy {
             while (enemies.length < this.maxAmount) {
                   enemies.push(
                         EnemyFactory.createBasicEnemy(
-                              this.spawnPointStrategy.getSpawnPoint()
+                              this.spawnPointStrategy.get()
                         )
                   )
             }

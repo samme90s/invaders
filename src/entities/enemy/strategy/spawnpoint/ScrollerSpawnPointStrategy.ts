@@ -3,7 +3,7 @@
  */
 
 import { ClipSpace } from '../../../../data/dimensions/ClipSpace'
-import { Point } from '../../../../data/Point'
+import { Vector2 } from '../../../../data/Vector2'
 import { EnemySpawnPointStrategy } from './EnemySpawnPointStrategy'
 
 export class ScrollerSpawnPointStrategy implements EnemySpawnPointStrategy {
@@ -15,15 +15,15 @@ export class ScrollerSpawnPointStrategy implements EnemySpawnPointStrategy {
             this.maxOffset = maxOffset
       }
 
-      getSpawnPoint(): Point {
+      get(): Vector2 {
             return this.generateRandomPointOnTopEdge()
       }
 
-      private generateRandomPointOnTopEdge(): Point {
+      private generateRandomPointOnTopEdge(): Vector2 {
             const randomOffset = Math.floor(Math.random() * this.maxOffset)
             const randomWidth = Math.floor(
                   Math.random() * this.clipSpace.getWidth()
             )
-            return new Point(randomWidth, -randomOffset)
+            return new Vector2(randomWidth, -randomOffset)
       }
 }

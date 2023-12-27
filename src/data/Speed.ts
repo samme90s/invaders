@@ -13,7 +13,7 @@ export class Speed {
             this.speed = speed
       }
 
-      public getValue() {
+      public get() {
             return this.speed
       }
 }

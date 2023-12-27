@@ -5,22 +5,15 @@
 
 import { Hitbox } from '../../../data/dimensions/Hitbox'
 import { Hitpoint } from '../../../data/Hitpoint'
-import { Point } from '../../../data/Point'
 import { Speed } from '../../../data/Speed'
-import { Sprite } from '../../../data/Sprite'
+import { Vector2 } from '../../../data/Vector2'
 import { Enemy } from '../Enemy'
 
 export class EnemyFactory {
-      static createBasicEnemy(point: Point): Enemy {
+      static createBasicEnemy(point: Vector2): Enemy {
             return new Enemy(
-                  new Hitbox(point, 8, 8),
-                  new Sprite(
-                        new URL(
-                              '../../../../public/invader.png',
-                              import.meta.url
-                        )
-                  ),
-                  new Hitpoint(1, 0, 10),
+                  new Hitbox(point, new Vector2(0, 0), 1, 1),
+                  new Hitpoint(1),
                   new Speed(1)
             )
       }

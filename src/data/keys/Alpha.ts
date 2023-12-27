@@ -30,4 +30,5 @@ export enum Alpha {
       X = 'x',
       Y = 'y',
       Z = 'z',
+      SPACE = ' ',
 }

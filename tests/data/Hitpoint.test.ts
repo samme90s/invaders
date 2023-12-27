@@ -19,7 +19,7 @@ describe('Constructor', () => {
             )
       })
 
-      test.each([-1, 0])('should throw on %i as total', (total: number) => {
+      test.each([-1, 0])('should throw on %d as total', (total: number) => {
             expect(() => new Hitpoint(total, regenRate, regenDelay)).toThrow(
                   RangeError
             )

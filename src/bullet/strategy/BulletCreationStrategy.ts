@@ -3,10 +3,13 @@
  * @author Samuel Svensson
  */
 
-import { Angle } from '../../data/angles/Angle'
-import { Point } from '../../data/Point'
+import { Vector2 } from '../../data/Vector2'
 import { Bullet } from '../Bullet'
 
 export interface BulletCreationStrategy {
-      getBullets(origin: Point, originAngle: Angle): Bullet[]
+      /**
+       * @param point The point where the bullet is created.
+       * @returns An array of bullet(s).
+       */
+      get(point: Vector2): Bullet[]
 }

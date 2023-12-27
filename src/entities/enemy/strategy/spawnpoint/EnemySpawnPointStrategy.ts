@@ -3,8 +3,8 @@
  * @author Samuel Svensson
  */
 
-import { Point } from '../../../../data/Point'
+import { Vector2 } from '../../../../data/Vector2'
 
 export interface EnemySpawnPointStrategy {
-      getSpawnPoint(): Point
+      get(): Vector2
 }

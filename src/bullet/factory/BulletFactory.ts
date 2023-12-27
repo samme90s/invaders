@@ -3,16 +3,16 @@
  * @author Samuel Svensson
  */
 
-import { Angle } from '../../data/angles/Angle'
-import { Point } from '../../data/Point'
-import { PolarVector } from '../../data/vectors/PolarVector'
+import { Hitbox } from '../../data/dimensions/Hitbox'
+import { Speed } from '../../data/Speed'
+import { Vector2 } from '../../data/Vector2'
 import { Bullet } from '../Bullet'
 
 export class BulletFactory {
-      static createFastBullet(origin: Point, angle: Angle): Bullet {
+      static createFastBullet(point: Vector2): Bullet {
             return new Bullet(
-                  new Point(origin.x, origin.y),
-                  new PolarVector(10, angle)
+                  new Hitbox(point, new Vector2(0, 1), 1, 1),
+                  new Speed(5)
             )
       }
 

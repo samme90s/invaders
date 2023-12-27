@@ -4,12 +4,10 @@
  */
 
 import { BulletController } from '../../bullet/BulletController'
-import { Angle } from '../../data/angles/Angle'
-import { ClipSpace } from '../../data/dimensions/ClipSpace'
 import { Hitbox } from '../../data/dimensions/Hitbox'
 import { Hitpoint } from '../../data/Hitpoint'
 import { Speed } from '../../data/Speed'
-import { Sprite } from '../../data/Sprite'
+import { Vector2 } from '../../data/Vector2'
 import { Entity } from '../Entity'
 import { PlayerController } from './PlayerController'
 
@@ -17,75 +15,42 @@ export class Player extends Entity {
       private playerController: PlayerController
       private bulletController: BulletController
 
-      // Make ClipSpace a static class?
       constructor(
             hitbox: Hitbox,
-            sprite: Sprite,
             hitpoint: Hitpoint,
             speed: Speed,
-            bulletController: BulletController,
-            clipSpace: ClipSpace
+            bulletController: BulletController
       ) {
-            super(hitbox, sprite, hitpoint, speed)
-            this.playerController = new PlayerController(this, clipSpace)
+            super(hitbox, hitpoint, speed)
+            this.playerController = new PlayerController(this)
             this.bulletController = bulletController
-      }
-
-      draw(ctx: CanvasRenderingContext2D): void {
-            this.sprite.draw(ctx, this.getHitbox())
-            this.hitpoint.draw(ctx, this.getHitbox().getPosition())
       }
 
       getPlayerController(): PlayerController {
             return this.playerController
       }
 
-      shootUp(): void {
-            this.bulletController.shoot(
-                  this.hitbox.getPosition(),
-                  new Angle(90)
-            )
+      shoot(): void {
+            this.bulletController.shoot(this.hitbox.getPoint())
       }
 
-      shootLeft(): void {
-            this.bulletController.shoot(
-                  this.hitbox.getPosition(),
-                  new Angle(180)
-            )
+      moveUp(): void {
+            this.hitbox.setDirection(new Vector2(0, -1))
+            this.hitbox.move(this.speed)
       }
 
-      shootDown(): void {
-            this.bulletController.shoot(
-                  this.hitbox.getPosition(),
-                  new Angle(270)
-            )
+      moveLeft(): void {
+            this.hitbox.setDirection(new Vector2(-1, 0))
+            this.hitbox.move(this.speed)
       }
 
-      shootRight(): void {
-            this.bulletController.shoot(this.hitbox.getPosition(), new Angle(0))
+      moveDown(): void {
+            this.hitbox.setDirection(new Vector2(0, 1))
+            this.hitbox.move(this.speed)
       }
 
-      moveUp(clipSpace: ClipSpace): void {
-            if (!clipSpace.isOutsideTop(this.hitbox)) {
-                  this.hitbox.getMutablePosition().y -= this.speed.getValue()
-            }
-      }
-
-      moveLeft(clipSpace: ClipSpace): void {
-            if (!clipSpace.isOutsideLeft(this.hitbox)) {
-                  this.hitbox.getMutablePosition().x -= this.speed.getValue()
-            }
-      }
-
-      moveDown(clipSpace: ClipSpace): void {
-            if (!clipSpace.isOutsideDown(this.hitbox)) {
-                  this.hitbox.getMutablePosition().y += this.speed.getValue()
-            }
-      }
-
-      moveRight(clipSpace: ClipSpace): void {
-            if (!clipSpace.isOutsideRight(this.hitbox)) {
-                  this.hitbox.getMutablePosition().x += this.speed.getValue()
-            }
+      moveRight(): void {
+            this.hitbox.setDirection(new Vector2(1, 0))
+            this.hitbox.move(this.speed)
       }
 }

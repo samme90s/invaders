@@ -1,5 +1,4 @@
 /**
- * @fileoverview Tests for RadianAngle class.
  * @author Samuel Svensson
  */
 
@@ -12,19 +11,19 @@ describe('RadianAngle', () => {
             [-2 * Math.PI, 0],
             [Math.PI / 2, Math.PI / 2],
             [(5 * Math.PI) / 2, Math.PI / 2],
-      ])('should be %i when setting %i', (actual: number, expected: number) => {
+      ])('should be %d when setting %d', (actual: number, expected: number) => {
             const angle = new RadianAngle(actual)
-            expect(angle.getValue()).toBe(expected)
+            expect(angle.get()).toBe(expected)
       })
 
       test.each([
             [0, 0],
             [Math.PI, 180],
       ])(
-            'should convert %i to %i degrees',
+            'should convert %d to %d degrees',
             (actual: number, expected: number) => {
                   const angle = new RadianAngle(actual)
-                  expect(angle.toDegrees().getValue()).toBe(expected)
+                  expect(angle.toDegrees().get()).toBe(expected)
             }
       )
 })

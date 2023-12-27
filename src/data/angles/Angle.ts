@@ -15,7 +15,7 @@ export class Angle {
             this.setAngle(angle)
       }
 
-      getValue(): number {
+      get(): number {
             return this.angle
       }
 

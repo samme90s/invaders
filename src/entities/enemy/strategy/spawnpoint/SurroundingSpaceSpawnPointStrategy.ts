@@ -4,7 +4,7 @@
  */
 
 import { ClipSpace } from '../../../../data/dimensions/ClipSpace'
-import { Point } from '../../../../data/Point'
+import { Vector2 } from '../../../../data/Vector2'
 import { EnemySpawnPointStrategy } from './EnemySpawnPointStrategy'
 
 export class SurroundingSpaceSpawnPointStrategy
@@ -18,7 +18,7 @@ implements EnemySpawnPointStrategy
             this.maxOffset = maxOffset
       }
 
-      getSpawnPoint(): Point {
+      get(): Vector2 {
             const random = Math.floor(Math.random() * 4)
             if (random === 0) {
                   return this.generateRandomPointOnTopEdge()
@@ -31,41 +31,41 @@ implements EnemySpawnPointStrategy
             }
       }
 
-      private generateRandomPointOnTopEdge(): Point {
+      private generateRandomPointOnTopEdge(): Vector2 {
             const randomOffset = Math.floor(Math.random() * this.maxOffset)
             const randomWidth = Math.floor(
                   Math.random() * this.clipSpace.getWidth()
             )
-            return new Point(randomWidth, -randomOffset)
+            return new Vector2(randomWidth, -randomOffset)
       }
 
-      private generateRandomPointOnRightEdge(): Point {
+      private generateRandomPointOnRightEdge(): Vector2 {
             const randomOffset = Math.floor(Math.random() * this.maxOffset)
             const randomHeight = Math.floor(
                   Math.random() * this.clipSpace.getHeight()
             )
-            return new Point(
+            return new Vector2(
                   this.clipSpace.getWidth() + randomOffset,
                   randomHeight
             )
       }
 
-      private generateRandomPointOnBottomEdge(): Point {
+      private generateRandomPointOnBottomEdge(): Vector2 {
             const randomOffset = Math.floor(Math.random() * this.maxOffset)
             const randomWidth = Math.floor(
                   Math.random() * this.clipSpace.getWidth()
             )
-            return new Point(
+            return new Vector2(
                   randomWidth,
                   this.clipSpace.getHeight() + randomOffset
             )
       }
 
-      private generateRandomPointOnLeftEdge(): Point {
+      private generateRandomPointOnLeftEdge(): Vector2 {
             const randomOffset = Math.floor(Math.random() * this.maxOffset)
             const randomHeight = Math.floor(
                   Math.random() * this.clipSpace.getHeight()
             )
-            return new Point(-randomOffset, randomHeight)
+            return new Vector2(-randomOffset, randomHeight)
       }
 }

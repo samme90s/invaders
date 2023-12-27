@@ -15,7 +15,7 @@ export class RadianAngle {
             this.setAngle(angle)
       }
 
-      getValue(): number {
+      get(): number {
             return this.angle
       }
 

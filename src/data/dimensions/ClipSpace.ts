@@ -3,6 +3,7 @@
  * @author Samuel Svensson
  */
 
+import { Vector2 } from '../Vector2'
 import { Dimension } from './Dimension'
 import { Hitbox } from './Hitbox'
 
@@ -11,29 +12,33 @@ export class ClipSpace extends Dimension {
             super(width, height)
       }
 
+      getOrigo(): Vector2 {
+            return new Vector2(this.width / 2, this.height / 2)
+      }
+
       // Use methods below?
       isOutside(hitbox: Hitbox): boolean {
             return (
-                  hitbox.getPosition().y > this.height ||
-                  hitbox.getPosition().x > this.width ||
-                  hitbox.getPosition().y < 0 ||
-                  hitbox.getPosition().x < 0
+                  this.isOutsideTop(hitbox) ||
+                  this.isOutsideRight(hitbox) ||
+                  this.isOutsideDown(hitbox) ||
+                  this.isOutsideLeft(hitbox)
             )
       }
 
       isOutsideTop(hitbox: Hitbox): boolean {
-            return hitbox.getPosition().y < 0
-      }
-
-      isOutsideLeft(hitbox: Hitbox): boolean {
-            return hitbox.getPosition().x < 0
-      }
-
-      isOutsideDown(hitbox: Hitbox): boolean {
-            return hitbox.getPosition().y > this.height - hitbox.getHeight()
+            return hitbox.getPoint().y < 0
       }
 
       isOutsideRight(hitbox: Hitbox): boolean {
-            return hitbox.getPosition().x > this.width - hitbox.getWidth()
+            return hitbox.getPoint().x > this.width - hitbox.getWidth()
+      }
+
+      isOutsideDown(hitbox: Hitbox): boolean {
+            return hitbox.getPoint().y > this.height - hitbox.getHeight()
+      }
+
+      isOutsideLeft(hitbox: Hitbox): boolean {
+            return hitbox.getPoint().x < 0
       }
 }

@@ -1,5 +1,4 @@
 /**
- * @fileoverview Tests the ClipSpace class.
  * @author Samuel Svensson
  */
 
@@ -25,12 +24,12 @@ describe('ClipSpace', () => {
       test.each([
             new Point(clipSpaceSize + 1, clipSpaceSize + 1),
             new Point(-1, -1),
-      ])('should be outside when setting %i', (point: Point) => {
+      ])('should be outside when setting %d', (point: Point) => {
             expectHitboxToBeOutsideOn(point)
       })
 
       test.each([new Point(clipSpaceSize, clipSpaceSize), new Point(0, 0)])(
-            'should be inside when setting %i',
+            'should be inside when setting %d',
             (point: Point) => {
                   expectHitboxToBeInsideOn(point)
             }

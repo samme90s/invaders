@@ -6,40 +6,24 @@
 import { Hitbox } from '../data/dimensions/Hitbox'
 import { Hitpoint } from '../data/Hitpoint'
 import { Speed } from '../data/Speed'
-import { Sprite } from '../data/Sprite'
-import { CartesianVector } from '../data/vectors/CartesianVector'
 
 export abstract class Entity {
-      protected sprite: Sprite
       protected hitbox: Hitbox
       protected hitpoint: Hitpoint
       protected speed: Speed
-      protected vector: CartesianVector = new CartesianVector(0, 0)
 
-      constructor(
-            hitbox: Hitbox,
-            sprite: Sprite,
-            hitpoint: Hitpoint,
-            speed: Speed
-      ) {
+      constructor(hitbox: Hitbox, hitpoint: Hitpoint, speed: Speed) {
             this.hitbox = hitbox
-            this.sprite = sprite
             this.hitpoint = hitpoint
             this.speed = speed
       }
 
-      /**
-       * @returns a deep copy.
-       */
       getHitbox(): Hitbox {
-            return this.hitbox.from()
+            return this.hitbox
       }
 
-      /**
-       * @returns a deep copy.
-       */
       getHitpoint(): Hitpoint {
-            return this.hitpoint.from()
+            return this.hitpoint
       }
 
       reduceHitpoint(amount: number): void {

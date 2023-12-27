@@ -11,13 +11,13 @@ import { SingleBulletStrategy } from './bullet/strategy/SingleBulletStrategy'
 import { ClipSpace } from './data/dimensions/ClipSpace'
 import { Hitbox } from './data/dimensions/Hitbox'
 import { Hitpoint } from './data/Hitpoint'
-import { Point } from './data/Point'
 import { Speed } from './data/Speed'
 import { Sprite } from './data/Sprite'
 import { EnemyController } from './entities/enemy/EnemyController'
 import { IncrementingSpawnStrategy } from './entities/enemy/strategy/spawn/IncrementingSpawnStrategy'
 import { ScrollerSpawnPointStrategy } from './entities/enemy/strategy/spawnpoint/ScrollerSpawnPointStrategy'
 import { Player } from './entities/player/Player'
+import { Vector2 } from './data/Vector2'
 /* eslint-enable max-len */
 
 function setupCanvas(clipSpace: ClipSpace): CanvasRenderingContext2D {
@@ -38,12 +38,6 @@ function setupCanvas(clipSpace: ClipSpace): CanvasRenderingContext2D {
 
 function run() {
       clear()
-
-      player.draw(ctx)
-      playerBulletController.draw(ctx, clipSpace)
-      enemyController.removeDeadEnemies()
-      enemyController.draw(ctx, player)
-      playerBulletController.isCollidingWith(enemyController.getEnemies())
 }
 
 function clear() {
@@ -77,17 +71,11 @@ const enemyController = new EnemyController(
       enemySpawnIntervalDelay
 )
 
-const clipSpaceOrigo = new Point(
-      clipSpace.getWidth() / 2,
-      clipSpace.getHeight() / 2
-)
 const player = new Player(
-      new Hitbox(clipSpaceOrigo, 16, 16),
-      new Sprite(new URL('../public/ship.png', import.meta.url)),
-      new Hitpoint(100, 10, 10),
+      new Hitbox(clipSpace.getOrigo(), new Vector2(0, 0), 1, 1),
+      new Hitpoint(100),
       new Speed(5),
-      playerBulletController,
-      clipSpace
+      playerBulletController
 )
 
 setInterval(run, 1000 / 60)

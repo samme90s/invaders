@@ -11,6 +11,6 @@ describe('Speed', () => {
 
       test('should return value', () => {
             const speed = new Speed(1)
-            expect(speed.getValue()).toBe(1)
+            expect(speed.get()).toBe(1)
       })
 })

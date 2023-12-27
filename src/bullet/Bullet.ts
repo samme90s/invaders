@@ -4,43 +4,37 @@
  */
 
 import { Hitbox } from '../data/dimensions/Hitbox'
-import { Point } from '../data/Point'
-import { CartesianVector } from '../data/vectors/CartesianVector'
-import { PolarVector } from '../data/vectors/PolarVector'
+import { Speed } from '../data/Speed'
 
 export class Bullet {
       private hitbox: Hitbox
-      private vector: CartesianVector
+      private speed: Speed
+      private timeToLive: number
 
-      constructor(position: Point, vector: PolarVector) {
-            // This may be odd because the vector is already normalized
-            // and multiplied when created in as a PolarVector.
-            this.vector = vector.toCartesian()
-
-            // Variable hitbox depending on the vector.
-            // Maybe use this as a default if no hitbox is provided?
-            // Otherwise check bullet angle and set hitbox accordingly
-            // based of the hitbox passed in.
-            this.hitbox = new Hitbox(
-                  position,
-                  Math.max(1, Math.abs(this.vector.getX())),
-                  Math.max(1, Math.abs(this.vector.getY()))
-            )
-
-            // Add some offset depending on the vector.
+      /**
+       * @param timeToLive Ticks the bullet will live. Default value is 100.
+       */
+      constructor(hitbox: Hitbox, speed: Speed, timeToLive: number = 100) {
+            this.hitbox = hitbox
+            this.speed = speed
+            this.timeToLive = timeToLive
       }
 
-      draw(ctx: CanvasRenderingContext2D): void {
-            ctx.fillStyle = '#f00'
-            ctx.fillRect(
-                  this.hitbox.getTopLeftPosition().x,
-                  this.hitbox.getTopLeftPosition().y,
-                  this.hitbox.getWidth(),
-                  this.hitbox.getHeight()
-            )
+      move(): void {
+            this.hitbox.move(this.speed)
+            this.reduceTimeToLive()
+      }
 
-            this.hitbox.getMutablePosition().x += this.vector.getX()
-            this.hitbox.getMutablePosition().y -= this.vector.getY()
+      private reduceTimeToLive(): void {
+            this.timeToLive--
+      }
+
+      isDead(): boolean {
+            return this.timeToLive <= 0
+      }
+
+      kill(): void {
+            this.timeToLive = 0
       }
 
       getHitbox(): Hitbox {
