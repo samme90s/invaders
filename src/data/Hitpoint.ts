@@ -3,27 +3,27 @@
  * @author Samuel Svensson
  */
 
+import { Damage } from './Damage'
+import { Interval } from './Interval'
+
 export class Hitpoint {
       private total: number
       private actual: number
       private regenRate: number
-      /**
-       * @param regenDelay In ticks.
-       */
-      private regenDelay: number
-      private regenClock: number
-      /**
-       * @param regenTimeout In ticks.
-       */
-      private regenTimeout: number
+      private regenDelay: Interval
+      private regenClock: Interval
+      private regenTimeout: Interval
 
       /**
        * @param regenRate Settings this value to 0 will disable regeneration.
+       * Default value is 0.
+       * @param regenDelay Amount of intervals between each regeneration.
+       * Default value is 10.
        */
       constructor(
             total: number = 1,
             regenRate: number = 0,
-            regenDelay: number = 10
+            regenDelay: Interval = new Interval(10)
       ) {
             if (total <= 0) {
                   throw new RangeError('total must be positive')
@@ -35,16 +35,12 @@ export class Hitpoint {
                   )
             }
 
-            if (regenDelay < 1) {
-                  throw new RangeError('regeneration delay must one or more')
-            }
-
             this.total = total
             this.actual = total
             this.regenRate = regenRate
             this.regenDelay = regenDelay
             this.regenClock = regenDelay
-            this.regenTimeout = 0
+            this.regenTimeout = new Interval(0)
       }
 
       from(): Hitpoint {
@@ -65,20 +61,20 @@ export class Hitpoint {
             return this.actual / this.total
       }
 
-      getActual(): number {
+      get(): number {
             return this.actual
       }
 
-      reduce(amount: number): void {
-            if (this.actual - amount < 0) {
+      reduce(damage: Damage): void {
+            if (this.actual - damage.get() < 0) {
                   this.actual = 0
             } else if (this.actual > 0) {
-                  this.actual -= amount
+                  this.actual -= damage.get()
             }
       }
 
-      setTimeout(ticks: number): void {
-            this.regenTimeout = ticks
+      setTimeout(interval: Interval): void {
+            this.regenTimeout = interval
       }
 
       regenerate(): void {
@@ -94,14 +90,14 @@ export class Hitpoint {
       }
 
       private updateRegenTimeout(): void {
-            if (this.regenTimeout > 0) {
-                  this.regenTimeout--
+            if (!this.regenTimeout.hasPassed()) {
+                  this.regenTimeout.reduce()
             }
       }
 
       private updateRegenClock(): void {
-            if (this.regenClock > 0) {
-                  this.regenClock--
+            if (!this.regenClock.hasPassed()) {
+                  this.regenClock.reduce()
             } else {
                   this.regenClock = this.regenDelay
             }
@@ -111,8 +107,8 @@ export class Hitpoint {
             return (
                   this.regenRate > 0 &&
                   this.actual < this.total &&
-                  this.regenTimeout <= 0 &&
-                  this.regenClock <= 0
+                  this.regenTimeout.hasPassed() &&
+                  this.regenClock.hasPassed()
             )
       }
 }

@@ -2,76 +2,73 @@
  * @author Samuel Svensson
  */
 
+import { Damage } from '../../src/data/Damage'
 import { Hitpoint } from '../../src/data/Hitpoint'
+import { Interval } from '../../src/data/Interval'
 
 const total = 10
 const regenRate = 1
-const regenDelay = 1
+const regenDelay = new Interval(1)
 
-describe('Constructor', () => {
-      it('should throw on regen delay less than one', () => {
-            expect(() => new Hitpoint(total, regenRate, 0)).toThrow(RangeError)
-      })
+let damage: Damage
+let hitpoint: Hitpoint
 
-      it('should throw on negative regen rate', () => {
-            expect(() => new Hitpoint(total, -1, regenDelay)).toThrow(
-                  RangeError
-            )
-      })
-
-      it('should throw on zero as total', () => {
-            expect(() => new Hitpoint(0, regenRate, regenDelay)).toThrow(
-                  RangeError
-            )
-      })
+beforeEach(() => {
+      damage = new Damage(1)
+      hitpoint = new Hitpoint(total, regenRate, regenDelay)
 })
 
-describe('Methods', () => {
-      let hitpoint: Hitpoint
-
-      beforeEach(() => {
-            hitpoint = new Hitpoint(total, regenRate, regenDelay)
+describe('Hitpoint', () => {
+      describe('Constructor', () => {
+            it('should throw on invalid parameters', () => {
+                  expect(() => new Hitpoint(total, -1, regenDelay)).toThrow(
+                        RangeError
+                  )
+                  expect(() => new Hitpoint(0, regenRate, regenDelay)).toThrow(
+                        RangeError
+                  )
+            })
       })
 
-      it('should return an new object with equal values', () => {
-            const copy = hitpoint.from()
-            expect(hitpoint).toEqual(copy)
-            expect(hitpoint).not.toBe(copy)
+      describe('Damage', () => {
+            it('should reduce actual and get ratio', () => {
+                  hitpoint.reduce(damage)
+                  expect(hitpoint.get()).toBe(total - regenRate)
+                  expect(hitpoint.getRatio()).toBe((total - regenRate) / total)
+            })
+
+            it('should handle regeneration', () => {
+                  hitpoint.reduce(damage)
+                  for (let i = 0; i < regenDelay.get(); i++) {
+                        hitpoint.regenerate()
+                  }
+                  expect(hitpoint.get()).toBe(total)
+            })
+
+            it('should not regenerate if timeout is set', () => {
+                  hitpoint.reduce(damage)
+                  hitpoint.setTimeout(new Interval(regenDelay.get() + 1))
+                  for (let i = 0; i < regenDelay.get(); i++) {
+                        hitpoint.regenerate()
+                  }
+                  expect(hitpoint.get()).toBe(total - regenRate)
+            })
       })
 
-      it('should return actual', () => {
-            expect(hitpoint.getActual()).toBe(total)
-      })
+      describe('Methods', () => {
+            it('should return an new object with equal values', () => {
+                  const copy = hitpoint.from()
+                  expect(hitpoint).toEqual(copy)
+                  expect(hitpoint).not.toBe(copy)
+            })
 
-      it('should reduce actual', () => {
-            hitpoint.reduce(regenRate)
-            expect(hitpoint.getActual()).toBe(total - regenRate)
-      })
+            it('should return actual', () => {
+                  expect(hitpoint.get()).toBe(total)
+            })
 
-      it('should reduce actual to zero', () => {
-            hitpoint.reduce(11)
-            expect(hitpoint.getActual()).toBe(0)
-      })
-
-      it('should get ratio', () => {
-            hitpoint.reduce(regenRate)
-            expect(hitpoint.getRatio()).toBe((total - regenRate) / total)
-      })
-
-      it('should be able to regenerate', () => {
-            hitpoint.reduce(regenRate)
-            for (let i = 0; i < regenDelay; i++) {
-                  hitpoint.regenerate()
-            }
-            expect(hitpoint.getActual()).toBe(total)
-      })
-
-      it('should not regenerate if timeout is set', () => {
-            hitpoint.reduce(regenRate)
-            hitpoint.setTimeout(regenDelay + 1)
-            for (let i = 0; i < regenDelay; i++) {
-                  hitpoint.regenerate()
-            }
-            expect(hitpoint.getActual()).toBe(total - regenRate)
+            it('should reduce actual to zero', () => {
+                  hitpoint.reduce(new Damage(total + 1))
+                  expect(hitpoint.get()).toBe(0)
+            })
       })
 })

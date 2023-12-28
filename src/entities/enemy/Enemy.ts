@@ -3,22 +3,32 @@
  * @author Samuel Svensson
  */
 
+import { Damage } from '../../data/Damage'
 import { Hitbox } from '../../data/dimensions/Hitbox'
 import { Hitpoint } from '../../data/Hitpoint'
+import { Interval } from '../../data/Interval'
 import { Speed } from '../../data/Speed'
 import { Entity } from '../Entity'
 import { Player } from '../player/Player'
 
 export class Enemy extends Entity {
-      constructor(hitbox: Hitbox, hitpoint: Hitpoint, speed: Speed) {
+      private damage: Damage
+
+      constructor(
+            hitbox: Hitbox,
+            hitpoint: Hitpoint,
+            speed: Speed,
+            damage: Damage
+      ) {
             super(hitbox, hitpoint, speed)
+            this.damage = damage
       }
 
       moveTowards(player: Player): void {
             // TODO: Remove magic number here
             if (this.hitbox.isCollidingWith(player.getHitbox())) {
-                  player.reduceHitpoint(1)
-                  player.timeoutHitpoint(120)
+                  player.reduceHitpoint(this.damage)
+                  player.timeoutHitpoint(new Interval(120))
             }
 
             this.hitbox.setDirection(

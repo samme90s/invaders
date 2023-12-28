@@ -3,8 +3,10 @@
  * @author Samuel Svensson
  */
 
+import { Damage } from '../data/Damage'
 import { Hitbox } from '../data/dimensions/Hitbox'
 import { Hitpoint } from '../data/Hitpoint'
+import { Interval } from '../data/Interval'
 import { Speed } from '../data/Speed'
 
 export abstract class Entity {
@@ -26,11 +28,11 @@ export abstract class Entity {
             return this.hitpoint
       }
 
-      reduceHitpoint(amount: number): void {
-            this.hitpoint.reduce(amount)
+      reduceHitpoint(damage: Damage): void {
+            this.hitpoint.reduce(damage)
       }
 
-      timeoutHitpoint(ticks: number): void {
-            this.hitpoint.setTimeout(ticks)
+      timeoutHitpoint(interval: Interval): void {
+            this.hitpoint.setTimeout(interval)
       }
 }

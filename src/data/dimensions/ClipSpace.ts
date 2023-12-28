@@ -16,7 +16,6 @@ export class ClipSpace extends Dimension {
             return new Vector2(this.width / 2, this.height / 2)
       }
 
-      // Use methods below?
       isOutside(hitbox: Hitbox): boolean {
             return (
                   this.isOutsideTop(hitbox) ||

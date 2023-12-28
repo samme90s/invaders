@@ -1,5 +1,5 @@
 /**
- * @fileoverview Holds all alphabet keys in the english language.
+ * @fileoverview Holds the code for each key in the english alphabet.
  * @author Samuel Svensson
  */
 

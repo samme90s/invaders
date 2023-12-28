@@ -4,6 +4,7 @@
  * @author Samuel Svensson
  */
 
+import { Interval } from '../data/Interval'
 import { Vector2 } from '../data/Vector2'
 import { Entity } from '../entities/Entity'
 import { Bullet } from './Bullet'
@@ -11,16 +12,16 @@ import { BulletFactory } from './factory/BulletFactory'
 
 export class BulletController {
       private bullets: Bullet[] = []
-      private shootDelay: number
-      private shootClock: number
+      private shootDelay: Interval
+      private shootClock: Interval
 
       /**
-       * @param shootDelay Ticks between each shot, this value is
-       * always positive or zero. Default value is 1.
+       * @param shootDelay Amount of intervals between each shot, this
+       * value is always positive or zero. Default value is 1.
        */
-      constructor(shootDelay: number = 1) {
-            this.shootDelay = Math.abs(shootDelay)
-            this.shootClock = 0
+      constructor(shootDelay: Interval = new Interval(1)) {
+            this.shootDelay = shootDelay
+            this.shootClock = new Interval(0)
       }
 
       update(): void {
@@ -30,8 +31,8 @@ export class BulletController {
       }
 
       shoot(point: Vector2): void {
-            this.shootClock--
-            if (this.shootClock <= 0) {
+            this.shootClock.reduce()
+            if (this.shootClock.hasPassed()) {
                   this.addBullet(point)
                   this.shootClock = this.shootDelay
             }
@@ -57,7 +58,9 @@ export class BulletController {
                                     entities[eIx].getHitbox()
                               )
                         ) {
-                              entities[eIx].reduceHitpoint(1)
+                              entities[eIx].reduceHitpoint(
+                                    this.bullets[bIx].getDamage()
+                              )
                               this.bullets[bIx].kill()
                         }
                   }
