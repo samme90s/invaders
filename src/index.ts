@@ -13,7 +13,7 @@ if (!canvas) {
       throw new Error('canvas not found')
 }
 
-const clipSpace = new ClipSpace(512, 512)
+const clipSpace = new ClipSpace(window.innerWidth, window.innerHeight)
 canvas.width = clipSpace.getWidth()
 canvas.height = clipSpace.getHeight()
 
