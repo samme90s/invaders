@@ -3,6 +3,7 @@
  * @author Samuel Svensson
  */
 
+import { Damage } from '../../data/Damage'
 import { Hitbox } from '../../data/dimensions/Hitbox'
 import { Speed } from '../../data/Speed'
 import { Vector2 } from '../../data/Vector2'
@@ -12,7 +13,8 @@ export class BulletFactory {
       static createFastBullet(point: Vector2): Bullet {
             return new Bullet(
                   new Hitbox(point, new Vector2(0, 1), 1, 1),
-                  new Speed(5)
+                  new Speed(5),
+                  new Damage(1)
             )
       }
 

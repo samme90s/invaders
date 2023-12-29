@@ -3,6 +3,7 @@
  * @author Samuel Svensson
  */
 
+import { Damage } from '../../../data/Damage'
 import { Hitbox } from '../../../data/dimensions/Hitbox'
 import { Hitpoint } from '../../../data/Hitpoint'
 import { Speed } from '../../../data/Speed'
@@ -14,7 +15,8 @@ export class EnemyFactory {
             return new Enemy(
                   new Hitbox(point, new Vector2(0, 0), 1, 1),
                   new Hitpoint(1),
-                  new Speed(1)
+                  new Speed(1),
+                  new Damage(1)
             )
       }
 }
