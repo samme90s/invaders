@@ -46,6 +46,13 @@ describe('Vector2', () => {
             expect(actual.y).toBe(0.8)
       })
 
+      it('should calculate the direction to another vector', () => {
+            const actual = vector1.directionTo(vector2)
+            // Assuming the subtract and normalize methods work correctly.
+            expect(actual.x).toBeCloseTo(0.7071)
+            expect(actual.y).toBeCloseTo(0.7071)
+      })
+
       it('should calculate the angle to another vector', () => {
             const vector1 = new Vector2(1, 0)
             const vector2 = new Vector2(0, 1)
