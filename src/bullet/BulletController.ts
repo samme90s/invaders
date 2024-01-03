@@ -58,9 +58,9 @@ export class BulletController {
                                     entities[eIx].getHitbox()
                               )
                         ) {
-                              entities[eIx].reduceHitpoint(
-                                    this.bullets[bIx].getDamage()
-                              )
+                              entities[eIx]
+                                    .getHitpoint()
+                                    .reduce(this.bullets[bIx].getDamage())
                               this.bullets[bIx].kill()
                         }
                   }

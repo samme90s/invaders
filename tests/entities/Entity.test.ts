@@ -2,7 +2,6 @@
  * @author Samuel Svensson
  */
 
-import { Damage } from '../../src/data/Damage'
 import { Hitbox } from '../../src/data/dimensions/Hitbox'
 import { Hitpoint } from '../../src/data/Hitpoint'
 import { Interval } from '../../src/data/Interval'
@@ -39,23 +38,5 @@ describe('Entity', () => {
 
       it('should get the hitpoint', () => {
             expect(entity.getHitpoint()).toBe(hitpoint)
-      })
-
-      it('should reduce hitpoint when damage is applied', () => {
-            const damage = new Damage(5)
-            const initialHitpoint = hitpoint.get()
-            entity.reduceHitpoint(damage)
-            expect(hitpoint.get()).toBe(initialHitpoint - 5)
-      })
-
-      it('should reduce hitpoint when damage is applied', () => {
-            const damage = new Damage(5)
-            const initialHitpoint = hitpoint.get()
-            const reduceSpy = jest.spyOn(hitpoint, 'reduce')
-
-            entity.reduceHitpoint(damage)
-
-            expect(reduceSpy).toHaveBeenCalledWith(damage)
-            expect(hitpoint.get()).toBe(initialHitpoint - 5)
       })
 })

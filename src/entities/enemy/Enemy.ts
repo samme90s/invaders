@@ -27,8 +27,8 @@ export class Enemy extends Entity {
       moveTowards(player: Player): void {
             // TODO: Remove magic number here
             if (this.hitbox.isCollidingWith(player.getHitbox())) {
-                  player.reduceHitpoint(this.damage)
-                  player.timeoutHitpoint(new Interval(120))
+                  player.getHitpoint().reduce(this.damage)
+                  player.getHitpoint().setTimeout(new Interval(120))
             }
 
             this.hitbox.setDirection(
