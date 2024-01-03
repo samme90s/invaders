@@ -30,45 +30,50 @@ describe('Hitpoint', () => {
             })
       })
 
-      describe('Damage', () => {
-            it('should reduce actual and get ratio', () => {
+      describe('Reduction', () => {
+            beforeEach(() => {
                   hitpoint.reduce(damage)
+            })
+
+            it('should return correct values', () => {
                   expect(hitpoint.get()).toBe(total - regenRate)
                   expect(hitpoint.getRatio()).toBe((total - regenRate) / total)
             })
 
             it('should handle regeneration', () => {
-                  hitpoint.reduce(damage)
                   for (let i = 0; i < regenDelay.get(); i++) {
                         hitpoint.regenerate()
                   }
                   expect(hitpoint.get()).toBe(total)
             })
 
-            it('should not regenerate if timeout is set', () => {
-                  hitpoint.reduce(damage)
+            it('should not regenerate if timeout is active', () => {
                   hitpoint.setTimeout(new Interval(regenDelay.get() + 1))
                   for (let i = 0; i < regenDelay.get(); i++) {
                         hitpoint.regenerate()
                   }
                   expect(hitpoint.get()).toBe(total - regenRate)
             })
+
+            it('should not reduce below zero', () => {
+                  // Adding the total damage results in
+                  // an exceeding damage (11).
+                  hitpoint.reduce(new Damage(total))
+                  expect(hitpoint.get()).toBe(0)
+            })
+
+            it('should return truthy on death', () => {
+                  expect(hitpoint.isDead()).toBeFalsy()
+                  hitpoint.reduce(new Damage(total))
+                  expect(hitpoint.isDead()).toBeTruthy()
+            })
       })
 
-      describe('Methods', () => {
+      describe('Other', () => {
             it('should return an new object with equal values', () => {
                   const copy = hitpoint.from()
                   expect(hitpoint).toEqual(copy)
                   expect(hitpoint).not.toBe(copy)
-            })
-
-            it('should return actual', () => {
-                  expect(hitpoint.get()).toBe(total)
-            })
-
-            it('should reduce actual to zero', () => {
-                  hitpoint.reduce(new Damage(total + 1))
-                  expect(hitpoint.get()).toBe(0)
             })
       })
 })
