@@ -24,11 +24,6 @@ export class Game {
 
       private clear() {
             this.ctx.fillStyle = '#00f'
-            this.ctx.fillRect(
-                  0,
-                  0,
-                  this.clipSpace.getWidth(),
-                  this.clipSpace.getHeight()
-            )
+            this.ctx.fillRect(0, 0, this.clipSpace.width, this.clipSpace.height)
       }
 }

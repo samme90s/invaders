@@ -2,41 +2,44 @@
  * @author Samuel Svensson
  */
 
-import { Hitbox } from '../../src/data/dimensions/Hitbox'
+import { Dimension } from '../../src/data/dimensions/Dimension'
 import { Hitpoint } from '../../src/data/Hitpoint'
-import { Interval } from '../../src/data/Interval'
 import { Speed } from '../../src/data/Speed'
 import { Vector2 } from '../../src/data/Vector2'
 import { Entity } from '../../src/entities/Entity'
 
 class TestEntity extends Entity {
-      constructor(hitbox: Hitbox, hitpoint: Hitpoint, speed: Speed) {
-            super(hitbox, hitpoint, speed)
+      constructor(point: Vector2) {
+            super(
+                  point,
+                  new Vector2(0, 0),
+                  new Dimension(1, 1),
+                  new Hitpoint(1),
+                  new Speed(1)
+            )
       }
 }
 
 describe('Entity', () => {
+      let point: Vector2
       let entity: Entity
-      let hitbox: Hitbox
-      let hitpoint: Hitpoint
-      let speed: Speed
 
       beforeEach(() => {
-            hitbox = new Hitbox(new Vector2(0, 0), new Vector2(0, 0), 1, 1)
-            hitpoint = new Hitpoint(10, 1, new Interval(1))
-            speed = new Speed(1)
-            entity = new TestEntity(hitbox, hitpoint, speed)
+            point = new Vector2(0, 0)
+            entity = new TestEntity(point)
       })
 
       it('should create an instance', () => {
             expect(entity).toBeInstanceOf(Entity)
       })
 
-      it('should get the hitbox', () => {
-            expect(entity.getHitbox()).toBe(hitbox)
+      it('should detect collision with another entity', () => {
+            const otherEntity = new TestEntity(new Vector2(1, 1))
+            expect(entity.isCollidingWith(otherEntity)).toBe(true)
       })
 
-      it('should get the hitpoint', () => {
-            expect(entity.getHitpoint()).toBe(hitpoint)
+      it('should not detect collision with distant entity', () => {
+            const distantEntity = new TestEntity(new Vector2(2, 2))
+            expect(entity.isCollidingWith(distantEntity)).toBe(false)
       })
 })

@@ -3,11 +3,11 @@
  * @author Samuel Svensson
  */
 
-import { BulletController } from '../../bullet/BulletController'
-import { Hitbox } from '../../data/dimensions/Hitbox'
+import { Dimension } from '../../data/dimensions/Dimension'
 import { Hitpoint } from '../../data/Hitpoint'
 import { Speed } from '../../data/Speed'
 import { Vector2 } from '../../data/Vector2'
+import { BulletController } from '../bullet/BulletController'
 import { Entity } from '../Entity'
 import { PlayerController } from './PlayerController'
 
@@ -16,12 +16,14 @@ export class Player extends Entity {
       private bulletController: BulletController
 
       constructor(
-            hitbox: Hitbox,
+            point: Vector2,
+            direction: Vector2,
+            dimension: Dimension,
             hitpoint: Hitpoint,
             speed: Speed,
             bulletController: BulletController
       ) {
-            super(hitbox, hitpoint, speed)
+            super(point, direction, dimension, hitpoint, speed)
             this.playerController = new PlayerController(this)
             this.bulletController = bulletController
       }
@@ -31,26 +33,26 @@ export class Player extends Entity {
       }
 
       shoot(): void {
-            this.bulletController.shoot(this.hitbox.getPoint())
+            this.bulletController.shoot(this.point)
       }
 
       moveUp(): void {
-            this.hitbox.setDirection(new Vector2(0, -1))
-            this.hitbox.move(this.speed)
+            this._direction = new Vector2(0, -1)
+            this.move()
       }
 
       moveLeft(): void {
-            this.hitbox.setDirection(new Vector2(-1, 0))
-            this.hitbox.move(this.speed)
+            this._direction = new Vector2(-1, 0)
+            this.move()
       }
 
       moveDown(): void {
-            this.hitbox.setDirection(new Vector2(0, 1))
-            this.hitbox.move(this.speed)
+            this._direction = new Vector2(0, 1)
+            this.move()
       }
 
       moveRight(): void {
-            this.hitbox.setDirection(new Vector2(1, 0))
-            this.hitbox.move(this.speed)
+            this._direction = new Vector2(1, 0)
+            this.move()
       }
 }

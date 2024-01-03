@@ -3,9 +3,9 @@
  * @author Samuel Svensson
  */
 
+import { Entity } from '../../entities/Entity'
 import { Vector2 } from '../Vector2'
 import { Dimension } from './Dimension'
-import { Hitbox } from './Hitbox'
 
 export class ClipSpace extends Dimension {
       constructor(width: number, height: number) {
@@ -16,28 +16,28 @@ export class ClipSpace extends Dimension {
             return new Vector2(this.width / 2, this.height / 2)
       }
 
-      isOutside(hitbox: Hitbox): boolean {
+      isOutside(entity: Entity): boolean {
             return (
-                  this.isOutsideTop(hitbox) ||
-                  this.isOutsideRight(hitbox) ||
-                  this.isOutsideDown(hitbox) ||
-                  this.isOutsideLeft(hitbox)
+                  this.isOutsideTop(entity) ||
+                  this.isOutsideRight(entity) ||
+                  this.isOutsideDown(entity) ||
+                  this.isOutsideLeft(entity)
             )
       }
 
-      isOutsideTop(hitbox: Hitbox): boolean {
-            return hitbox.getPoint().y < 0
+      isOutsideTop(entity: Entity): boolean {
+            return entity.point.y < 0
       }
 
-      isOutsideRight(hitbox: Hitbox): boolean {
-            return hitbox.getPoint().x > this.width - hitbox.getWidth()
+      isOutsideRight(entity: Entity): boolean {
+            return entity.point.x > this.width - entity.dimension.width
       }
 
-      isOutsideDown(hitbox: Hitbox): boolean {
-            return hitbox.getPoint().y > this.height - hitbox.getHeight()
+      isOutsideDown(entity: Entity): boolean {
+            return entity.point.y > this.height - entity.dimension.height
       }
 
-      isOutsideLeft(hitbox: Hitbox): boolean {
-            return hitbox.getPoint().x < 0
+      isOutsideLeft(entity: Entity): boolean {
+            return entity.point.x < 0
       }
 }

@@ -17,7 +17,7 @@ export class EnemyController {
 
       removeDeadEnemies(): void {
             for (let eIx = 0; eIx < this.enemies.length; eIx++) {
-                  if (this.enemies[eIx].getHitpoint().isDead()) {
+                  if (this.enemies[eIx].hitpoint.isDead()) {
                         this.enemies.splice(eIx, 1)
                   }
             }

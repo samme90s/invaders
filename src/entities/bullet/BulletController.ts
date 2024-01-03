@@ -4,9 +4,9 @@
  * @author Samuel Svensson
  */
 
-import { Interval } from '../data/Interval'
-import { Vector2 } from '../data/Vector2'
-import { Entity } from '../entities/Entity'
+import { Interval } from '../../data/Interval'
+import { Vector2 } from '../../data/Vector2'
+import { Entity } from '../Entity'
 import { Bullet } from './Bullet'
 import { BulletFactory } from './factory/BulletFactory'
 
@@ -53,14 +53,10 @@ export class BulletController {
       checkCollisions(entities: Entity[]): void {
             for (let bIx = 0; bIx < this.bullets.length; bIx++) {
                   for (let eIx = 0; eIx < entities.length; eIx++) {
-                        if (
-                              this.bullets[bIx].isCollidingWith(
-                                    entities[eIx].getHitbox()
+                        if (this.bullets[bIx].isCollidingWith(entities[eIx])) {
+                              entities[eIx].hitpoint.reduce(
+                                    this.bullets[bIx].damage
                               )
-                        ) {
-                              entities[eIx]
-                                    .getHitpoint()
-                                    .reduce(this.bullets[bIx].getDamage())
                               this.bullets[bIx].kill()
                         }
                   }

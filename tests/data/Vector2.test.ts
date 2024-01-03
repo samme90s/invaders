@@ -48,9 +48,9 @@ describe('Vector2', () => {
 
       it('should calculate the direction to another vector', () => {
             const actual = vector1.directionTo(vector2)
-            // Assuming the subtract and normalize methods work correctly.
-            expect(actual.x).toBeCloseTo(0.7071)
-            expect(actual.y).toBeCloseTo(0.7071)
+            const expected = new Vector2(0.7071, 0.7071)
+            expect(actual.x).toBeCloseTo(expected.x)
+            expect(actual.y).toBeCloseTo(expected.y)
       })
 
       it('should calculate the angle to another vector', () => {
@@ -59,5 +59,22 @@ describe('Vector2', () => {
             const actual = vector1.angleTo(vector2)
             expect(actual).toBeInstanceOf(RadianAngle)
             expect(actual.get()).toBe(Math.PI / 2)
+      })
+
+      it('should move the vector', () => {
+            const direction = new Vector2(1, 1)
+            const scalar = 2
+            const actual = vector1.move(direction, scalar)
+            const expected = vector1.add(direction.multiply(scalar))
+            expect(actual.x).toBe(expected.x)
+            expect(actual.y).toBe(expected.y)
+      })
+
+      it('should set direction of the vector', () => {
+            const direction = new Vector2(1, 1)
+            const expected = new Vector2(0.7071, 0.7071)
+            vector1.direction(direction)
+            expect(vector1.x).toBeCloseTo(expected.x)
+            expect(vector1.y).toBeCloseTo(expected.y)
       })
 })

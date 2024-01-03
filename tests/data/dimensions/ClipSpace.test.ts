@@ -3,43 +3,77 @@
  */
 
 import { ClipSpace } from '../../../src/data/dimensions/ClipSpace'
-import { Hitbox } from '../../../src/data/dimensions/Hitbox'
+import { Dimension } from '../../../src/data/dimensions/Dimension'
+import { Hitpoint } from '../../../src/data/Hitpoint'
+import { Speed } from '../../../src/data/Speed'
 import { Vector2 } from '../../../src/data/Vector2'
+import { Entity } from '../../../src/entities/Entity'
+
+class TestEntity extends Entity {
+      constructor(
+            point: Vector2,
+            direction: Vector2,
+            dimension: Dimension,
+            hitpoint: Hitpoint,
+            speed: Speed
+      ) {
+            super(point, direction, dimension, hitpoint, speed)
+      }
+}
 
 describe('ClipSpace', () => {
+      const clipSpace = new ClipSpace(1, 1)
+      const dimension = new Dimension(1, 1)
       const direction = new Vector2(0, 0)
-      const width = 1
-      const height = 1
-      const clipSpace = new ClipSpace(width, height)
+      const hitpoint = new Hitpoint(1)
+      const speed = new Speed(1)
 
-      it('should return origo', () => {
-            const expected = new Vector2(width / 2, height / 2)
-            expect(clipSpace.getOrigo()).toEqual(expected)
+      describe('Points', () => {
+            it('should return origo', () => {
+                  const expected = new Vector2(
+                        clipSpace.width / 2,
+                        clipSpace.height / 2
+                  )
+                  expect(clipSpace.getOrigo()).toEqual(expected)
+            })
       })
 
-      test.each([new Vector2(width + 1, height + 1), new Vector2(-1, -1)])(
-            'should be outside on point',
-            (point: Vector2) => {
-                  expectHitboxToBeOutsideOn(
-                        new Hitbox(point, direction, width, height)
+      describe('Entities', () => {
+            it('should be outside', () => {
+                  const point = new Vector2(
+                        clipSpace.width + 1,
+                        clipSpace.height + 1
                   )
+                  expectEntityToBeOutside(
+                        new TestEntity(
+                              point,
+                              direction,
+                              dimension,
+                              hitpoint,
+                              speed
+                        )
+                  )
+            })
+
+            function expectEntityToBeOutside(entity: Entity) {
+                  expect(clipSpace.isOutside(entity)).toBe(true)
             }
-      )
 
-      function expectHitboxToBeOutsideOn(hitbox: Hitbox) {
-            expect(clipSpace.isOutside(hitbox)).toBeTruthy
-      }
-
-      test.each([new Vector2(width, height), new Vector2(0, 0)])(
-            'should be inside on point',
-            (point: Vector2) => {
+            it('should be inside', () => {
+                  const point = new Vector2(0, 0)
                   expectHitboxToBeInsideOn(
-                        new Hitbox(point, direction, width, height)
+                        new TestEntity(
+                              point,
+                              direction,
+                              dimension,
+                              hitpoint,
+                              speed
+                        )
                   )
-            }
-      )
+            })
 
-      function expectHitboxToBeInsideOn(hitbox: Hitbox) {
-            expect(clipSpace.isOutside(hitbox)).toBeFalsy
-      }
+            function expectHitboxToBeInsideOn(entity: Entity) {
+                  expect(clipSpace.isOutside(entity)).toBe(false)
+            }
+      })
 })

@@ -21,7 +21,7 @@ export class Hitpoint {
        * Default value is 10.
        */
       constructor(
-            total: number = 1,
+            total: number,
             regenRate: number = 0,
             regenDelay: Interval = new Interval(10)
       ) {

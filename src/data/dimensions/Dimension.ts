@@ -4,22 +4,22 @@
  */
 
 export class Dimension {
-      protected width: number
-      protected height: number
+      protected _width: number
+      protected _height: number
 
       /**
        * Converts any negative value to positive.
        */
       constructor(width: number, height: number) {
-            this.width = Math.abs(width)
-            this.height = Math.abs(height)
+            this._width = Math.abs(width)
+            this._height = Math.abs(height)
       }
 
-      getWidth(): number {
-            return this.width
+      get width(): number {
+            return this._width
       }
 
-      getHeight(): number {
-            return this.height
+      get height(): number {
+            return this._height
       }
 }

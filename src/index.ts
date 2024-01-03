@@ -14,8 +14,8 @@ if (!canvas) {
 }
 
 const clipSpace = new ClipSpace(window.innerWidth, window.innerHeight)
-canvas.width = clipSpace.getWidth()
-canvas.height = clipSpace.getHeight()
+canvas.width = clipSpace.width
+canvas.height = clipSpace.height
 
 const ctx = canvas.getContext('2d')
 if (!ctx) {
