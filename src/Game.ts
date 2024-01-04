@@ -3,9 +3,7 @@
  * @author Samuel Svensson
  */
 
-/* eslint-disable max-len */
 import { ClipSpace } from './data/dimensions/ClipSpace'
-/* eslint-enable max-len */
 
 export class Game {
       private clipSpace: ClipSpace

@@ -1,6 +1,6 @@
 /**
  * @fileoverview Defines a controller that handles bullet instances and
- * simulate their behaviour.
+ * simulate their behavior.
  * @author Samuel Svensson
  */
 
