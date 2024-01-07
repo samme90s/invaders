@@ -42,7 +42,7 @@ describe('Hitpoint', () => {
             })
 
             it('should handle regeneration', () => {
-                  for (let i = 0; i < regenDelay.get(); i++) {
+                  for (let i = 0; i < regenDelay.getStatic(); i++) {
                         hitpoint.regenerate()
                   }
                   expect(hitpoint.get()).toBe(total)
@@ -50,7 +50,7 @@ describe('Hitpoint', () => {
 
             it('should not regenerate if timeout is active', () => {
                   hitpoint.timeoutRegeneration()
-                  for (let i = 0; i < timeoutDelay.get(); i++) {
+                  for (let i = 0; i < timeoutDelay.getStatic() - 1; i++) {
                         hitpoint.regenerate()
                   }
                   expect(hitpoint.get()).toBe(total - regenRate)

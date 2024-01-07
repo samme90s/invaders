@@ -4,10 +4,15 @@
  */
 
 export class Interval {
+      private static: number
       private interval: number
 
       constructor(interval: number) {
             this.set(interval)
+      }
+
+      getStatic(): number {
+            return this.static
       }
 
       from(): Interval {
@@ -27,7 +32,9 @@ export class Interval {
                   throw new RangeError('interval must be positive or zero')
             }
 
-            this.interval = Math.abs(interval)
+            const absolute = Math.abs(interval)
+            this.static = absolute
+            this.interval = absolute
       }
 
       hasPassed(): boolean {

@@ -18,6 +18,12 @@ describe('Interval', () => {
       it('should set the interval', () => {
             interval.set(3)
             expect(interval.get()).toBe(3)
+            expect(interval.getStatic()).toBe(3)
+      })
+
+      it('should get the static value', () => {
+            interval.reduce()
+            expect(interval.getStatic()).toBe(5)
       })
 
       it('should throw an error if interval is not an integer', () => {
@@ -33,9 +39,9 @@ describe('Interval', () => {
       })
 
       it('should check if interval has passed', () => {
-            expect(interval.hasPassed()).toBe(false)
+            expect(interval.hasPassed()).toBeFalsy()
             interval.set(0)
-            expect(interval.hasPassed()).toBe(true)
+            expect(interval.hasPassed()).toBeTruthy()
       })
 
       it('should reduce the interval', () => {

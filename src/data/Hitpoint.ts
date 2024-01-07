@@ -7,12 +7,12 @@ import { Damage } from './Damage'
 import { Interval } from './Interval'
 
 export class Hitpoint {
-      private total: number
+      private readonly total: number
       private actual: number
-      private regenRate: number
-      private regenDelay: Interval
+      private readonly regenRate: number
+      private readonly regenDelay: Interval
       private regenClock: Interval
-      private timeoutDelay: Interval
+      private readonly timeoutDelay: Interval
       private timeoutClock: Interval
 
       /**
@@ -80,7 +80,7 @@ export class Hitpoint {
       }
 
       timeoutRegeneration(): void {
-            this.timeoutClock = this.timeoutDelay
+            this.timeoutClock.set(this.timeoutDelay.get())
       }
 
       regenerate(): void {
@@ -119,6 +119,6 @@ export class Hitpoint {
       }
 
       private delayRegeneration(): void {
-            this.regenClock = this.regenDelay
+            this.regenClock.set(this.regenDelay.get())
       }
 }
