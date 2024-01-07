@@ -109,10 +109,6 @@ export class Hitpoint {
             }
       }
 
-      private delayRegeneration(): void {
-            this.regenClock = this.regenDelay
-      }
-
       private canRegenerate(): boolean {
             return (
                   this.regenRate > 0 &&
@@ -120,5 +116,9 @@ export class Hitpoint {
                   this.timeoutClock.hasPassed() &&
                   this.regenClock.hasPassed()
             )
+      }
+
+      private delayRegeneration(): void {
+            this.regenClock = this.regenDelay
       }
 }
