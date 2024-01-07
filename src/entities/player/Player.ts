@@ -9,10 +9,8 @@ import { Speed } from '../../data/Speed'
 import { Vector2 } from '../../data/Vector2'
 import { BulletController } from '../bullet/BulletController'
 import { Entity } from '../Entity'
-import { PlayerController } from './PlayerController'
 
 export class Player extends Entity {
-      private playerController: PlayerController
       private bulletController: BulletController
 
       constructor(
@@ -24,12 +22,7 @@ export class Player extends Entity {
             bulletController: BulletController
       ) {
             super(point, direction, dimension, hitpoint, speed)
-            this.playerController = new PlayerController(this)
             this.bulletController = bulletController
-      }
-
-      getPlayerController(): PlayerController {
-            return this.playerController
       }
 
       shoot(): void {

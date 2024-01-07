@@ -1,6 +1,6 @@
 /**
  * @fileoverview Defines a controller that handles
- * enemy instances and simulate their behaviour.
+ * enemy instances and simulate their behavior.
  * @author Samuel Svensson
  */
 

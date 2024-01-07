@@ -1,6 +1,6 @@
 /**
- * @fileoverview Defines a controller that
- * handles the player's input and actions.
+ * @fileoverview Holds the keybinds for
+ * a player and their respective actions.
  * @author Samuel Svensson
  */
 
@@ -8,38 +8,38 @@ import { Alpha } from '../../data/keys/Alpha'
 import { Key } from '../../data/keys/Key'
 import { Player } from './Player'
 
-export class PlayerController {
-      private moveUpKey: Key
-      private moveLeftKey: Key
-      private moveDownKey: Key
-      private moveRightKey: Key
-      private shootKey: Key
+export class Keybinds {
+      private _moveUp: Key
+      private _moveLeft: Key
+      private _moveDown: Key
+      private _moveRight: Key
+      private _shoot: Key
 
       constructor(player: Player) {
-            this.moveUpKey = new Key(Alpha.W, () => player.moveUp())
-            this.moveLeftKey = new Key(Alpha.A, () => player.moveLeft())
-            this.moveDownKey = new Key(Alpha.S, () => player.moveDown())
-            this.moveRightKey = new Key(Alpha.D, () => player.moveRight())
-            this.shootKey = new Key(Alpha.SPACE, () => player.shoot())
+            this._moveUp = new Key(Alpha.W, () => player.moveUp())
+            this._moveLeft = new Key(Alpha.A, () => player.moveLeft())
+            this._moveDown = new Key(Alpha.S, () => player.moveDown())
+            this._moveRight = new Key(Alpha.D, () => player.moveRight())
+            this._shoot = new Key(Alpha.SPACE, () => player.shoot())
       }
 
-      setMoveUpKey(key: Alpha): void {
-            this.moveUpKey.setKey(key)
+      get moveUp(): Key {
+            return this._moveUp
       }
 
-      setMoveLeftKey(key: Alpha): void {
-            this.moveLeftKey.setKey(key)
+      get moveLeft(): Key {
+            return this._moveLeft
       }
 
-      setMoveDownKey(key: Alpha): void {
-            this.moveDownKey.setKey(key)
+      get moveDown(): Key {
+            return this._moveDown
       }
 
-      setMoveRightKey(key: Alpha): void {
-            this.moveRightKey.setKey(key)
+      get moveRight(): Key {
+            return this._moveRight
       }
 
-      setShootKey(key: Alpha): void {
-            this.shootKey.setKey(key)
+      get shoot(): Key {
+            return this._shoot
       }
 }

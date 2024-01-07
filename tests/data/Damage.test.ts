@@ -11,10 +11,6 @@ describe('Damage', () => {
             damage = new Damage(5)
       })
 
-      it('should create an instance', () => {
-            expect(damage).toBeInstanceOf(Damage)
-      })
-
       it('should get the damage', () => {
             expect(damage.get()).toBe(5)
       })

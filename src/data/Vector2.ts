@@ -27,8 +27,14 @@ export class Vector2 {
             return new Vector2(this._x, this._y)
       }
 
-      move(direction: Vector2, scalar: number): Vector2 {
-            return this.add(direction.multiply(scalar))
+      move(direction: Vector2, scalar: number): void {
+            const moved = this.add(direction.multiply(scalar))
+            this._x = moved.x
+            this._y = moved.y
+      }
+
+      add(other: Vector2): Vector2 {
+            return new Vector2(this._x + other.x, this._y + other.y)
       }
 
       multiply(scalar: number): Vector2 {
@@ -75,9 +81,5 @@ export class Vector2 {
 
       magnitude(): number {
             return Math.sqrt(this._x ** 2 + this._y ** 2)
-      }
-
-      add(other: Vector2): Vector2 {
-            return new Vector2(this._x + other.x, this._y + other.y)
       }
 }

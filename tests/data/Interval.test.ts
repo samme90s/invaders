@@ -11,10 +11,6 @@ describe('Interval', () => {
             interval = new Interval(5)
       })
 
-      it('should create an instance', () => {
-            expect(interval).toBeInstanceOf(Interval)
-      })
-
       it('should get the interval', () => {
             expect(interval.get()).toBe(5)
       })

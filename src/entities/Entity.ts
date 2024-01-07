@@ -89,6 +89,6 @@ export abstract class Entity {
       }
 
       protected move(): void {
-            this.point.move(this.direction, this.speed.get())
+            this._point.move(this._direction, this.speed.get())
       }
 }

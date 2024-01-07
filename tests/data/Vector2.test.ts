@@ -64,10 +64,9 @@ describe('Vector2', () => {
       it('should move the vector', () => {
             const direction = new Vector2(1, 1)
             const scalar = 2
-            const actual = vector1.move(direction, scalar)
-            const expected = vector1.add(direction.multiply(scalar))
-            expect(actual.x).toBe(expected.x)
-            expect(actual.y).toBe(expected.y)
+            vector1.move(direction, scalar)
+            expect(vector1.x).toBe(vector2.x)
+            expect(vector1.y).toBe(vector2.y)
       })
 
       it('should set direction of the vector', () => {

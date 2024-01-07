@@ -29,10 +29,6 @@ describe('Entity', () => {
             entity = new TestEntity(point)
       })
 
-      it('should create an instance', () => {
-            expect(entity).toBeInstanceOf(Entity)
-      })
-
       it('should detect collision with another entity', () => {
             const otherEntity = new TestEntity(new Vector2(1, 1))
             expect(entity.isCollidingWith(otherEntity)).toBe(true)

@@ -9,7 +9,7 @@ export class Key {
       private action: () => void
 
       constructor(key: Alpha, action: () => void) {
-            this.setKey(key)
+            this.set(key)
             this.action = action
             document.addEventListener('keydown', this.keyDown.bind(this))
       }
@@ -20,7 +20,7 @@ export class Key {
             }
       }
 
-      setKey(key: Alpha): void {
+      set(key: Alpha): void {
             this.key = key
       }
 }
