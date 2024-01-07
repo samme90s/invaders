@@ -12,7 +12,7 @@ import { Entity } from '../Entity'
 import { Player } from '../player/Player'
 
 export class Enemy extends Entity {
-      private damage: Damage
+      private readonly damage: Damage
 
       constructor(
             point: Vector2,

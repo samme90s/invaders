@@ -6,7 +6,7 @@ import { Alpha } from './Alpha'
 
 export class Key {
       private key: string
-      private action: () => void
+      private readonly action: () => void
 
       constructor(key: Alpha, action: () => void) {
             this.set(key)

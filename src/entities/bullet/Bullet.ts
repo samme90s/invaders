@@ -12,8 +12,8 @@ import { Vector2 } from '../../data/Vector2'
 import { Entity } from '../Entity'
 
 export class Bullet extends Entity {
-      private _damage: Damage
-      private timeToLive: Interval
+      private readonly _damage: Damage
+      private readonly timeToLive: Interval
 
       /**
        * @param timeToLive Amount of intervals the

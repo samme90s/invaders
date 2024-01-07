@@ -11,9 +11,9 @@ export class Hitpoint {
       private actual: number
       private readonly regenRate: number
       private readonly regenDelay: Interval
-      private regenClock: Interval
+      private readonly regenClock: Interval
       private readonly timeoutDelay: Interval
-      private timeoutClock: Interval
+      private readonly timeoutClock: Interval
 
       /**
        * @param regenRate Settings this value to 0 will disable regeneration.

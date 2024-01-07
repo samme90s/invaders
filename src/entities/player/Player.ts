@@ -11,7 +11,7 @@ import { BulletController } from '../bullet/BulletController'
 import { Entity } from '../Entity'
 
 export class Player extends Entity {
-      private bulletController: BulletController
+      private readonly bulletController: BulletController
 
       constructor(
             point: Vector2,

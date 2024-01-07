@@ -4,8 +4,8 @@
  */
 
 export class Dimension {
-      protected _width: number
-      protected _height: number
+      protected readonly _width: number
+      protected readonly _height: number
 
       /**
        * Converts any negative value to positive.

@@ -6,8 +6,8 @@
 import { ClipSpace } from './data/dimensions/ClipSpace'
 
 export class Game {
-      private clipSpace: ClipSpace
-      private ctx: CanvasRenderingContext2D
+      private readonly clipSpace: ClipSpace
+      private readonly ctx: CanvasRenderingContext2D
 
       constructor(clipSpace: ClipSpace, ctx: CanvasRenderingContext2D) {
             this.clipSpace = clipSpace

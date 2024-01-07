@@ -4,7 +4,7 @@
  */
 
 export class Speed {
-      private speed: number
+      private readonly speed: number
       constructor(speed: number) {
             if (speed <= 0) {
                   throw new RangeError('speed must be positive')

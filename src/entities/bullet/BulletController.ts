@@ -12,8 +12,8 @@ import { BulletFactory } from './factory/BulletFactory'
 
 export class BulletController {
       private bullets: Bullet[] = []
-      private shootDelay: Interval
-      private shootClock: Interval
+      private readonly shootDelay: Interval
+      private readonly shootClock: Interval
 
       /**
        * @param shootDelay Amount of intervals between each shot, this
@@ -54,7 +54,7 @@ export class BulletController {
       }
 
       private delayShoot(): void {
-            this.shootClock = this.shootDelay
+            this.shootClock.set(this.shootDelay.get())
       }
 
       removeDeadBullets(): void {

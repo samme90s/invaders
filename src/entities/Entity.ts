@@ -11,9 +11,9 @@ import { Vector2 } from '../data/Vector2'
 export abstract class Entity {
       protected _point: Vector2
       protected _direction: Vector2
-      protected _dimension: Dimension
-      protected _hitpoint: Hitpoint
-      protected speed: Speed
+      protected readonly _dimension: Dimension
+      protected readonly _hitpoint: Hitpoint
+      protected readonly speed: Speed
 
       constructor(
             point: Vector2,

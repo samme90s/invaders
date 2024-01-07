@@ -9,11 +9,11 @@ import { Key } from '../../data/keys/Key'
 import { Player } from './Player'
 
 export class Keybinds {
-      private _moveUp: Key
-      private _moveLeft: Key
-      private _moveDown: Key
-      private _moveRight: Key
-      private _shoot: Key
+      private readonly _moveUp: Key
+      private readonly _moveLeft: Key
+      private readonly _moveDown: Key
+      private readonly _moveRight: Key
+      private readonly _shoot: Key
 
       constructor(player: Player) {
             this._moveUp = new Key(Alpha.W, () => player.moveUp())
