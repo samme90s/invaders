@@ -12,7 +12,8 @@ export class Hitpoint {
       private regenRate: number
       private regenDelay: Interval
       private regenClock: Interval
-      private regenTimeout: Interval
+      private timeoutDelay: Interval
+      private timeoutClock: Interval
 
       /**
        * @param regenRate Settings this value to 0 will disable regeneration.
@@ -23,7 +24,8 @@ export class Hitpoint {
       constructor(
             total: number,
             regenRate: number = 0,
-            regenDelay: Interval = new Interval(10)
+            regenDelay: Interval = new Interval(10),
+            timeoutDelay: Interval = new Interval(120)
       ) {
             if (total <= 0) {
                   throw new RangeError('total must be positive')
@@ -39,15 +41,17 @@ export class Hitpoint {
             this.actual = total
             this.regenRate = regenRate
             this.regenDelay = regenDelay
-            this.regenClock = regenDelay
-            this.regenTimeout = new Interval(0)
+            this.regenClock = new Interval(0)
+            this.timeoutDelay = timeoutDelay
+            this.timeoutClock = new Interval(0)
       }
 
       from(): Hitpoint {
             const copy = new Hitpoint(
                   this.total,
                   this.regenRate,
-                  this.regenDelay
+                  this.regenDelay,
+                  this.timeoutDelay
             )
             copy.actual = this.actual
             return copy
@@ -73,12 +77,12 @@ export class Hitpoint {
             }
       }
 
-      setTimeout(interval: Interval): void {
-            this.regenTimeout = interval
+      timeoutRegeneration(): void {
+            this.timeoutClock = this.timeoutDelay
       }
 
       regenerate(): void {
-            this.updateRegenTimeout()
+            this.updateTimeoutClock()
             this.updateRegenClock()
             if (this.canRegenerate()) {
                   if (this.actual + this.regenRate > this.total) {
@@ -86,28 +90,32 @@ export class Hitpoint {
                   } else {
                         this.actual += this.regenRate
                   }
+
+                  this.delayRegeneration()
             }
       }
 
-      private updateRegenTimeout(): void {
-            if (!this.regenTimeout.hasPassed()) {
-                  this.regenTimeout.reduce()
+      private updateTimeoutClock(): void {
+            if (!this.timeoutClock.hasPassed()) {
+                  this.timeoutClock.reduce()
             }
       }
 
       private updateRegenClock(): void {
             if (!this.regenClock.hasPassed()) {
                   this.regenClock.reduce()
-            } else {
-                  this.regenClock = this.regenDelay
             }
+      }
+
+      private delayRegeneration(): void {
+            this.regenClock = this.regenDelay
       }
 
       private canRegenerate(): boolean {
             return (
                   this.regenRate > 0 &&
                   this.actual < this.total &&
-                  this.regenTimeout.hasPassed() &&
+                  this.timeoutClock.hasPassed() &&
                   this.regenClock.hasPassed()
             )
       }

@@ -9,13 +9,14 @@ import { Interval } from '../../src/data/Interval'
 const total = 10
 const regenRate = 1
 const regenDelay = new Interval(1)
+const timeoutDelay = new Interval(2)
 
 let damage: Damage
 let hitpoint: Hitpoint
 
 beforeEach(() => {
       damage = new Damage(1)
-      hitpoint = new Hitpoint(total, regenRate, regenDelay)
+      hitpoint = new Hitpoint(total, regenRate, regenDelay, timeoutDelay)
 })
 
 describe('Hitpoint', () => {
@@ -48,8 +49,8 @@ describe('Hitpoint', () => {
             })
 
             it('should not regenerate if timeout is active', () => {
-                  hitpoint.setTimeout(new Interval(regenDelay.get() + 1))
-                  for (let i = 0; i < regenDelay.get(); i++) {
+                  hitpoint.timeoutRegeneration()
+                  for (let i = 0; i < timeoutDelay.get(); i++) {
                         hitpoint.regenerate()
                   }
                   expect(hitpoint.get()).toBe(total - regenRate)

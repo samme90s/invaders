@@ -6,7 +6,6 @@
 import { Damage } from '../../data/Damage'
 import { Dimension } from '../../data/dimensions/Dimension'
 import { Hitpoint } from '../../data/Hitpoint'
-import { Interval } from '../../data/Interval'
 import { Speed } from '../../data/Speed'
 import { Vector2 } from '../../data/Vector2'
 import { Entity } from '../Entity'
@@ -28,10 +27,9 @@ export class Enemy extends Entity {
       }
 
       moveTowards(player: Player): void {
-            // TODO: Remove magic number here
             if (this.isCollidingWith(player)) {
                   player.hitpoint.reduce(this.damage)
-                  player.hitpoint.setTimeout(new Interval(120))
+                  player.hitpoint.timeoutRegeneration()
             }
 
             this._direction = this._point.directionTo(player.point)
