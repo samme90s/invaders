@@ -56,7 +56,7 @@ describe('ClipSpace', () => {
             })
 
             function expectEntityToBeOutside(entity: Entity) {
-                  expect(clipSpace.isOutside(entity)).toBe(true)
+                  expect(clipSpace.isOutside(entity)).toBeTruthy()
             }
 
             it('should be inside', () => {
@@ -73,7 +73,7 @@ describe('ClipSpace', () => {
             })
 
             function expectHitboxToBeInsideOn(entity: Entity) {
-                  expect(clipSpace.isOutside(entity)).toBe(false)
+                  expect(clipSpace.isOutside(entity)).toBeFalsy()
             }
       })
 })

@@ -26,7 +26,7 @@ export class BulletController {
 
       update(): void {
             for (let bIx = 0; bIx < this.bullets.length; bIx++) {
-                  this.bullets[bIx].move()
+                  this.bullets[bIx].update()
             }
       }
 

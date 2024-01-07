@@ -33,7 +33,7 @@ export class Bullet extends Entity {
             this.timeToLive = timeToLive
       }
 
-      move(): void {
+      update(): void {
             this.move()
             this.reduceTimeToLive()
       }

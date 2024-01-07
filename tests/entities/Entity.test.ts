@@ -31,11 +31,11 @@ describe('Entity', () => {
 
       it('should detect collision with another entity', () => {
             const otherEntity = new TestEntity(new Vector2(1, 1))
-            expect(entity.isCollidingWith(otherEntity)).toBe(true)
+            expect(entity.isCollidingWith(otherEntity)).toBeTruthy()
       })
 
       it('should not detect collision with distant entity', () => {
             const distantEntity = new TestEntity(new Vector2(2, 2))
-            expect(entity.isCollidingWith(distantEntity)).toBe(false)
+            expect(entity.isCollidingWith(distantEntity)).toBeFalsy()
       })
 })
