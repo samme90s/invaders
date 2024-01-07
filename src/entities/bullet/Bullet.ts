@@ -16,8 +16,8 @@ export class Bullet extends Entity {
       private timeToLive: Interval
 
       /**
-       * @param timeToLive Amount of intervals the bullet
-       * will live. Default value is 100.
+       * @param timeToLive Amount of intervals the
+       * bullet will live. Default value is 100.
        */
       constructor(
             point: Vector2,

@@ -4,21 +4,40 @@
  * @author Samuel Svensson
  */
 
+import { Player } from '../player/Player'
 import { Enemy } from './Enemy'
 
 export class EnemyController {
-      private enemies: Enemy[] = []
+      private _enemies: Enemy[]
 
-      constructor() {}
+      /**
+       * @param enemies Array of enemies.
+       * Default value is an empty array.
+       */
+      constructor(enemies: Enemy[] = []) {
+            this._enemies = enemies
+      }
 
-      getEnemies(): Enemy[] {
-            return Array.from(this.enemies)
+      get enemies(): Enemy[] {
+            return Array.from(this._enemies)
+      }
+
+      update(player: Player): void {
+            for (let eIx = 0; eIx < this._enemies.length; eIx++) {
+                  this._enemies[eIx].moveTowards(player)
+            }
+      }
+
+      addEnemies(enemies: Enemy[]): void {
+            for (let eIx = 0; eIx < enemies.length; eIx++) {
+                  this._enemies.push(enemies[eIx])
+            }
       }
 
       removeDeadEnemies(): void {
-            for (let eIx = 0; eIx < this.enemies.length; eIx++) {
-                  if (this.enemies[eIx].hitpoint.isDead()) {
-                        this.enemies.splice(eIx, 1)
+            for (let eIx = 0; eIx < this._enemies.length; eIx++) {
+                  if (this._enemies[eIx].hitpoint.isDead()) {
+                        this._enemies.splice(eIx, 1)
                   }
             }
       }
