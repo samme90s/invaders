@@ -20,6 +20,8 @@ export class Hitpoint {
        * Default value is 0.
        * @param regenDelay Amount of intervals between each regeneration.
        * Default value is 10.
+       * @param timeoutDelay Amount of intervals before regeneration can start.
+       * Default value is 120.
        */
       constructor(
             total: number,
