@@ -31,15 +31,30 @@ export class BulletController {
       }
 
       shoot(point: Vector2): void {
-            this.shootClock.reduce()
-            if (this.shootClock.hasPassed()) {
+            this.updateShootClock()
+
+            if (this.canShoot()) {
                   this.addBullet(point)
-                  this.shootClock = this.shootDelay
+                  this.delayShoot()
             }
+      }
+
+      private updateShootClock(): void {
+            if (!this.shootClock.hasPassed()) {
+                  this.shootClock.reduce()
+            }
+      }
+
+      private canShoot(): boolean {
+            return this.shootClock.hasPassed()
       }
 
       private addBullet(point: Vector2): void {
             this.bullets.push(BulletFactory.createFastBullet(point))
+      }
+
+      private delayShoot(): void {
+            this.shootClock = this.shootDelay
       }
 
       removeDeadBullets(): void {
